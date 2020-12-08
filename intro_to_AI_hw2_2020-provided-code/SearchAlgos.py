@@ -1,6 +1,7 @@
 """Search Algos: MiniMax, AlphaBeta
 """
 from utils import ALPHA_VALUE_INIT, BETA_VALUE_INIT
+from time import time
 #TODO: you can import more modules, if needed
 
 
@@ -22,7 +23,16 @@ class SearchAlgos:
         pass
 
 
+
+
+
 class MiniMax(SearchAlgos):
+
+    def __init__(self, utility, succ, perform_move, start_time, time_limit, heuristic):
+        SearchAlgos.__init__(self, utility, succ, perform_move)
+        self.start_time = start_time
+        self.time_limit = time_limit
+        self.heuristic = heuristic
 
     def search(self, state, depth, maximizing_player):
         """Start the MiniMax algorithm.
@@ -31,8 +41,30 @@ class MiniMax(SearchAlgos):
         :param maximizing_player: Whether this is a max node (True) or a min node (False).
         :return: A tuple: (The min max algorithm value, The direction in case of max node or None in min mode)
         """
-        #TODO: erase the following line and implement this function.
-        raise NotImplementedError
+        if time() - self.start_time > self.time_limit:
+            return -1, state
+
+        if depth == 0:
+            return self.utility(state, maximizing_player), state #TODO: change this later
+
+        children = self.succ(state)
+
+        if len(children) == 0:
+            return self.utility(state, maximizing_player), state
+
+        if maximizing_player:
+            curr_max = float("-inf")
+            for child in children:
+                value = self.search(child, not maximizing_player, depth-1)
+                curr_max = max(value, curr_max)
+            return curr_max, state
+        else:
+            curr_min = float("inf")
+            for child in children:
+                value = self.search(child, not maximizing_player, depth-1)
+                curr_min = min(value, curr_min)
+            return curr_min, state
+
 
 
 class AlphaBeta(SearchAlgos):
