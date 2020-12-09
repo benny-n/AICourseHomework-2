@@ -39,6 +39,8 @@ class Player(AbstractPlayer):
 
     def make_move(self, time_limit, players_score):  # time parameter is not used, we assume we have enough time.
 
+        print("enemy's board")
+        print(self.board)
         assert self.count_ones(self.board) == 1
 
         prev_pos = self.pos
