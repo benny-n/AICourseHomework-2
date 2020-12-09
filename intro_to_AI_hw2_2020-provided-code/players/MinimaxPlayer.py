@@ -96,7 +96,7 @@ class Player(AbstractPlayer):
                                     'value' is the value of this fruit.
         No output is expected.
         """
-        for pos, fruit in fruits_on_board_dict:
+        for pos, fruit in fruits_on_board_dict.items():
             self.board[pos] = fruit
 
     ########## helper functions in class ##########
