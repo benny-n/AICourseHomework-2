@@ -9,18 +9,19 @@ import numpy as np
 
 
 class SearchAlgos:
-    def __init__(self, utility, succ, perform_move):
+    def __init__(self, utility, succ, perform_move, goal):
         """The constructor for all the search algos.
-        You can code these functions as you like to, 
+        You can code these functions as you like to,
         and use them in MiniMax and AlphaBeta algos as learned in class
         :param utility: The utility function.
         :param succ: The succesor function.
         :param perform_move: The perform move function.
+        :param goal: function that check if you are in a goal state.
         """
         self.utility = utility
         self.succ = succ
         self.perform_move = perform_move
-
+        self.is_goal = goal
 
     def search(self, state, depth, maximizing_player):
         pass
@@ -39,15 +40,17 @@ class State:
     player_positions: tuple
     curr_player: int
     penalty: int
-    direction : tuple
+    direction: tuple
 
 
+def is_goal(children):
+    return len(children) == 0
 
 
 class MiniMax(SearchAlgos):
 
     def __init__(self, utility, succ, perform_move, start_time, time_limit, heuristic):
-        SearchAlgos.__init__(self, utility, succ, perform_move)
+        SearchAlgos.__init__(self, utility, succ, perform_move, is_goal)
         self.start_time = start_time
         self.time_limit = time_limit
         self.heuristic = heuristic
@@ -64,30 +67,32 @@ class MiniMax(SearchAlgos):
             return -1, state.direction
 
         if depth == 0:
-            return self.utility(state, maximizing_player), state.direction #TODO: change this later
+            return self.utility(state), state.direction #TODO: change this later
 
         children = self.succ(state)
 
-        if len(children) == 0:
+        if self.is_goal(children):
             scores = state.players_score
-            scores[state.curr_player] = max(state.players_score[state.curr_player] - state.penalty, 0)
+            scores[state.curr_player] = state.players_score[state.curr_player] - state.penalty
             state = State(state.board.copy(), scores, state.player_positions, state.curr_player, state.penalty, state.direction)
-            return self.utility(state, maximizing_player), state.direction
+            return self.utility(state), state.direction
 
         if maximizing_player:
             curr_max = float("-inf")
-            direction = state.direction
+            best_direction = state.direction
             for child in children:
                 value, direction = self.search(child, 1 - maximizing_player, depth-1)
                 if value > curr_max:
-                    curr_max, direction = value, child.direction
-            return curr_max, direction
+                    #print("update max")
+                    curr_max, best_direction = value, direction
+                    #print("now curr max is:" + str(curr_max) + " and the direction TO RETURN is:" + str(direction))
+            return curr_max, best_direction
         else:
             curr_min = float("inf")
             for child in children:
-                value, direction = self.search(child, 1 - maximizing_player, depth-1)
+                value, none_direction = self.search(child, 1 - maximizing_player, depth-1)
                 if value < curr_min:
-                    curr_min, direction = value, child.direction
+                    curr_min, none_direction = value, none_direction
             return curr_min, None
 
 

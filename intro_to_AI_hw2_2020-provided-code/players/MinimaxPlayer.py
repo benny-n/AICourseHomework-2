@@ -4,6 +4,7 @@ MiniMax Player
 from players.AbstractPlayer import AbstractPlayer
 import numpy as np
 from time import time
+import random
 import utils
 import SearchAlgos
 
@@ -34,9 +35,9 @@ class Player(AbstractPlayer):
         output:
             - direction: tuple, specifing the Player's movement, chosen from self.directions
         """
-        print("initial state of board")
-        print(self.board)
-
+        #print("initial state of board")
+        #print(self.board)
+        #print(players_score)
 
         def find_player_positions(player_index):
             if player_index == 1:
@@ -46,27 +47,35 @@ class Player(AbstractPlayer):
             return tuple(ax[0] for ax in pos)
         start_time = time()
         player_positions = (find_player_positions(1), find_player_positions(2))
-        print(self.pos)
+        #print(self.pos)
         self.board[self.pos] = -1
 
-        curr_state = SearchAlgos.State(self.board.copy(), players_score, player_positions, 0, self.penalty_score, (0, 0))
-        minimax = SearchAlgos.MiniMax(minimax_utility, minimax_succ, None, start_time, float('inf'), None) #TODO: change last argument!
+        curr_state = SearchAlgos.State(self.board.copy(), tuple(players_score), player_positions, 0, self.penalty_score, (0, 0))
+        minimax = SearchAlgos.MiniMax(minimax_utility, minimax_succ, None, start_time, time_limit, None) #TODO: change last argument!
         depth = 1
         value = 0
-        next_state = None
-        value, direction = minimax.search(curr_state, depth, True)
-        # while time() - start_time < time_limit:
-        #     curr_value, curr_state = minimax.search(curr_state, depth, 1)
-        #     if value < curr_value:
-        #         value, next_state = curr_value, curr_state
-        #     depth += 1
+        legal_directions = get_legal_directions(self.board, self.pos)
+        print(legal_directions)
+        best_direction = legal_directions[random.randint(0, len(legal_directions) - 1)]
+        # next_state = None
+        # value, direction = minimax.search(curr_state, depth, True)
+        # print("actual direction chosen:" + str(direction))
+        while time() - start_time < time_limit - 0.01:
+            #print(time() - start_time)
+            curr_value, curr_direction = minimax.search(curr_state, depth, 1)
+            #print(curr_value)
+            if value < curr_value != -1:
+                value, best_direction = curr_value, curr_direction
+                #print(best_direction)
+            depth += 1
+            print(depth)
 
-        i = self.pos[0] + direction[0]
-        j = self.pos[1] + direction[1]
+        i = self.pos[0] + best_direction[0]
+        j = self.pos[1] + best_direction[1]
         self.pos = (i, j)
-        print(self.pos)
+        #print(self.pos)
         self.board[self.pos] = 1
-        print("board from make_move:" + str(self.board))
+        #print("board from make_move:" + str(self.board))
         #print(player_positions)
         #print(next_state.player_positions)
         #print(type(np.subtract(next_state.player_positions[0], player_positions[0])))
@@ -74,7 +83,7 @@ class Player(AbstractPlayer):
         # # i = next_state.player_positions[0][0] - self.pos[0]
         # # j = next_state.player_positions[0][1] - self.pos[1]
         # # print(i, j)
-        return direction
+        return best_direction
 
 
     def set_rival_move(self, pos):
@@ -103,35 +112,54 @@ class Player(AbstractPlayer):
     #TODO: add here helper functions in class, if needed
 
 
-    ########## helper functions for MiniMax algorithm ##########
-    #TODO: add here the utility, succ, and perform_move functions used in MiniMax algorithm
-
-def minimax_utility(state, maximizing_player):
-    #(maximizing_player)
-    score = state.players_score[maximizing_player] > state.players_score[1 - maximizing_player]
-    if maximizing_player == 1:
-        return int(score)
-    else:
-        return 1 - int(score)
-
-def minimax_succ(state):
-    pos = state.player_positions[state.curr_player]
-    succ_states = []
-    board = state.board.copy()
-    print(pos)
-    board[pos] = -1
-    print("new turn")
+def get_legal_directions(board, pos):
+    legal_directions = []
     for d in utils.get_directions():
         i = pos[0] + d[0]
         j = pos[1] + d[1]
 
         if 0 <= i < len(board) and 0 <= j < len(board[0]) and (
                 board[i][j] not in [-1, 1, 2]):  # then move is legal
-            print(board)
+            legal_directions.append(d)
+    return legal_directions
+
+    ########## helper functions for MiniMax algorithm ##########
+    #TODO: add here the utility, succ, and perform_move functions used in MiniMax algorithm
+
+
+def minimax_utility(state):
+    #(maximizing_player)
+    normalizing_factor = max(state.players_score[0], state.players_score[1])
+    if normalizing_factor == 0:
+        #print("tie for direction:" + str(state.direction))
+        return 0.5                                      # exactly 0.5, Tie
+    score = abs(state.players_score[0] - state.players_score[1]) * 0.5
+    if state.players_score[0] >= state.players_score[1]:
+        #print("good state:" + str(min(score/normalizing_factor + 0.5, 1)) + " for direction:" + str(state.direction))
+        return min(score/normalizing_factor + 0.5, 1)   # good for us, always bigger than 0.5
+    else:
+        #print("bad state:" + str(max(0.5 - score/normalizing_factor, 0)) + " for direction:" + str(state.direction))
+        return max(0.5 - score/normalizing_factor, 0)   # bad for us, always lower than 0.5
+
+
+def minimax_succ(state):
+    pos = state.player_positions[state.curr_player]
+    succ_states = []
+    board = state.board.copy()
+    #print(pos)
+    board[pos] = -1
+    #print("new turn")
+    for d in utils.get_directions():
+        i = pos[0] + d[0]
+        j = pos[1] + d[1]
+
+        if 0 <= i < len(board) and 0 <= j < len(board[0]) and (
+                board[i][j] not in [-1, 1, 2]):  # then move is legal
+            #print(board)
             new_pos = (i, j)
-            print(new_pos)
+            #print(new_pos)
             fruit_score = board[new_pos]
-            players_score = state.players_score
+            players_score = list(state.players_score)
             players_score[state.curr_player] += fruit_score
 
             player_positions = list(state.player_positions)
@@ -139,7 +167,10 @@ def minimax_succ(state):
 
             old_board_value = board[new_pos]
             board[new_pos] = (state.curr_player + 1)
-            succ_states.append(SearchAlgos.State(board.copy(), players_score, tuple(player_positions), 1-state.curr_player, state.penalty, d))
+            succ_states.append(SearchAlgos.State(board.copy(), tuple(players_score), tuple(player_positions), 1-state.curr_player, state.penalty, d))
+
+            # reset the board: positions + scores
             board[new_pos] = old_board_value
+            #players_score[state.curr_player] -= fruit_score
 
     return succ_states
