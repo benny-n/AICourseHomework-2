@@ -57,25 +57,30 @@ class Player(AbstractPlayer):
         #print(legal_directions)
         best_direction = legal_directions[random.randint(0, len(legal_directions) - 1)]
         # next_state = None
-        begin_first_iteration = time()
+        #begin_first_iteration = time()
         value, best_direction = minimax.search(curr_state, depth, True)
-        time_of_first_iteration = float(time() - begin_first_iteration)
-        total_time_spent = time_of_first_iteration
-        depth += 1
+        #time_of_first_iteration = float(time() - begin_first_iteration)
+        #total_time_spent = time_of_first_iteration
+        #depth += 1
         # print("actual direction chosen:" + str(direction))
-        total_time_spent += calculate_time_of_next_iteration(float(time_of_first_iteration), float(depth), 3.0)
-        print("new turn. time of first 4 iterations:" + str(time_of_first_iteration))
-        print("time spent:" + str(total_time_spent))
-        while total_time_spent < time_limit and not minimax.developed_whole_tree:
-            minimax.developed_whole_tree = True
-            curr_value, curr_direction = minimax.search(curr_state, depth, 1)
+        #total_time_spent += calculate_time_of_next_iteration(float(time_of_first_iteration), float(depth), 3.0)
+        #print("new turn. time of first 4 iterations:" + str(time_of_first_iteration))
+        #print("time spent:" + str(total_time_spent))
+
+        while not minimax.developed_whole_tree:
+            try:
+                #print("depth:" + str(depth))
+                minimax.developed_whole_tree = True
+                curr_value, curr_direction = minimax.search(curr_state, depth, 1)
+                if value < curr_value:
+                    value, best_direction = curr_value, curr_direction
+                depth += 1
+            except SearchAlgos.MiniMax.Interrupted:
+                break
             #print(curr_value)
-            if value < curr_value != -1:
-                value, best_direction = curr_value, curr_direction
-                #print(best_direction)
-            depth += 1
-            total_time_spent += calculate_time_of_next_iteration(float(time_of_first_iteration), float(depth), 3.0)
-            print("depth:" + str(depth))
+            #print(best_direction)
+            #total_time_spent += calculate_time_of_next_iteration(float(time_of_first_iteration), float(depth), 3.0)
+        print("minimax value:" + str(value))
 
         i = self.pos[0] + best_direction[0]
         j = self.pos[1] + best_direction[1]

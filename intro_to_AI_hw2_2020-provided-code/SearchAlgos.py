@@ -51,6 +51,9 @@ class MiniMax(SearchAlgos):
 
     developed_whole_tree = True
 
+    class Interrupted(Exception):
+        pass
+
     def __init__(self, utility, succ, perform_move, start_time, time_limit, heuristic):
         SearchAlgos.__init__(self, utility, succ, perform_move, is_goal)
         self.start_time = start_time
@@ -67,8 +70,8 @@ class MiniMax(SearchAlgos):
         #global counter
         #counter += 1
         #print("counter:" + str(counter))
-        # if time() - self.start_time > self.time_limit:
-        #     return -1, state.direction
+        if time() - self.start_time > self.time_limit - 0.1:
+            raise self.Interrupted
 
         if depth == 0:
             self.developed_whole_tree = False
