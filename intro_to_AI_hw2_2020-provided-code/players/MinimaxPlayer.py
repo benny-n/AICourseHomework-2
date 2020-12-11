@@ -3,7 +3,7 @@ MiniMax Player
 """
 from players.AbstractPlayer import AbstractPlayer
 import numpy as np
-from time import time
+from time import time, sleep
 import random
 import utils
 import SearchAlgos
@@ -52,23 +52,30 @@ class Player(AbstractPlayer):
 
         curr_state = SearchAlgos.State(self.board.copy(), tuple(players_score), player_positions, 0, self.penalty_score, (0, 0))
         minimax = SearchAlgos.MiniMax(minimax_utility, minimax_succ, None, start_time, time_limit, None) #TODO: change last argument!
-        depth = 1
-        value = 0
+        depth = 6
         legal_directions = get_legal_directions(self.board, self.pos)
-        print(legal_directions)
+        #print(legal_directions)
         best_direction = legal_directions[random.randint(0, len(legal_directions) - 1)]
         # next_state = None
-        # value, direction = minimax.search(curr_state, depth, True)
+        begin_first_iteration = time()
+        value, best_direction = minimax.search(curr_state, depth, True)
+        time_of_first_iteration = float(time() - begin_first_iteration)
+        total_time_spent = time_of_first_iteration
+        depth += 1
         # print("actual direction chosen:" + str(direction))
-        while time() - start_time < time_limit - 0.01:
-            #print(time() - start_time)
+        total_time_spent += calculate_time_of_next_iteration(float(time_of_first_iteration), float(depth), 3.0)
+        print("new turn. time of first 4 iterations:" + str(time_of_first_iteration))
+        print("time spent:" + str(total_time_spent))
+        while total_time_spent < time_limit and not minimax.developed_whole_tree:
+            minimax.developed_whole_tree = True
             curr_value, curr_direction = minimax.search(curr_state, depth, 1)
             #print(curr_value)
             if value < curr_value != -1:
                 value, best_direction = curr_value, curr_direction
                 #print(best_direction)
             depth += 1
-            print(depth)
+            total_time_spent += calculate_time_of_next_iteration(float(time_of_first_iteration), float(depth), 3.0)
+            print("depth:" + str(depth))
 
         i = self.pos[0] + best_direction[0]
         j = self.pos[1] + best_direction[1]
@@ -111,6 +118,9 @@ class Player(AbstractPlayer):
     ########## helper functions in class ##########
     #TODO: add here helper functions in class, if needed
 
+
+def calculate_time_of_next_iteration(time_of_first_iteration, depth, branching_factor):
+    return time_of_first_iteration * (branching_factor ** depth)
 
 def get_legal_directions(board, pos):
     legal_directions = []
