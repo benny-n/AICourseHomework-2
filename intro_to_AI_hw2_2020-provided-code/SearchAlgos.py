@@ -75,7 +75,7 @@ class MiniMax(SearchAlgos):
 
         if depth == 0:
             self.developed_whole_tree = False
-            return self.utility(state), state.direction #TODO: change this later
+            return self.heuristic(state), state.direction #TODO: change this later
 
         children = self.succ(state)
 

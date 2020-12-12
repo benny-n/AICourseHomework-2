@@ -7,6 +7,7 @@ from time import time, sleep
 import random
 import utils
 import SearchAlgos
+from collections import deque
 
 
 class Player(AbstractPlayer):
@@ -51,7 +52,7 @@ class Player(AbstractPlayer):
         self.board[self.pos] = -1
 
         curr_state = SearchAlgos.State(self.board.copy(), tuple(players_score), player_positions, 0, self.penalty_score, (0, 0))
-        minimax = SearchAlgos.MiniMax(minimax_utility, minimax_succ, None, start_time, time_limit, None) #TODO: change last argument!
+        minimax = SearchAlgos.MiniMax(minimax_utility, minimax_succ, None, start_time, time_limit, minimax_heuristic)
         depth = 6
         legal_directions = get_legal_directions(self.board, self.pos)
         #print(legal_directions)
@@ -123,7 +124,6 @@ class Player(AbstractPlayer):
     ########## helper functions in class ##########
     #TODO: add here helper functions in class, if needed
 
-
 def calculate_time_of_next_iteration(time_of_first_iteration, depth, branching_factor):
     return time_of_first_iteration * (branching_factor ** depth)
 
@@ -143,19 +143,54 @@ def get_legal_directions(board, pos):
 
 
 def minimax_utility(state):
-    #(maximizing_player)
-    normalizing_factor = max(state.players_score[0], state.players_score[1])
-    if normalizing_factor == 0:
-        #print("tie for direction:" + str(state.direction))
-        return 0.5                                      # exactly 0.5, Tie
-    score = abs(state.players_score[0] - state.players_score[1]) * 0.5
-    if state.players_score[0] >= state.players_score[1]:
-        #print("good state:" + str(min(score/normalizing_factor + 0.5, 1)) + " for direction:" + str(state.direction))
-        return min(score/normalizing_factor + 0.5, 1)   # good for us, always bigger than 0.5
+    delta_score = abs(state.players_score[0] - state.players_score[1])
+    if delta_score == 0:
+        return 0.5                                       # exactly 0.5, Tie
+    score = (0.24 * state.penalty) / delta_score if delta_score >= 0.5 * state.penalty else (0.04 / state.penalty) * delta_score + 0.5
+    if state.players_score[0] > state.players_score[1]:
+        return 1 - score                                 # good for us, always bigger than 0.5
     else:
-        #print("bad state:" + str(max(0.5 - score/normalizing_factor, 0)) + " for direction:" + str(state.direction))
-        return max(0.5 - score/normalizing_factor, 0)   # bad for us, always lower than 0.5
+        return score                                     # bad for us, always lower than 0.5
 
+
+def minimax_heuristic(state):
+    utility = 0.25 * minimax_utility(state)
+    distance_from_fruit = 0.25 * heuristic_distance_from_goal(state.board, state.player_positions[state.curr_player], lambda x: x >= 3)
+    distance_from_enemy = 0.25 * heuristic_distance_from_goal(state.board, state.player_positions[state.curr_player], lambda x: x == 2)
+    available_steps = 0.25 * heuristic_num_steps(state.board, state.player_positions[state.curr_player])
+    return utility + distance_from_fruit + distance_from_enemy + available_steps
+
+
+def heuristic_distance_from_goal(board, pos, goal):
+    queue = deque([(pos, 0)])
+    seen = {pos}
+    while queue:
+        pos, distance = queue.popleft()
+        #print("pos:" + str(pos) + " board[pos]:" + str(board[pos]))
+        if goal(board[pos]):
+            return 1 / distance if distance != 0 else 1
+        for d in utils.get_directions():
+            i = pos[0] + d[0]
+            j = pos[1] + d[1]
+            if 0 <= i < len(board) and 0 <= j < len(board[0]) and (
+                    board[i][j] not in [-1, 1, 2]) and (i, j) not in seen:
+                queue.append(((i, j), distance + 1))
+                seen.add((i, j))
+    return 0
+
+
+def heuristic_num_steps(board, pos):
+    num_steps_available = 0
+    for d in utils.get_directions():
+        i = pos[0] + d[0]
+        j = pos[1] + d[1]
+
+        # check legal move
+        if 0 <= i < len(board) and 0 <= j < len(board[0]) and (board[i][j] not in [-1, 1, 2]):
+            num_steps_available += 1
+    if num_steps_available == 0:
+        return 0
+    return 1 / num_steps_available
 
 def minimax_succ(state):
     pos = state.player_positions[state.curr_player]
