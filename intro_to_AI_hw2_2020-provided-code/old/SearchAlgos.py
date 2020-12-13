@@ -41,7 +41,6 @@ class State:
     curr_player: int
     penalty: int
     direction: tuple
-    lifetime: int
     on_fruit: bool
 
 
@@ -56,7 +55,7 @@ class MiniMax(SearchAlgos):
     class Interrupted(Exception):
         pass
 
-    def __init__(self, utility, succ, perform_move, start_time, time_limit, heuristic, lifetime):
+    def __init__(self, utility, succ, perform_move, start_time, time_limit, heuristic):
         SearchAlgos.__init__(self, utility, succ, perform_move, is_goal)
         self.start_time = start_time
         self.time_limit = time_limit
@@ -84,7 +83,7 @@ class MiniMax(SearchAlgos):
             player_scores = list(state.players_score)
             player_scores[state.curr_player] -= state.penalty
             return self.utility(State(state.board, tuple(player_scores), state.player_positions, state.curr_player,
-                                      state.penalty, state.direction, state.lifetime, False)), state.direction
+                                      state.penalty, state.direction, False)), state.direction
 
         if depth == 0:
             self.developed_whole_tree = False

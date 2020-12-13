@@ -15,7 +15,6 @@ class Player(AbstractPlayer):
         AbstractPlayer.__init__(self, game_time,
                                 penalty_score)  # keep the inheritance of the parent's (AbstractPlayer) __init__()
         # TODO: initialize more fields, if needed, and the Minimax algorithm from SearchAlgos.py
-        self.lifetime = 0
 
     def set_game_params(self, board):
         """Set the game parameters needed for this player.
@@ -55,9 +54,9 @@ class Player(AbstractPlayer):
         self.board[self.pos] = -1
 
         curr_state = SearchAlgos.State(self.board.copy(), tuple(players_score), player_positions, 0, self.penalty_score,
-                                       (0, 0), self.lifetime, False)
-        minimax = SearchAlgos.MiniMax(minimax_utility, minimax_succ, None, start_time, time_limit, minimax_heuristic, self.lifetime)
-        depth = 40
+                                       (0, 0), False)
+        minimax = SearchAlgos.MiniMax(minimax_utility, minimax_succ, None, start_time, time_limit, minimax_heuristic)
+        depth = 2
         legal_directions = get_legal_directions(self.board, self.pos)
         # print(legal_directions)
         # next_state = None
@@ -71,16 +70,16 @@ class Player(AbstractPlayer):
         # print("new turn. time of first 4 iterations:" + str(time_of_first_iteration))
         # print("time spent:" + str(total_time_spent))
 
-        # while not minimax.developed_whole_tree:
-        #     try:
-        #         #print("depth minimax:" + str(depth))
-        #         minimax.developed_whole_tree = True
-        #         curr_value, curr_direction = minimax.search(curr_state, depth, 1)
-        #         if value < curr_value:
-        #             value, best_direction = curr_value, curr_direction
-        #         depth += 1
-        #     except SearchAlgos.MiniMax.Interrupted:
-        #         break
+        while not minimax.developed_whole_tree:
+            try:
+                #print("depth minimax:" + str(depth))
+                minimax.developed_whole_tree = True
+                curr_value, curr_direction = minimax.search(curr_state, depth, 1)
+                if value < curr_value:
+                    value, best_direction = curr_value, curr_direction
+                depth += 1
+            except SearchAlgos.MiniMax.Interrupted:
+                break
             # print(curr_value)
             # print(best_direction)
             # total_time_spent += calculate_time_of_next_iteration(float(time_of_first_iteration), float(depth), 3.0)
@@ -101,7 +100,6 @@ class Player(AbstractPlayer):
         # # i = next_state.player_positions[0][0] - self.pos[0]
         # # j = next_state.player_positions[0][1] - self.pos[1]
         # # print(i, j)
-        self.lifetime += 1
         return best_direction
 
     def set_rival_move(self, pos):
@@ -149,33 +147,28 @@ def get_legal_directions(board, pos):
 
 
 def minimax_utility(state):
-    # delta_score = abs(state.players_score[0] - state.players_score[1])
-    # if delta_score == 0:
-    #     return 0.5  # exactly 0.5, Tie
-    # score = (0.24 * state.penalty) / delta_score if delta_score >= 0.5 * state.penalty else (0.04 / state.penalty) * delta_score + 0.5
-    # if state.players_score[0] > state.players_score[1]:
-    #     return 1 - score  # good for us, always bigger than 0.5
-    # else:
-    #     return score  # bad for us, always lower than 0.5
-    if state.players_score[0] == state.players_score[1]:
-        return 0.5
+    delta_score = abs(state.players_score[0] - state.players_score[1])
+    if delta_score == 0:
+        return 0.5  # exactly 0.5, Tie
+    score = (0.24 * state.penalty) / delta_score if delta_score >= 0.5 * state.penalty else (0.04 / state.penalty) * delta_score + 0.5
+    if state.players_score[0] > state.players_score[1]:
+        return 1 - score  # good for us, always bigger than 0.5
     else:
-        return int(state.players_score[0] > state.players_score[1])
-
+        return score  # bad for us, always lower than 0.5
 
 
 def minimax_heuristic(state):
     # curr_player = 1-state.curr_player
-    utility = 1 * minimax_utility(state)
+    utility = 0 * minimax_utility(state)
     # print("checking huristic for state:" + str(state.player_positions) + " " + str(state.direction))
-    # if state.on_fruit:
-    #     #print("on fruit")
-    #     return 1
-    distance_from_fruit = 0 * heuristic_distance_from_goal(state.board, state.player_positions[0], lambda x: x >= 3)
+    if state.on_fruit:
+        #print("on fruit")
+        return 1
+    distance_from_fruit = 1 * heuristic_distance_from_goal(state.board, state.player_positions[0], lambda x: x >= 3)
     distance_from_enemy = 0 * heuristic_distance_from_goal(state.board, state.player_positions[0], lambda x: x == 2)
     available_steps = 0 * heuristic_num_steps(state.board, state.player_positions[0])
     #return utility + distance_from_fruit + distance_from_enemy + available_steps
-    return utility
+    return distance_from_fruit
 
 
 def heuristic_distance_from_goal(board, pos, goal):
@@ -211,16 +204,12 @@ def heuristic_num_steps(board, pos):
 
 
 def minimax_succ(state):
-    x = state.curr_player
     pos = state.player_positions[state.curr_player]
     succ_states = []
     board = state.board.copy()
     # print(pos)
-    board[pos] = -1
+    # board[pos] = -1
     # print("new turn")
-    min_fruit_time = min(len(board[0]), len(board))
-    if state.lifetime >= min_fruit_time:
-        board = np.where(board >= 3, 0, board)
     for d in utils.get_directions():
         i = pos[0] + d[0]
         j = pos[1] + d[1]
@@ -244,7 +233,7 @@ def minimax_succ(state):
             board[new_pos] = (state.curr_player + 1)
             succ_states.append(
                 SearchAlgos.State(board.copy(), tuple(players_score), tuple(player_positions), 1 - state.curr_player,
-                                  state.penalty, d, state.lifetime + 1, on_fruit))
+                                  state.penalty, d, on_fruit))
 
             # reset the board: positions + scores
             board[new_pos] = old_board_value

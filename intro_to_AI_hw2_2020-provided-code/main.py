@@ -16,12 +16,12 @@ if __name__ == "__main__":
                         help='The type of the second player.',
                         choices=players_options)
     
-    parser.add_argument('-board', default='rectangle_board.csv', type=str,
+    parser.add_argument('-board', default='default_board.csv', type=str,
                         help='Name of board file (.csv).')
 
-    parser.add_argument('-move_time', default=float("inf"), type=float,
+    parser.add_argument('-move_time', default=float('inf'), type=float,
                         help='Time (sec) for each turn.')
-    parser.add_argument('-game_time', default=float("inf"), type=float,
+    parser.add_argument('-game_time', default=float('inf'), type=float,
                         help='Global game time (sec) for each player.')
     parser.add_argument('-penalty_score', default=300, type=float, 
                         help='Penalty points for a player when it cant move or its time ends.')
@@ -43,6 +43,7 @@ if __name__ == "__main__":
     # check validity of board file type and existance
     board_file_type = args.board.split('.')[-1]
     if board_file_type != 'csv':
+        print("saar")
         raise Exception(f'Wrong board file type argument, {board_file_type}.')
     if not args.board in os.listdir('boards'):
         raise Exception(f'Board file {args.board} does not exist in "boards" directory.')
