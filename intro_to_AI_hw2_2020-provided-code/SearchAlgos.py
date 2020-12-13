@@ -43,6 +43,7 @@ class State:
     direction: tuple
 
 
+
 def is_goal(children):
     return len(children) == 0
 
@@ -73,15 +74,22 @@ class MiniMax(SearchAlgos):
         if time() - self.start_time > self.time_limit - 0.1:
             raise self.Interrupted
 
+        children = self.succ(state)
+        print("children list:")
+        print(children)
+        if self.is_goal(children):
+            print("use utility")
+            #return self.utility(state), state.direction
+            player_scores = list(state.players_score)
+            player_scores[state.curr_player] -= state.penalty
+            return self.utility(State(state.board, tuple(player_scores), state.player_positions, state.curr_player,
+                                      state.penalty, state.direction)), state.direction
+
         if depth == 0:
             self.developed_whole_tree = False
             return self.heuristic(state), state.direction #TODO: change this later
 
-        children = self.succ(state)
 
-        if self.is_goal(children):
-            #return self.utility(state), state.direction
-            return self.utility(state), state.direction
         if maximizing_player:
             curr_max = float("-inf")
             best_direction = None

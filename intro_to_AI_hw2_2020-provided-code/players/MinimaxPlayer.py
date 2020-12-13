@@ -53,7 +53,7 @@ class Player(AbstractPlayer):
 
         curr_state = SearchAlgos.State(self.board.copy(), tuple(players_score), player_positions, 0, self.penalty_score, (0, 0))
         minimax = SearchAlgos.MiniMax(minimax_utility, minimax_succ, None, start_time, time_limit, minimax_heuristic)
-        depth = 1
+        depth = 2
         legal_directions = get_legal_directions(self.board, self.pos)
         #print(legal_directions)
         # next_state = None
@@ -144,13 +144,11 @@ def get_legal_directions(board, pos):
 
 
 def minimax_utility(state):
-    player_scores = list(state.players_score)
-    player_scores[1-state.curr_player] -= state.penalty
-    delta_score = abs(player_scores[0] - player_scores[1])
+    delta_score = abs(state.player_scores[0] - state.player_scores[1])
     if delta_score == 0:
         return 0.5                                       # exactly 0.5, Tie
     score = (0.24 * state.penalty) / delta_score if delta_score >= 0.5 * state.penalty else (0.04 / state.penalty) * delta_score + 0.5
-    if player_scores[0] > player_scores[1]:
+    if state.player_scores[0] > state.player_scores[1]:
         return 1 - score                                 # good for us, always bigger than 0.5
     else:
         return score                                     # bad for us, always lower than 0.5
@@ -158,13 +156,13 @@ def minimax_utility(state):
 
 def minimax_heuristic(state):
     curr_player = 1-state.curr_player
-    #utility = 0.25 * minimax_utility(state)
+    utility = 0.25 * minimax_utility(state)
     print("checking huristic for state:" + str(state.player_positions) + " " + str(state.direction))
-    distance_from_fruit = 0.25 * heuristic_distance_from_goal(state.board, state.player_positions[curr_player], lambda x: x >= 3)
+    #distance_from_fruit = 0.25 * heuristic_distance_from_goal(state.board, state.player_positions[curr_player], lambda x: x >= 3)
     #distance_from_enemy = 0.25 * heuristic_distance_from_goal(state.board, state.player_positions[curr_player], lambda x: x == 2)
     #available_steps = 0.25 * heuristic_num_steps(state.board, state.player_positions[curr_player])
     #return utility + distance_from_fruit + distance_from_enemy + available_steps
-    return distance_from_fruit
+    return utility
 
 
 def heuristic_distance_from_goal(board, pos, goal):
