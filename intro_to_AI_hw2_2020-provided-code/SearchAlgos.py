@@ -80,20 +80,20 @@ class MiniMax(SearchAlgos):
         children = self.succ(state)
 
         if self.is_goal(children):
-            scores = list(state.players_score)
-            scores[state.curr_player] = state.players_score[state.curr_player] - state.penalty
-            state = State(state.board.copy(), tuple(scores), state.player_positions, state.curr_player, state.penalty, state.direction)
+            #return self.utility(state), state.direction
             return self.utility(state), state.direction
-
         if maximizing_player:
             curr_max = float("-inf")
-            best_direction = state.direction
+            best_direction = None
+            print("checking my options")
             for child in children:
                 value, direction = self.search(child, depth - 1, 1 - maximizing_player)
+                print("value: " + str(value) + " direction: " + str(direction))
                 if value > curr_max:
                     #print("update max")
                     curr_max, best_direction = value, child.direction
                     #print("now curr max is:" + str(curr_max) + " and the direction TO RETURN is:" + str(child.direction))
+            print("chosen direction " + str(best_direction))
             return curr_max, best_direction
         else:
             curr_min = float("inf")

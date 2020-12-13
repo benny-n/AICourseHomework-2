@@ -53,10 +53,9 @@ class Player(AbstractPlayer):
 
         curr_state = SearchAlgos.State(self.board.copy(), tuple(players_score), player_positions, 0, self.penalty_score, (0, 0))
         minimax = SearchAlgos.MiniMax(minimax_utility, minimax_succ, None, start_time, time_limit, minimax_heuristic)
-        depth = 6
+        depth = 1
         legal_directions = get_legal_directions(self.board, self.pos)
         #print(legal_directions)
-        best_direction = legal_directions[random.randint(0, len(legal_directions) - 1)]
         # next_state = None
         #begin_first_iteration = time()
         value, best_direction = minimax.search(curr_state, depth, True)
@@ -68,19 +67,21 @@ class Player(AbstractPlayer):
         #print("new turn. time of first 4 iterations:" + str(time_of_first_iteration))
         #print("time spent:" + str(total_time_spent))
 
-        while not minimax.developed_whole_tree:
-            try:
-                #print("depth:" + str(depth))
-                minimax.developed_whole_tree = True
-                curr_value, curr_direction = minimax.search(curr_state, depth, 1)
-                if value < curr_value:
-                    value, best_direction = curr_value, curr_direction
-                depth += 1
-            except SearchAlgos.MiniMax.Interrupted:
-                break
-            #print(curr_value)
-            #print(best_direction)
-            #total_time_spent += calculate_time_of_next_iteration(float(time_of_first_iteration), float(depth), 3.0)
+        # while not minimax.developed_whole_tree:
+        #     try:
+        #         #print("depth:" + str(depth))
+        #         minimax.developed_whole_tree = True
+        #         curr_value, curr_direction = minimax.search(curr_state, depth, 1)
+        #         if value < curr_value:
+        #             value, best_direction = curr_value, curr_direction
+        #         depth += 1
+        #     except SearchAlgos.MiniMax.Interrupted:
+        #         break
+        #     #print(curr_value)
+        #     #print(best_direction)
+        #     #total_time_spent += calculate_time_of_next_iteration(float(time_of_first_iteration), float(depth), 3.0)
+
+        print("direction: " + str(best_direction))
         print("minimax value:" + str(value))
 
         i = self.pos[0] + best_direction[0]
@@ -143,22 +144,27 @@ def get_legal_directions(board, pos):
 
 
 def minimax_utility(state):
-    delta_score = abs(state.players_score[0] - state.players_score[1])
+    player_scores = list(state.players_score)
+    player_scores[1-state.curr_player] -= state.penalty
+    delta_score = abs(player_scores[0] - player_scores[1])
     if delta_score == 0:
         return 0.5                                       # exactly 0.5, Tie
     score = (0.24 * state.penalty) / delta_score if delta_score >= 0.5 * state.penalty else (0.04 / state.penalty) * delta_score + 0.5
-    if state.players_score[0] > state.players_score[1]:
+    if player_scores[0] > player_scores[1]:
         return 1 - score                                 # good for us, always bigger than 0.5
     else:
         return score                                     # bad for us, always lower than 0.5
 
 
 def minimax_heuristic(state):
-    utility = 0.25 * minimax_utility(state)
-    distance_from_fruit = 0.25 * heuristic_distance_from_goal(state.board, state.player_positions[state.curr_player], lambda x: x >= 3)
-    distance_from_enemy = 0.25 * heuristic_distance_from_goal(state.board, state.player_positions[state.curr_player], lambda x: x == 2)
-    available_steps = 0.25 * heuristic_num_steps(state.board, state.player_positions[state.curr_player])
-    return utility + distance_from_fruit + distance_from_enemy + available_steps
+    curr_player = 1-state.curr_player
+    #utility = 0.25 * minimax_utility(state)
+    print("checking huristic for state:" + str(state.player_positions) + " " + str(state.direction))
+    distance_from_fruit = 0.25 * heuristic_distance_from_goal(state.board, state.player_positions[curr_player], lambda x: x >= 3)
+    #distance_from_enemy = 0.25 * heuristic_distance_from_goal(state.board, state.player_positions[curr_player], lambda x: x == 2)
+    #available_steps = 0.25 * heuristic_num_steps(state.board, state.player_positions[curr_player])
+    #return utility + distance_from_fruit + distance_from_enemy + available_steps
+    return distance_from_fruit
 
 
 def heuristic_distance_from_goal(board, pos, goal):
@@ -197,7 +203,7 @@ def minimax_succ(state):
     succ_states = []
     board = state.board.copy()
     #print(pos)
-    board[pos] = -1
+    #board[pos] = -1
     #print("new turn")
     for d in utils.get_directions():
         i = pos[0] + d[0]
@@ -221,6 +227,6 @@ def minimax_succ(state):
 
             # reset the board: positions + scores
             board[new_pos] = old_board_value
-            #players_score[state.curr_player] -= fruit_score
+            players_score[state.curr_player] -= fruit_score
 
     return succ_states
