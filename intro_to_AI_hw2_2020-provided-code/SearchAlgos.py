@@ -116,7 +116,7 @@ class AlphaBeta(SearchAlgos):
         :param: beta: beta value
         :return: A tuple: (The min max algorithm value, The direction in case of max node or None in min mode)
         """
-        minimax.counter += 1
+        # minimax.counter += 1
 
         if time() - self.start_time > self.time_limit - 0.1:
             raise Interrupted

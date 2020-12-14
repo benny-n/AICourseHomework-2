@@ -9,7 +9,7 @@ import utils
 import SearchAlgos
 from collections import deque
 
-counter = 0
+# counter = 0
 
 class Player(AbstractPlayer):
     def __init__(self, game_time, penalty_score):
@@ -41,8 +41,8 @@ class Player(AbstractPlayer):
         output:
             - direction: tuple, specifing the Player's movement, chosen from self.directions
         """
-        global counter
-        counter = 0
+        # global counter
+        # counter = 0
 
         def find_player_positions(player_index):
             if player_index == 1:
@@ -78,7 +78,7 @@ class Player(AbstractPlayer):
         self.board[self.pos] = 1
 
         self.lifetime += 1
-        print("number of nodes:" + str(counter))
+        # print("number of nodes:" + str(counter))
         return direction
 
     def set_rival_move(self, pos):
@@ -162,7 +162,7 @@ def heuristic_score_delta(state):
     delta_score = abs(state.players_score[0] - state.players_score[1])
     if delta_score == 0:
         return 0.5                      # exactly 0.5, Tie
-    score = (0.24 * state.penalty) / delta_score if delta_score >= 0.5 * state.penalty else (0.04 / state.penalty) * delta_score + 0.5
+    score = (0.24 * state.penalty) / delta_score if delta_score >= 0.5 * state.penalty else 0.5 - (0.04 / state.penalty) * delta_score
     if state.players_score[0] > state.players_score[1]:
         return 1 - score                # good for us, always bigger than 0.5
     else:
