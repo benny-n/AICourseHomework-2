@@ -348,10 +348,69 @@
 \end_inset
 
 .
-\begin_inset Newline newline
+\end_layout
+
+\begin_layout Description
+
+\numeric on
+3
+\numeric off
+.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+יתרונות:
+\end_layout
+
+\begin_layout Itemize
+לפי חוקי המשחק, השחקן האחרון שלא יכול לזוז מקבל קנס.
+ לכן, האינטרס הוא לשחק כמה שיותר מהלכים עד שנגמר המשחק )בציפיה שהאויב יפסל
+ לפנינו(.
+ האסטרטגיה של ה-
+\begin_inset Formula $SimplePlayer$
 \end_inset
 
- 
+ מכסה את שטח הלוח בצורה היעילה ביותר ובדרך זו הוא מאריכה את זמן המשחק שלו.
+\end_layout
+
+\begin_layout Itemize
+במצבים מסוימים, האסטרטגיה יכולה לגרום ל-
+\begin_inset Formula $SimplePlayer$
+\end_inset
+
+ להיצמד לשחקן היריב ובכך 
+\series bold
+לחסום
+\series default
+ אותו ביעילות ולגרום לו לקבל את הקנס.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+חסרונות:
+\end_layout
+
+\begin_layout Itemize
+באסטרטגיה זו ה-
+\begin_inset Formula $SimplePlayer$
+\end_inset
+
+ מתעלם לחלוטין מקיומם של פירות.
+\end_layout
+
+\begin_layout Itemize
+במצבים מסוימים, האסטרטגיה יכולה לגרום ל-
+\begin_inset Formula $SimplePlayer$
+\end_inset
+
+ להיצמד לשחקן היריב ובכך 
+\series bold
+להיחסם
+\series default
+ ולקבל את הקנס.
 \end_layout
 
 \begin_layout Standard
