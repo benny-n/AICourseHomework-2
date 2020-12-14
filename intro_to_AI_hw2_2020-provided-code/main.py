@@ -9,19 +9,19 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     
-    parser.add_argument('-player1', default='MinimaxPlayer', type=str,
+    parser.add_argument('-player1', default='SimplePlayer', type=str,
                         help='The type of the first player.',
                         choices=players_options)
-    parser.add_argument('-player2', default='LivePlayer',  type=str,
+    parser.add_argument('-player2', default='MinimaxPlayer',  type=str,
                         help='The type of the second player.',
                         choices=players_options)
     
-    parser.add_argument('-board', default='default_board.csv', type=str,
+    parser.add_argument('-board', default='rectangle_board.csv', type=str,
                         help='Name of board file (.csv).')
 
-    parser.add_argument('-move_time', default=float('inf'), type=float,
+    parser.add_argument('-move_time', default=10, type=float,
                         help='Time (sec) for each turn.')
-    parser.add_argument('-game_time', default=float('inf'), type=float,
+    parser.add_argument('-game_time', default=2000, type=float,
                         help='Global game time (sec) for each player.')
     parser.add_argument('-penalty_score', default=300, type=float, 
                         help='Penalty points for a player when it cant move or its time ends.')

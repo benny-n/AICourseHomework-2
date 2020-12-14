@@ -42,7 +42,6 @@ class State:
     penalty: int
     direction: tuple
     lifetime: int
-    on_fruit: bool
 
 
 def is_goal(children):
@@ -56,7 +55,7 @@ class MiniMax(SearchAlgos):
     class Interrupted(Exception):
         pass
 
-    def __init__(self, utility, succ, perform_move, start_time, time_limit, heuristic, lifetime):
+    def __init__(self, utility, succ, perform_move, start_time, time_limit, heuristic):
         SearchAlgos.__init__(self, utility, succ, perform_move, is_goal)
         self.start_time = start_time
         self.time_limit = time_limit
@@ -69,40 +68,29 @@ class MiniMax(SearchAlgos):
         :param maximizing_player: Whether this is a max node (True) or a min node (False).
         :return: A tuple: (The min max algorithm value, The direction in case of max node or None in min mode)
         """
-        #global counter
-        #counter += 1
-        #print("counter:" + str(counter))
+
         if time() - self.start_time > self.time_limit - 0.1:
             raise self.Interrupted
 
         children = self.succ(state)
-        #print("children list:")
-        #print(children)
+
         if self.is_goal(children):
-            #print("use utility")
-            #return self.utility(state), state.direction
             player_scores = list(state.players_score)
             player_scores[state.curr_player] -= state.penalty
             return self.utility(State(state.board, tuple(player_scores), state.player_positions, state.curr_player,
-                                      state.penalty, state.direction, state.lifetime, False)), state.direction
+                                      state.penalty, state.direction, state.lifetime)), state.direction
 
         if depth == 0:
             self.developed_whole_tree = False
-            return self.heuristic(state), state.direction #TODO: change this later
-
+            return self.heuristic(state), state.direction
 
         if maximizing_player:
             curr_max = float("-inf")
             best_direction = None
-            #print("checking my options")
             for child in children:
                 value, direction = self.search(child, depth - 1, 1 - maximizing_player)
-                #print("value: " + str(value) + " direction: " + str(direction))
                 if value > curr_max:
-                    #print("update max")
                     curr_max, best_direction = value, child.direction
-                    #print("now curr max is:" + str(curr_max) + " and the direction TO RETURN is:" + str(child.direction))
-            #print("chosen direction " + str(best_direction))
             return curr_max, best_direction
         else:
             curr_min = float("inf")
@@ -163,9 +151,7 @@ class AlphaBeta(SearchAlgos):
                 if value > curr_max:
                     # print("update max")
                     curr_max, best_direction = value, child.direction
-                alpha = max(curr_max, alpha)
-                if curr_max >= beta:
-                    return float('inf'), None
+
                     # print("now curr max is:" + str(curr_max) + " and the direction TO RETURN is:" + str(child.direction))
             # print("chosen direction " + str(best_direction))
             return curr_max, best_direction
@@ -175,7 +161,12 @@ class AlphaBeta(SearchAlgos):
                 value, none_direction = self.search(child, depth - 1, 1 - maximizing_player)
                 if value < curr_min:
                     curr_min, none_direction = value, none_direction
-                beta = min(curr_min, beta)
-                if curr_min <= alpha:
-                    return float('-inf'), None
+
             return curr_min, None
+
+# beta = min(curr_min, beta)
+# if curr_min <= alpha:
+#     return float('-inf'), None
+# alpha = max(curr_max, alpha)
+# if curr_max >= beta:
+#     return float('inf'), None
