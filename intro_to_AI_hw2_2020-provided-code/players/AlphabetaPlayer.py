@@ -2,14 +2,15 @@
 MiniMax Player with AlphaBeta pruning
 """
 from players.AbstractPlayer import AbstractPlayer
-#TODO: you can import more modules, if needed
+import SearchAlgos
+import players.MinimaxPlayer as minimax
 
 
 class Player(AbstractPlayer):
     def __init__(self, game_time, penalty_score):
         AbstractPlayer.__init__(self, game_time, penalty_score) # keep the inheritance of the parent's (AbstractPlayer) __init__()
-        #TODO: initialize more fields, if needed, and the AlphaBeta algorithm from SearchAlgos.py
-
+        self.minimax_player = minimax.Player(game_time, penalty_score)
+        self.minimax_player.initiate = alphabeta_initiate
 
     def set_game_params(self, board):
         """Set the game parameters needed for this player.
@@ -19,8 +20,7 @@ class Player(AbstractPlayer):
             - board: np.array, a 2D matrix of the board.
         No output is expected.
         """
-        #TODO: erase the following line and implement this function.
-        raise NotImplementedError
+        self.minimax_player.set_game_params(board)
     
 
     def make_move(self, time_limit, players_score):
@@ -30,8 +30,9 @@ class Player(AbstractPlayer):
         output:
             - direction: tuple, specifing the Player's movement, chosen from self.directions
         """
-        #TODO: erase the following line and implement this function.
-        raise NotImplementedError
+        print("ALPHABETA TURN:")
+        print(players_score)
+        return self.minimax_player.make_move(time_limit, players_score)
 
 
     def set_rival_move(self, pos):
@@ -40,8 +41,7 @@ class Player(AbstractPlayer):
             - pos: tuple, the new position of the rival.
         No output is expected
         """
-        #TODO: erase the following line and implement this function.
-        raise NotImplementedError
+        self.minimax_player.set_rival_move(pos)
 
 
     def update_fruits(self, fruits_on_board_dict):
@@ -52,9 +52,7 @@ class Player(AbstractPlayer):
                                     'value' is the value of this fruit.
         No output is expected.
         """
-        #TODO: erase the following line and implement this function. In case you choose not to use this function, 
-        # use 'pass' instead of the following line.
-        raise NotImplementedError
+        self.minimax_player.update_fruits(fruits_on_board_dict)
 
 
     ########## helper functions in class ##########
@@ -63,3 +61,7 @@ class Player(AbstractPlayer):
 
     ########## helper functions for AlphaBeta algorithm ##########
     #TODO: add here the utility, succ, and perform_move functions used in AlphaBeta algorithm
+
+
+def alphabeta_initiate(start_time, time_limit):
+    return SearchAlgos.AlphaBeta(minimax.minimax_utility, minimax.minimax_succ, None, start_time, time_limit, minimax.minimax_heuristic)

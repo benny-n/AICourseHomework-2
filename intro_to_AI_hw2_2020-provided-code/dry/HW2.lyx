@@ -1,0 +1,421 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language hebrew
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "David"
+\font_sans "default" "David"
+\font_typewriter "default" "David"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date true
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\topmargin 3cm
+\bottommargin 4cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+תרגיל בית
+\family roman
+\series medium
+\shape up
+\size largest
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\numeric on
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+2
+\family roman
+\series medium
+\shape up
+\size largest
+\emph off
+\numeric off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+- מבוא לבינה מלאכותית
+\family roman
+\series medium
+\shape up
+\size largest
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\numeric on
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+236501
+\end_layout
+
+\begin_layout Author
+בני נזימוב
+\family roman
+\series medium
+\shape up
+\size large
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\numeric on
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+314862129
+\numeric off
+ 
+\begin_inset Newline newline
+\end_inset
+
+ליעד ארם
+\family roman
+\series medium
+\shape up
+\size large
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\numeric on
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+315695783
+\numeric off
+
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+
+\numeric on
+1
+\numeric off
+.
+\end_layout
+
+\begin_layout Standard
+האסטרטגיה של ה-ּ
+\begin_inset Formula $SimplePlayer$
+\end_inset
+
+ היא תמיד ללכת למשבצת שממנה קיימים הכי פחות מהלכים חוקיים )אבל קיים לפחות
+ מהלך אחד חוקי(.
+\begin_inset Newline newline
+\end_inset
+
+
+\series bold
+יתרונות:
+\end_layout
+
+\begin_layout Itemize
+לפי חוקי המשחק, השחקן האחרון שלא יכול לזוז מקבל קנס.
+ לכן, האינטרס הוא לשחק כמה שיותר מהלכים עד שנגמר המשחק )בציפיה שהאויב יפסל
+ לפנינו(.
+ האסטרטגיה של ה-
+\begin_inset Formula $SimplePlayer$
+\end_inset
+
+ מכסה את שטח הלוח בצורה היעילה ביותר ובדרך זו הוא מאריכה את זמן המשחק שלו.
+\end_layout
+
+\begin_layout Itemize
+במצבים מסוימים, האסטרטגיה יכולה לגרום ל-
+\begin_inset Formula $SimplePlayer$
+\end_inset
+
+ להיצמד לשחקן היריב ובכך 
+\series bold
+לחסום
+\series default
+ אותו ביעילות ולגרום לו לקבל את הקנס.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+חסרונות:
+\end_layout
+
+\begin_layout Itemize
+באסטרטגיה זו ה-
+\begin_inset Formula $SimplePlayer$
+\end_inset
+
+ מתעלם לחלוטין מקיומם של פירות.
+\end_layout
+
+\begin_layout Itemize
+במצבים מסוימים, האסטרטגיה יכולה לגרום ל-
+\begin_inset Formula $SimplePlayer$
+\end_inset
+
+ להיצמד לשחקן היריב ובכך 
+\series bold
+להיחסם
+\series default
+ ולקבל את הקנס.
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+
+\series bold
+\numeric on
+2
+\numeric off
+.
+\end_layout
+
+\begin_layout Standard
+נתבונן בלוח הבא כדוגמא:
+\begin_inset Newline newline
+\end_inset
+
+כפי שניתן לראות, מכיוון שבלוח זה אין פירות, העובדה שהאסטרטגיה של ה-
+\begin_inset Formula $SimplePlayer$
+\end_inset
+
+ מתעלמת מפירות לא תפגע בו.
+\begin_inset Newline newline
+\end_inset
+
+בנוסף, מכיוון שקיים קיר המפריד בין השחקן הראשון לשני, לא יתכן שה-
+\begin_inset Formula $SimplePlayer$
+\end_inset
+
+ ייחסם על ידי האויב.
+\begin_inset Newline newline
+\end_inset
+
+בעצם, האסטרטגיה האופטימלית לשחקן במצב זה יהיה למלא את כל השטח בצד שלו של
+ הלוח בצורה היעילה ביותר כך שישחק כמה שיותר מהלכים, בציפיה שהשחקן השני יקבל
+ את הקנס.
+\begin_inset Newline newline
+\end_inset
+
+וזו היא בדיוק האסטרטגיה בה נוקט ה-
+\begin_inset Formula $SimplePlayer$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Description
+
+\numeric on
+3
+\numeric off
+.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+יתרונות:
+\end_layout
+
+\begin_layout Itemize
+לפי חוקי המשחק, השחקן האחרון שלא יכול לזוז מקבל קנס.
+ לכן, האינטרס הוא לשחק כמה שיותר מהלכים עד שנגמר המשחק )בציפיה שהאויב יפסל
+ לפנינו(.
+ האסטרטגיה של ה-
+\begin_inset Formula $SimplePlayer$
+\end_inset
+
+ מכסה את שטח הלוח בצורה היעילה ביותר ובדרך זו הוא מאריכה את זמן המשחק שלו.
+\end_layout
+
+\begin_layout Itemize
+במצבים מסוימים, האסטרטגיה יכולה לגרום ל-
+\begin_inset Formula $SimplePlayer$
+\end_inset
+
+ להיצמד לשחקן היריב ובכך 
+\series bold
+לחסום
+\series default
+ אותו ביעילות ולגרום לו לקבל את הקנס.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+חסרונות:
+\end_layout
+
+\begin_layout Itemize
+באסטרטגיה זו ה-
+\begin_inset Formula $SimplePlayer$
+\end_inset
+
+ מתעלם לחלוטין מקיומם של פירות.
+\end_layout
+
+\begin_layout Itemize
+במצבים מסוימים, האסטרטגיה יכולה לגרום ל-
+\begin_inset Formula $SimplePlayer$
+\end_inset
+
+ להיצמד לשחקן היריב ובכך 
+\series bold
+להיחסם
+\series default
+ ולקבל את הקנס.
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_body
+\end_document

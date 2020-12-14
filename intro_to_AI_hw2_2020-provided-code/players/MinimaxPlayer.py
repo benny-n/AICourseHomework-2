@@ -9,6 +9,7 @@ import utils
 import SearchAlgos
 from collections import deque
 
+counter = 0
 
 class Player(AbstractPlayer):
     def __init__(self, game_time, penalty_score):
@@ -18,6 +19,7 @@ class Player(AbstractPlayer):
         self.lifetime = 0
         self.board = None
         self.pos = None
+        self.initiate = minimax_initiate
 
     def set_game_params(self, board):
         """Set the game parameters needed for this player.
@@ -39,6 +41,8 @@ class Player(AbstractPlayer):
         output:
             - direction: tuple, specifing the Player's movement, chosen from self.directions
         """
+        global counter
+        counter = 0
 
         def find_player_positions(player_index):
             if player_index == 1:
@@ -53,28 +57,29 @@ class Player(AbstractPlayer):
 
         curr_state = SearchAlgos.State(self.board.copy(), tuple(players_score), player_positions, 0, self.penalty_score,
                                        (0, 0), self.lifetime)
-        minimax = SearchAlgos.MiniMax(minimax_utility, minimax_succ, None, start_time, time_limit, minimax_heuristic)
-        depth = 5
-        value, best_direction = minimax.search(curr_state, depth, True)
+
+        minimax = self.initiate(start_time, time_limit)
+        depth = 1
+        value, direction = minimax.search(curr_state, depth, 1)
 
         while not minimax.developed_whole_tree:
             try:
                 minimax.developed_whole_tree = True
-                curr_value, curr_direction = minimax.search(curr_state, depth, 1)
-                if value < curr_value:
-                    value, best_direction = curr_value, curr_direction
+                #curr_value, curr_direction = minimax.search(curr_state, depth, 1)
+                value, direction = minimax.search(curr_state, depth, 1)
                 depth += 1
-            except SearchAlgos.MiniMax.Interrupted:
+            except SearchAlgos.Interrupted:
                 break
         print("minimax value: " + str(value))
         print("depth: " + str(depth))
-        i = self.pos[0] + best_direction[0]
-        j = self.pos[1] + best_direction[1]
+        i = self.pos[0] + direction[0]
+        j = self.pos[1] + direction[1]
         self.pos = (i, j)
         self.board[self.pos] = 1
 
         self.lifetime += 1
-        return best_direction
+        print("number of nodes:" + str(counter))
+        return direction
 
     def set_rival_move(self, pos):
         """Update your info, given the new position of the rival.
@@ -120,11 +125,28 @@ def get_legal_directions(board, pos):
     # TODO: add here the utility, succ, and perform_move functions used in MiniMax algorithm
 
 
+def minimax_initiate(start_time, time_limit):
+    return SearchAlgos.MiniMax(minimax_utility, minimax_succ, None, start_time, time_limit, minimax_heuristic)
+
+
+def other_player_stuck(board, pos):
+    for d in utils.get_directions():
+        i = pos[0] + d[0]
+        j = pos[1] + d[1]
+        if 0 <= i < len(board) and 0 <= j < len(board[0]) and (board[i][j] not in [-1, 1, 2]):
+            return False
+    return True
+
+
 def minimax_utility(state):
-    if state.players_score[0] == state.players_score[1]:
+    player_scores = list(state.players_score)
+    player_scores[state.curr_player] -= state.penalty
+    if other_player_stuck(state.board, state.player_positions[1 - state.curr_player]):
+        player_scores[1 - state.curr_player] -= state.penalty
+    if player_scores[0] == player_scores[1]:
         return 0.5
     else:
-        return int(state.players_score[0] > state.players_score[1])
+        return int(player_scores[0] > player_scores[1])
 
 
 def minimax_heuristic(state):
@@ -136,6 +158,7 @@ def minimax_heuristic(state):
 
 
 def heuristic_score_delta(state):
+    print("player score:" + str(state.players_score))
     delta_score = abs(state.players_score[0] - state.players_score[1])
     if delta_score == 0:
         return 0.5                      # exactly 0.5, Tie

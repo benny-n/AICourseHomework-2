@@ -9,10 +9,10 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     
-    parser.add_argument('-player1', default='SimplePlayer', type=str,
+    parser.add_argument('-player1', default='AlphabetaPlayer', type=str,
                         help='The type of the first player.',
                         choices=players_options)
-    parser.add_argument('-player2', default='MinimaxPlayer',  type=str,
+    parser.add_argument('-player2', default='LivePlayer',  type=str,
                         help='The type of the second player.',
                         choices=players_options)
     
@@ -21,7 +21,7 @@ if __name__ == "__main__":
 
     parser.add_argument('-move_time', default=10, type=float,
                         help='Time (sec) for each turn.')
-    parser.add_argument('-game_time', default=2000, type=float,
+    parser.add_argument('-game_time', default=float('inf'), type=float,
                         help='Global game time (sec) for each player.')
     parser.add_argument('-penalty_score', default=300, type=float, 
                         help='Penalty points for a player when it cant move or its time ends.')
