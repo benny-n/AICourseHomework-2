@@ -70,7 +70,7 @@ class Player(AbstractPlayer):
                 depth += 1
             except SearchAlgos.Interrupted:
                 break
-        print("minimax value: " + str(value))
+        # print("minimax value: " + str(value))
         print("depth: " + str(depth))
         i = self.pos[0] + direction[0]
         j = self.pos[1] + direction[1]
@@ -151,14 +151,14 @@ def minimax_utility(state):
 
 def minimax_heuristic(state):
     delta_score = 1 * heuristic_score_delta(state)
-    distance_from_enemy = 0 * heuristic_distance_from_goal(state.board, state.player_positions[0], lambda x: x == 2)
-    available_steps = 0 * heuristic_num_steps(state.board, state.player_positions[0])
-    distance_from_fruit = 0 * heuristic_distance_from_goal(state.board, state.player_positions[0], lambda x: x >= 3)
-    return delta_score + distance_from_fruit + distance_from_enemy + available_steps
+    # distance_from_enemy = 0 * heuristic_distance_from_goal(state.board, state.player_positions[0], lambda x: x == 2)
+    # available_steps = 0 * heuristic_num_steps(state.board, state.player_positions[0])
+    # distance_from_fruit = 0 * heuristic_distance_from_goal(state.board, state.player_positions[0], lambda x: x >= 3)
+    return delta_score #+ distance_from_fruit + distance_from_enemy + available_steps
 
 
 def heuristic_score_delta(state):
-    print("player score:" + str(state.players_score))
+    # print("player score:" + str(state.players_score))
     delta_score = abs(state.players_score[0] - state.players_score[1])
     if delta_score == 0:
         return 0.5                      # exactly 0.5, Tie
@@ -226,12 +226,12 @@ def minimax_succ(state):
             old_board_value = board[new_pos]
             board[new_pos] = (state.curr_player + 1)
             lifetime = state.lifetime if state.curr_player == 0 else state.lifetime + 1
-            succ_states.append(
-                SearchAlgos.State(board.copy(), tuple(players_score), tuple(player_positions), 1 - state.curr_player,
-                                  state.penalty, d, lifetime))
+            yield SearchAlgos.State(board.copy(), tuple(players_score), tuple(player_positions), 1 - state.curr_player,
+                                  state.penalty, d, lifetime)
 
             # reset the board: positions + scores
             board[new_pos] = old_board_value
             players_score[state.curr_player] -= fruit_score
 
-    return succ_states
+
+    #return succ_states

@@ -2,12 +2,11 @@
 """
 from dataclasses import dataclass
 
-from utils import ALPHA_VALUE_INIT, BETA_VALUE_INIT
+from utils import ALPHA_VALUE_INIT, BETA_VALUE_INIT, get_directions
 from time import time
 import numpy as np
 import players.MinimaxPlayer as minimax #TODO: REMOVE THIS!@!!!!!!!
 #TODO: you can import more modules, if needed
-
 
 class SearchAlgos:
     def __init__(self, utility, succ, perform_move, goal):
@@ -40,8 +39,16 @@ class State:
     lifetime: int
 
 
-def is_goal(children):
-    return len(children) == 0
+def is_goal(state):
+    pos = state.player_positions[state.curr_player]
+    for d in get_directions():
+        i = pos[0] + d[0]
+        j = pos[1] + d[1]
+
+        if 0 <= i < len(state.board) and 0 <= j < len(state.board[0]) and (
+            state.board[i][j] not in [-1, 1, 2]):  # then move is legal
+            return False
+    return True
 
 
 class Interrupted(Exception):
@@ -65,14 +72,14 @@ class MiniMax(SearchAlgos):
         :param maximizing_player: Whether this is a max node (True) or a min node (False).
         :return: A tuple: (The min max algorithm value, The direction in case of max node or None in min mode)
         """
-        minimax.counter += 1
+        #minimax.counter += 1
 
-        if time() - self.start_time > self.time_limit - 0.1:
+        if time() - self.start_time > self.time_limit - 0.01:
             raise Interrupted
 
-        children = self.succ(state)
+        #children = self.succ(state)
 
-        if self.is_goal(children):
+        if self.is_goal(state):
             return self.utility(state), state.direction
 
         if depth == 0:
@@ -82,14 +89,14 @@ class MiniMax(SearchAlgos):
         if maximizing_player:
             curr_max = float("-inf")
             best_direction = None
-            for child in children:
+            for child in self.succ(state):
                 value, direction = self.search(child, depth - 1, 1 - maximizing_player)
                 if value > curr_max:
                     curr_max, best_direction = value, child.direction
             return curr_max, best_direction
         else:
             curr_min = float("inf")
-            for child in children:
+            for child in self.succ(state):
                 value, none_direction = self.search(child, depth - 1, 1 - maximizing_player)
                 if value < curr_min:
                     curr_min, none_direction = value, none_direction
@@ -118,7 +125,7 @@ class AlphaBeta(SearchAlgos):
         """
         # minimax.counter += 1
 
-        if time() - self.start_time > self.time_limit - 0.1:
+        if time() - self.start_time > self.time_limit - 0.01:
             raise Interrupted
 
         children = self.succ(state)
