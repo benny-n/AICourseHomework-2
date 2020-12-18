@@ -128,9 +128,9 @@ class AlphaBeta(SearchAlgos):
         if time() - self.start_time > self.time_limit - 0.01:
             raise Interrupted
 
-        children = self.succ(state)
+        #children = self.succ(state)
 
-        if self.is_goal(children):
+        if self.is_goal(state):
             return self.utility(state), state.direction
 
         if depth == 0:
@@ -140,7 +140,7 @@ class AlphaBeta(SearchAlgos):
         if maximizing_player:
             curr_max = float("-inf")
             best_direction = None
-            for child in children:
+            for child in self.succ(state):
                 value, direction = self.search(child, depth - 1, 1 - maximizing_player, alpha, beta)
                 if value > curr_max:
                     curr_max, best_direction = value, child.direction
@@ -150,7 +150,7 @@ class AlphaBeta(SearchAlgos):
             return curr_max, best_direction
         else:
             curr_min = float("inf")
-            for child in children:
+            for child in self.succ(state):
                 value, none_direction = self.search(child, depth - 1, 1 - maximizing_player, alpha, beta)
                 if value < curr_min:
                     curr_min, none_direction = value, none_direction

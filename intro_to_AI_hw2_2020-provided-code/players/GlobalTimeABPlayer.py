@@ -1,6 +1,8 @@
 """
 MiniMax Player with AlphaBeta pruning and global time
 """
+from time import time
+
 from players.AbstractPlayer import AbstractPlayer
 import numpy as np
 #TODO: you can import more modules, if needed
@@ -53,14 +55,16 @@ class Player(AbstractPlayer):
             # convert pos to tuple of ints
             return tuple(ax[0] for ax in pos)
 
+        start_time = time()
         player_positions = (find_player_positions(1), find_player_positions(2))
         self.board[self.pos] = -1
 
         curr_state = SearchAlgos.State(self.board.copy(), tuple(players_score), player_positions, 0, self.penalty_score,
                                        (0, 0), self.lifetime)
 
-        global_alphabeta = SearchAlgos.AlphaBeta(
-            minimax_utility, minimax_succ, None, 0, self.calculate_turn_time_limit(self.lifetime), minimax_heuristic)
+        time_limit = self.calculate_turn_time_limit(self.lifetime)
+        global_alphabeta = SearchAlgos.AlphaBeta(minimax_utility, minimax_succ, None, start_time, time_limit, minimax_heuristic)
+        print(time_limit)
         depth = 1
         value, direction = global_alphabeta.search(curr_state, depth, 1)
 
@@ -111,18 +115,19 @@ class Player(AbstractPlayer):
     def calculate_coordinates_for_turns_function(self):
         allocated_time_after_fruits_disappear = 0.5 * self.game_time
         allocated_time_before_fruits_disappear = 0.5 * self.game_time
-        max_turns_possible = len(np.where(self.board != -1)[0]) - 2
+        max_turns_possible = (len(np.where(self.board != -1)[0]) - 2) / 2  # 78
         self.C = (max_turns_possible, 0)
-        max_turn_time = allocated_time_after_fruits_disappear / (max_turns_possible - self.fruit_disappear_turn)
+        max_turn_time = 2 * allocated_time_after_fruits_disappear / (max_turns_possible - self.fruit_disappear_turn)
         self.B = (self.fruit_disappear_turn, max_turn_time)
         initial_turn_time = (2 * allocated_time_before_fruits_disappear / self.fruit_disappear_turn) - max_turn_time
         self.A = (0, initial_turn_time)
+        #print(self.A, self.B, self.C)
 
     def calculate_turn_time_limit(self, turn):
         if turn <= self.fruit_disappear_turn:
             m = (self.B[1] - self.A[1])/(self.B[0] - self.A[0])
-            n = self.A[1]
-            return m * turn + n
+            n = self.B[1]
+            return -m * turn + n
         else:
             m = (self.C[1] - self.B[1]) / (self.C[0] - self.B[0])
             n = -m * self.C[0]
@@ -151,11 +156,11 @@ def minimax_utility(state):
 
 
 def minimax_heuristic(state):
-    delta_score = 1 * heuristic_score_delta(state)
-    # distance_from_enemy = 0 * heuristic_distance_from_goal(state.board, state.player_positions[0], lambda x: x == 2)
+    delta_score = 0.8 * heuristic_score_delta(state)
+    distance_from_enemy = 0.2 * distance_from_enemy_heuristic(state)
     # available_steps = 0 * heuristic_num_steps(state.board, state.player_positions[0])
     # distance_from_fruit = 0 * heuristic_distance_from_goal(state.board, state.player_positions[0], lambda x: x >= 3)
-    return delta_score #+ distance_from_fruit + distance_from_enemy + available_steps
+    return delta_score + distance_from_enemy #+ distance_from_fruit + available_steps
 
 
 def heuristic_score_delta(state):
@@ -169,6 +174,10 @@ def heuristic_score_delta(state):
     else:
         return score                    # bad for us, always lower than 0.5
 
+def distance_from_enemy_heuristic(state):
+    self_pos = state.player_positions[0]
+    rival_pos = state.player_positions[1]
+    return 1 / (abs(rival_pos[0] - self_pos[0]) + abs(rival_pos[1] - self_pos[1]))
 
 def heuristic_num_steps(board, pos):
     num_steps_available = 0
