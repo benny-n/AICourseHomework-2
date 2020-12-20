@@ -156,15 +156,14 @@ def minimax_utility(state):
 
 
 def minimax_heuristic(state):
-    delta_score = 0.8 * heuristic_score_delta(state)
-    distance_from_enemy = 0.2 * distance_from_enemy_heuristic(state)
-    # available_steps = 0 * heuristic_num_steps(state.board, state.player_positions[0])
-    # distance_from_fruit = 0 * heuristic_distance_from_goal(state.board, state.player_positions[0], lambda x: x >= 3)
-    return delta_score + distance_from_enemy #+ distance_from_fruit + available_steps
+    delta_score = 0.5 * heuristic_score_delta(state)
+    distance_from_enemy = 0.3 * heuristic_distance_from_enemy(state)
+    available_steps = 0.1 * heuristic_num_steps(state.board, state.player_positions[0])
+    distance_from_fruit = 0.1 * heuristic_distance_from_fruit(state)
+    return delta_score + distance_from_enemy + available_steps + distance_from_fruit
 
 
 def heuristic_score_delta(state):
-    # print("player score:" + str(state.players_score))
     delta_score = abs(state.players_score[0] - state.players_score[1])
     if delta_score == 0:
         return 0.5                      # exactly 0.5, Tie
@@ -174,7 +173,17 @@ def heuristic_score_delta(state):
     else:
         return score                    # bad for us, always lower than 0.5
 
-def distance_from_enemy_heuristic(state):
+def heuristic_distance_from_fruit(state):
+    board = state.board
+    pos = state.player_positions[0]
+    for d in utils.get_directions():
+        i = pos[0] + d[0]
+        j = pos[1] + d[1]
+        if 0 <= i < len(board) and 0 <= j < len(board[0]) and (board[i][j] not in [-1, 1, 2]):
+            return board[i][j] / state.penalty
+    return 0
+
+def heuristic_distance_from_enemy(state):
     self_pos = state.player_positions[0]
     rival_pos = state.player_positions[1]
     return 1 / (abs(rival_pos[0] - self_pos[0]) + abs(rival_pos[1] - self_pos[1]))

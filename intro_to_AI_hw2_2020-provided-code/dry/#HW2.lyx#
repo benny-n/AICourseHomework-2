@@ -1195,46 +1195,7 @@ h_{\delta}(s)=\begin{cases}
 \begin_inset Formula $Alphabeta$
 \end_inset
 
- עם סידור ילדים יצליח לפתח את עץ החיפוש לעומק גדול יותר ממה שיצליח לפתח
- סוכן ה-
-\begin_inset Formula $Alphabeta$
-\end_inset
-
- ללא סידור הילדים, ובכך יחליט לבחור בצעד שונה מסוכן זה.
-\begin_inset Newline newline
-\end_inset
-
-אם שני הסוכנים מפתחים את עצי החיפוש שלהם לעומק זהה אז הם יבחרו בדיוק את
- אותו מהלך בסיבה דומה להסבר בסעיף
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
- 
-\family default
-\series default
-\shape default
-\size default
-\emph default
-\numeric on
-\bar default
-\strikeout default
-\xout default
-\uuline default
-\uwave default
-\noun default
-\color inherit
-6
-\numeric off
-ב.
+ עם סידור ילדים יצליח לפתח את עץ 
 \end_layout
 
 \end_body
