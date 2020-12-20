@@ -1237,5 +1237,289 @@ h_{\delta}(s)=\begin{cases}
 ב.
 \end_layout
 
+\begin_layout Description
+
+\numeric on
+8
+\numeric off
+.
+\end_layout
+
+\begin_layout Standard
+ווריאציית ה-
+\begin_inset Formula $anytime\,contract$
+\end_inset
+
+ היא וורייאציה בה אנו נדרשים לתת את הפתרון הטוב ביותר בזמן נתון וידוע מראש.
+ העמקה הדרגתית בהקשר זה היא אחת השיטות להתמודד עם הוורייאציה הנ
+\begin_inset Quotes erd
+\end_inset
+
+ל, על ידי כך שאנו קוראים לאלגוריתם ה-
+\begin_inset Formula $minimax$
+\end_inset
+
+ עם הגבלת עומק הולכת וגדלה עד שנגמר הזמן.
+ בסיום כל איטרציה שומרים את הצעד הנבחר וכשנגמר הזמן מחזירים את הצעד האחרון.
+\end_layout
+
+\begin_layout Description
+
+\numeric on
+9
+\numeric off
+.
+\end_layout
+
+\begin_layout Standard
+הבעיה בהעמקה ההדרגתית המוצעת נובעת מהאיטרציה האחרונה.
+ במקרה הממוצע האלגוריתם יופסק באמצע האיטרציה האחרונה, ואנו נחזיר את הפתרון
+ של איטרציה אחת קודם לכן.
+ מכיוון שעץ החיפוש גדל באופן אקספוננציאלי רוב משאבי החיפוש מושקעים בפיתוח
+ העץ באיטרציה האחרונה.
+ אנו מחזירים את התוצאה של איטרציה אחת לפניכן ולכן הזמן שהושקע באיטרציה האחרונה
+ בוזבז לשווא.
+ כלומר, קיבלנו כי רוב משאבי החיפוש של האלגוריתם מבוזבזים.
+\begin_inset Newline newline
+\end_inset
+
+הפתרון המוצע בהרצאה הוא לשמור בכל איטרציה את ערך המינימקס של כל אחד מהבנים
+ ברמה העליונה.
+ כאשר נגיע לאיטרציה האחרונה )בהנחה כי הופסקה באמצע(, במקום לאבד את כל המידע
+ שגילינו עד כה, נפעפע את ערכי המינימקס של הצמתים החדשים שגילינו יחד עם הצמתים
+ ששמרנו מהאיטרציה הקודמת.
+ למעשה, עבור צמתים מסויימים הערך ייקבע מהעומק של האיטרציה האחרונה ועבור
+ הצמתים האחרים הערך ייקבע מהעומק של איטרציה אחת לפניכן.
+ כך אנו משתמשים במידע שגילינו באיטרציה האחרונה והזמן לא בוזבז לשווא.
+ 
+\begin_inset Formula $TODO$
+\end_inset
+
+ : אולי לשנות ניסוח
+\end_layout
+
+\begin_layout Description
+
+\series bold
+\numeric on
+10
+\numeric off
+.
+\end_layout
+
+\begin_layout Standard
+א.
+ נדגים את האלגוריתם הבא:
+\end_layout
+
+\begin_layout Enumerate
+חשב חסם עליון למספר התורות 
+\begin_inset Formula $n_{turns}=\bigg\lceil\frac{number\_of\_available\_slots}{2}\bigg\rceil$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+נסמן ב-
+\begin_inset Formula $f_{d}$
+\end_inset
+
+ את התור בו נעלמים הפירות.
+ נסמן ב-
+\begin_inset Formula $g$
+\end_inset
+
+ את הזמן הגלובלי של כל שחקן.
+\end_layout
+
+\begin_layout Enumerate
+חשב את הנקודות 
+\begin_inset Formula $A,B,C$
+\end_inset
+
+ הבאות:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset Formula $C=\left(n_{turns},0\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $B=\left(f_{d},\frac{g}{n_{turns}-f_{d}}\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $A=\left(0,\frac{g}{f_{d}}-\frac{g}{n_{turns}-f_{d}}\right)$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+נסמן את משוואת הישר 
+\begin_inset Formula $AB$
+\end_inset
+
+ כ-
+\begin_inset Formula $y=m\cdot x+n$
+\end_inset
+
+ ואת משוואת הישר 
+\begin_inset Formula $BC$
+\end_inset
+
+ כ-
+\begin_inset Formula $y=m_{2}\cdot x+n_{2}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+לכל תור 
+\begin_inset Formula $t$
+\end_inset
+
+ כך ש-
+\begin_inset Formula $t\in[1,f_{d}]$
+\end_inset
+
+ אם 
+\begin_inset Formula $n_{turns}<3f_{d}$
+\end_inset
+
+ החזר 
+\begin_inset Formula $m\cdot t+n$
+\end_inset
+
+, אחרת החזר את 
+\begin_inset Formula $-m\cdot t+n$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+אחרת, החזר 
+\begin_inset Formula $m_{2}\cdot t+n_{2}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Description
+
+\numeric on
+11
+\numeric off
+.
+\end_layout
+
+\begin_layout Standard
+אפקט האופק היא תופעה בה אלגוריתם מוגבל משאבים בוחר צעדים חסרי משמעות כדי
+ לדחות תוצאה לא רצויה אך בלתי נמנעת מעבר לאופק החיפוש.
+\begin_inset Newline newline
+\end_inset
+
+שתי דוגמאות בהן הפתרון יכול להועיל לסוכן שלנו הן:
+\begin_inset Newline newline
+\end_inset
+
+*פה יהיה שרטוט
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\numeric on
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+1
+\numeric off
+ 
+\begin_inset Newline newline
+\end_inset
+
+נתאר מצב שקרה לנו באחת הסימולציות עם סוכן ה-
+\begin_inset Formula $globalAlphabeta$
+\end_inset
+
+.
+\begin_inset Newline newline
+\end_inset
+
+כפי שניתן לראות בשרטוט, לסוכן הכחול קיימות שתי אפשרויות, ללכת ימינה או שמאלה.
+ ניתן לראות כי אם הסוכן יילך שמאלה הוא יפסיד, מכיוון שיש לו פחות שטח תזוזה
+ ולכן ייתקע לפני האדום.
+ אך, במהלך הפיתוח הוא לא מצליח לראות את ההפסד )כי לא מפתח לעומק מספיק גדול,
+ ולכן ההפסד נמצא מעבר לאופק החיפוש( ולכן מבחינתו שני הצעדים הללו שקולים
+ יוריסטית.
+ לכן, הוא ייבחר שרירותית ללכת שמאלה בלי לדעת שבכך חרץ את גורלו.
+\begin_inset Newline newline
+\end_inset
+
+*פה יהיה שרטוט
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\numeric on
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+2
+\numeric off
+ 
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
 \end_body
 \end_document
