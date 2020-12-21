@@ -31,7 +31,7 @@ class Player(AbstractPlayer):
             - direction: tuple, specifing the Player's movement, chosen from self.directions
         """
         print("ALPHABETA TURN:")
-        print(players_score)
+        #print(players_score)
         return self.minimax_player.make_move(time_limit, players_score)
 
 

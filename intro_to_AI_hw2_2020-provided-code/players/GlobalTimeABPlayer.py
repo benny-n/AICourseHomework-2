@@ -97,6 +97,7 @@ class Player(AbstractPlayer):
         old_pos = np.where(self.board == 2)
         self.board[tuple(ax[0] for ax in old_pos)] = -1
         self.board[pos] = 2
+        self.lifetime += 1
 
 
     def update_fruits(self, fruits_on_board_dict):
@@ -208,7 +209,7 @@ def minimax_succ(state):
     board = state.board.copy()
     board[pos] = -1
     min_fruit_time = min(len(board[0]), len(board))
-    if state.lifetime >= min_fruit_time:
+    if state.lifetime >= 2 * min_fruit_time:
         board = np.where(board >= 3, 0, board)
     for d in utils.get_directions():
         i = pos[0] + d[0]
@@ -227,13 +228,14 @@ def minimax_succ(state):
 
             old_board_value = board[new_pos]
             board[new_pos] = (state.curr_player + 1)
-            lifetime = state.lifetime if state.curr_player == 0 else state.lifetime + 1
+            # lifetime = state.lifetime if state.curr_player == 0 else state.lifetime + 1
             yield SearchAlgos.State(board.copy(), tuple(players_score), tuple(player_positions), 1 - state.curr_player,
-                                  state.penalty, d, lifetime)
+                                  state.penalty, d, state.lifetime + 1)
 
             # reset the board: positions + scores
             board[new_pos] = old_board_value
             players_score[state.curr_player] -= fruit_score
+
 
 
 

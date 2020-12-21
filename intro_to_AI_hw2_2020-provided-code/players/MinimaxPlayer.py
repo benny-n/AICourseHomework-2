@@ -3,13 +3,10 @@ MiniMax Player
 """
 from players.AbstractPlayer import AbstractPlayer
 import numpy as np
-from time import time, sleep
-import random
+from time import time
 import utils
 import SearchAlgos
-from collections import deque
 
-# counter = 0
 
 class Player(AbstractPlayer):
     def __init__(self, game_time, penalty_score):
@@ -19,6 +16,7 @@ class Player(AbstractPlayer):
         self.lifetime = 0
         self.board = None
         self.pos = None
+        self.initial_pos = None
         self.initiate = minimax_initiate
 
     def set_game_params(self, board):
@@ -33,6 +31,7 @@ class Player(AbstractPlayer):
         pos = np.where(board == 1)
         # convert pos to tuple of ints
         self.pos = tuple(ax[0] for ax in pos)
+        self.initial_pos = self.pos
 
     def make_move(self, time_limit, players_score):
         """Make move with this Player.
@@ -56,7 +55,7 @@ class Player(AbstractPlayer):
         self.board[self.pos] = -1
 
         curr_state = SearchAlgos.State(self.board.copy(), tuple(players_score), player_positions, 0, self.penalty_score,
-                                       (0, 0), self.lifetime)
+                                       (0, 0), self.lifetime, self.initial_pos)
 
         minimax = self.initiate(start_time, time_limit)
         depth = 1
@@ -90,6 +89,7 @@ class Player(AbstractPlayer):
         old_pos = np.where(self.board == 2)
         self.board[tuple(ax[0] for ax in old_pos)] = -1
         self.board[pos] = 2
+        self.lifetime += 1
 
     def update_fruits(self, fruits_on_board_dict):
         """Update your info on the current fruits on board (if needed).
@@ -105,21 +105,16 @@ class Player(AbstractPlayer):
     ########## helper functions in class ##########
     # TODO: add here helper functions in class, if needed
 
-
-def calculate_time_of_next_iteration(time_of_first_iteration, depth, branching_factor):
-    return time_of_first_iteration * (branching_factor ** depth)
-
-
-def get_legal_directions(board, pos):
-    legal_directions = []
-    for d in utils.get_directions():
-        i = pos[0] + d[0]
-        j = pos[1] + d[1]
-
-        if 0 <= i < len(board) and 0 <= j < len(board[0]) and (
-                board[i][j] not in [-1, 1, 2]):  # then move is legal
-            legal_directions.append(d)
-    return legal_directions
+# def get_legal_directions(board, pos):
+#     legal_directions = []
+#     for d in utils.get_directions():
+#         i = pos[0] + d[0]
+#         j = pos[1] + d[1]
+#
+#         if 0 <= i < len(board) and 0 <= j < len(board[0]) and (
+#                 board[i][j] not in [-1, 1, 2]):  # then move is legal
+#             legal_directions.append(d)
+#     return legal_directions
 
     ########## helper functions for MiniMax algorithm ##########
     # TODO: add here the utility, succ, and perform_move functions used in MiniMax algorithm
@@ -150,11 +145,11 @@ def minimax_utility(state):
 
 
 def minimax_heuristic(state):
-    delta_score = 1 * heuristic_score_delta(state)
-    # distance_from_enemy = 0 * heuristic_distance_from_goal(state.board, state.player_positions[0], lambda x: x == 2)
-    # available_steps = 0 * heuristic_num_steps(state.board, state.player_positions[0])
-    # distance_from_fruit = 0 * heuristic_distance_from_goal(state.board, state.player_positions[0], lambda x: x >= 3)
-    return delta_score #+ distance_from_fruit + distance_from_enemy + available_steps
+    delta_score = 0.4 * heuristic_score_delta(state)
+    distance_from_enemy = 0.3 * heuristic_distance_from_enemy(state)
+    distance_from_initial_pos = 0.2 * heuristic_distance_from_initial_pos(state)
+    available_steps = 0.1 * heuristic_num_steps(state.board, state.player_positions[0])
+    return delta_score + distance_from_enemy + distance_from_initial_pos + available_steps
 
 
 def heuristic_score_delta(state):
@@ -169,21 +164,16 @@ def heuristic_score_delta(state):
         return score                    # bad for us, always lower than 0.5
 
 
-def heuristic_distance_from_goal(board, pos, goal):
-    queue = deque([(pos, 0)])
-    seen = {pos}
-    while queue:
-        pos, distance = queue.popleft()
-        if goal(board[pos]):
-            return 0.75 if distance == 1 else 1 / distance
-        for d in utils.get_directions():
-            i = pos[0] + d[0]
-            j = pos[1] + d[1]
-            if 0 <= i < len(board) and 0 <= j < len(board[0]) and (
-                    board[i][j] not in [-1, 1, 2]) and (i, j) not in seen:
-                queue.append(((i, j), distance + 1))
-                seen.add((i, j))
-    return 0
+def heuristic_distance_from_initial_pos(state):
+    self_pos = state.player_positions[0]
+    initial_pos = state.initial_pos
+    return 1 - (1 / (abs(initial_pos[0] - self_pos[0]) + abs(initial_pos[1] - self_pos[1])))
+
+
+def heuristic_distance_from_enemy(state):
+    self_pos = state.player_positions[0]
+    rival_pos = state.player_positions[1]
+    return 1 / (abs(rival_pos[0] - self_pos[0]) + abs(rival_pos[1] - self_pos[1]))
 
 
 def heuristic_num_steps(board, pos):
@@ -206,7 +196,7 @@ def minimax_succ(state):
     board = state.board.copy()
     board[pos] = -1
     min_fruit_time = min(len(board[0]), len(board))
-    if state.lifetime >= min_fruit_time:
+    if state.lifetime >= 2 * min_fruit_time:
         board = np.where(board >= 3, 0, board)
     for d in utils.get_directions():
         i = pos[0] + d[0]
@@ -225,13 +215,12 @@ def minimax_succ(state):
 
             old_board_value = board[new_pos]
             board[new_pos] = (state.curr_player + 1)
-            lifetime = state.lifetime if state.curr_player == 0 else state.lifetime + 1
+            # lifetime = state.lifetime if state.curr_player == 0 else state.lifetime + 1
             yield SearchAlgos.State(board.copy(), tuple(players_score), tuple(player_positions), 1 - state.curr_player,
-                                  state.penalty, d, lifetime)
+                                  state.penalty, d, state.lifetime + 1, state.initial_pos)
 
             # reset the board: positions + scores
             board[new_pos] = old_board_value
             players_score[state.curr_player] -= fruit_score
 
 
-    #return succ_states

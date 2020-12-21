@@ -63,3 +63,19 @@ class Player(AbstractPlayer):
 
     ########## helper functions for the search algorithm ##########
     #TODO: add here the utility, succ, and perform_move functions used in AlphaBeta algorithm
+
+# def heuristic_distance_from_goal(board, pos, goal):
+#     queue = deque([(pos, 0)])
+#     seen = {pos}
+#     while queue:
+#         pos, distance = queue.popleft()
+#         if goal(board[pos]):
+#             return 0.75 if distance == 1 else 1 / distance
+#         for d in utils.get_directions():
+#             i = pos[0] + d[0]
+#             j = pos[1] + d[1]
+#             if 0 <= i < len(board) and 0 <= j < len(board[0]) and (
+#                     board[i][j] not in [-1, 1, 2]) and (i, j) not in seen:
+#                 queue.append(((i, j), distance + 1))
+#                 seen.add((i, j))
+#     return 0

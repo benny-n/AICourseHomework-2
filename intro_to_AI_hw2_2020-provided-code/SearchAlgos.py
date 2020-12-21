@@ -37,6 +37,7 @@ class State:
     penalty: int
     direction: tuple
     lifetime: int
+    initial_pos: tuple
 
 
 def is_goal(state):
