@@ -396,7 +396,15 @@
 \end_layout
 
 \begin_layout Standard
-ארבעת המרכיבים של היוריסטיקה: 
+ארבעת המרכיבים של היוריסטיקה:
+\begin_inset Newline newline
+\end_inset
+
+נסמן: 
+\begin_inset Formula $\delta_{score}=player\_score-enemy\_score$
+\end_inset
+
+ 
 \begin_inset Formula 
 \[
 h_{F}(s)=\frac{1}{\min_{fruit}\{md(s,fruit)\}}
@@ -427,9 +435,11 @@ h_{E}(s)=\frac{1}{md(s,enemy)}
 \begin_inset Formula 
 \[
 h_{\delta}(s)=\begin{cases}
-1-\frac{1}{2\cdot|player\_score-enemy\_score|} & player\_score>enemy\_score\\
-0.5 & player\_score=enemy\_score\\
-\frac{1}{2\cdot|player\_score-enemy\_score|} & \text{אחרת}
+1-\frac{0.24\cdot penalty}{|\delta_{score}|} & \delta_{score}\geq\frac{penalty}{2}\\
+0.5+\frac{0.04\cdot|\delta_{score}|}{penalty} & 0<\delta_{score}<\frac{penalty}{2}\\
+0.5 & \delta_{score}=0\\
+0.5-\frac{0.04\cdot|\delta_{score}|}{penalty} & -\frac{penalty}{2}<\delta_{score}<0\\
+\frac{0.24\cdot penalty}{|\delta_{score}|} & \delta_{score}\leq-\frac{penalty}{2}
 \end{cases}
 \]
 
@@ -701,7 +711,15 @@ h_{\delta}(s)=\begin{cases}
 \end_inset
 
  שככל שההפרש בניקוד גבוה יותר, אם אנחנו מובילים נקבל ערך יוריסטי גבוה יותר
- ואם היריב מוביל נקבל ערך יוריסטי נמוך יותר.
+ )שואף ל
+\numeric on
+1-
+\numeric off
+( ואם היריב מוביל נקבל ערך יוריסטי נמוך יותר )שואף ל
+\numeric on
+0-
+\numeric off
+(.
  
 \begin_inset Newline newline
 \end_inset
@@ -1235,6 +1253,1129 @@ h_{\delta}(s)=\begin{cases}
 6
 \numeric off
 ב.
+\end_layout
+
+\begin_layout Description
+
+\numeric on
+8
+\numeric off
+.
+\end_layout
+
+\begin_layout Standard
+ווריאציית ה-
+\begin_inset Formula $anytime\,contract$
+\end_inset
+
+ היא וורייאציה בה אנו נדרשים לתת את הפתרון הטוב ביותר בזמן נתון וידוע מראש.
+ העמקה הדרגתית בהקשר זה היא אחת השיטות להתמודד עם הוורייאציה הנ
+\begin_inset Quotes erd
+\end_inset
+
+ל, על ידי כך שאנו קוראים לאלגוריתם ה-
+\begin_inset Formula $minimax$
+\end_inset
+
+ עם הגבלת עומק הולכת וגדלה עד שנגמר הזמן.
+ בסיום כל איטרציה שומרים את הצעד הנבחר וכשנגמר הזמן מחזירים את הצעד האחרון.
+\end_layout
+
+\begin_layout Description
+
+\numeric on
+9
+\numeric off
+.
+\end_layout
+
+\begin_layout Standard
+הבעיה בהעמקה ההדרגתית המוצעת נובעת מהאיטרציה האחרונה.
+ במקרה הממוצע האלגוריתם יופסק באמצע האיטרציה האחרונה, ואנו נחזיר את הפתרון
+ של איטרציה אחת קודם לכן.
+ מכיוון שעץ החיפוש גדל באופן אקספוננציאלי רוב משאבי החיפוש מושקעים בפיתוח
+ העץ באיטרציה האחרונה.
+ אנו מחזירים את התוצאה של איטרציה אחת לפניכן ולכן הזמן שהושקע באיטרציה האחרונה
+ בוזבז לשווא.
+ כלומר, קיבלנו כי רוב משאבי החיפוש של האלגוריתם מבוזבזים.
+\begin_inset Newline newline
+\end_inset
+
+הפתרון המוצע בהרצאה הוא לשמור בכל איטרציה את ערך המינימקס של כל אחד מהבנים
+ ברמה העליונה.
+ כאשר נגיע לאיטרציה האחרונה )בהנחה כי הופסקה באמצע(, במקום לאבד את כל המידע
+ שגילינו עד כה, נפעפע את ערכי המינימקס של הצמתים החדשים שגילינו יחד עם הצמתים
+ ששמרנו מהאיטרציה הקודמת.
+ למעשה, עבור צמתים מסויימים הערך ייקבע מהעומק של האיטרציה האחרונה ועבור
+ הצמתים האחרים הערך ייקבע מהעומק של איטרציה אחת לפניכן.
+ כך אנו משתמשים במידע שגילינו באיטרציה האחרונה והזמן לא בוזבז לשווא.
+ 
+\begin_inset Formula $TODO$
+\end_inset
+
+ : אולי לשנות ניסוח
+\end_layout
+
+\begin_layout Description
+
+\series bold
+\numeric on
+10
+\numeric off
+.
+\end_layout
+
+\begin_layout Standard
+א.
+ נדגים את האלגוריתם הבא:
+\end_layout
+
+\begin_layout Enumerate
+חשב חסם עליון למספר התורות 
+\begin_inset Formula $n_{turns}=\bigg\lceil\frac{number\_of\_available\_slots}{2}\bigg\rceil$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+נסמן ב-
+\begin_inset Formula $f_{d}$
+\end_inset
+
+ את התור בו נעלמים הפירות.
+ נסמן ב-
+\begin_inset Formula $g$
+\end_inset
+
+ את הזמן הגלובלי של כל שחקן.
+\end_layout
+
+\begin_layout Enumerate
+חשב את הנקודות 
+\begin_inset Formula $A,B,C$
+\end_inset
+
+ הבאות:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset Formula $C=\left(n_{turns},0\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $B=\left(f_{d},\frac{g}{n_{turns}-f_{d}}\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $A=\left(0,\frac{g}{f_{d}}-\frac{g}{n_{turns}-f_{d}}\right)$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+נסמן את משוואת הישר 
+\begin_inset Formula $AB$
+\end_inset
+
+ כ-
+\begin_inset Formula $y=m\cdot x+n$
+\end_inset
+
+ ואת משוואת הישר 
+\begin_inset Formula $BC$
+\end_inset
+
+ כ-
+\begin_inset Formula $y=m_{2}\cdot x+n_{2}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+לכל תור 
+\begin_inset Formula $t$
+\end_inset
+
+ כך ש-
+\begin_inset Formula $t\in[1,f_{d}]$
+\end_inset
+
+ אם 
+\begin_inset Formula $n_{turns}<3f_{d}$
+\end_inset
+
+ בצע 
+\begin_inset Formula $time\_frame\leftarrow m\cdot t+n$
+\end_inset
+
+, אחרת בצע את 
+\begin_inset Formula $time\_frame\leftarrow-m\cdot t+n$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+לכל תור 
+\begin_inset Formula $t$
+\end_inset
+
+ כך ש-
+\begin_inset Formula $t\in[f_{d}+1,n_{turns}]$
+\end_inset
+
+, בצע 
+\begin_inset Formula $time\_frame\leftarrow m_{2}\cdot t+n_{2}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+כאשר 
+\begin_inset Formula $time\_frame$
+\end_inset
+
+ הוא מסגרת הזמן לכל תור.
+\end_layout
+
+\begin_layout Description
+
+\numeric on
+11
+\numeric off
+.
+\end_layout
+
+\begin_layout Standard
+אפקט האופק היא תופעה בה אלגוריתם מוגבל משאבים בוחר צעדים חסרי משמעות כדי
+ לדחות תוצאה לא רצויה אך בלתי נמנעת מעבר לאופק החיפוש.
+\begin_inset Newline newline
+\end_inset
+
+שתי דוגמאות בהן הפתרון יכול להועיל לסוכן שלנו הן:
+\begin_inset Newline newline
+\end_inset
+
+*פה יהיה שרטוט
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\numeric on
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+1
+\numeric off
+ 
+\begin_inset Newline newline
+\end_inset
+
+נתאר מצב שקרה לנו באחת הסימולציות עם סוכן ה-
+\begin_inset Formula $globalAlphabeta$
+\end_inset
+
+.
+\begin_inset Newline newline
+\end_inset
+
+כפי שניתן לראות בשרטוט, לסוכן הכחול קיימות שתי אפשרויות, ללכת ימינה או שמאלה.
+ ניתן לראות כי אם הסוכן יילך שמאלה הוא יפסיד, מכיוון שיש לו פחות שטח תזוזה
+ ולכן ייתקע לפני האדום.
+ אך, במהלך הפיתוח הוא לא מצליח לראות את ההפסד )כי לא מפתח לעומק מספיק גדול,
+ ולכן ההפסד נמצא מעבר לאופק החיפוש( ולכן מבחינתו שני הצעדים הללו שקולים
+ יוריסטית.
+ לכן, הוא ייבחר שרירותית ללכת שמאלה בלי לדעת שבכך חרץ את גורלו.
+\begin_inset Newline newline
+\end_inset
+
+*פה יהיה שרטוט
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\numeric on
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+2
+\numeric off
+ 
+\begin_inset Newline newline
+\end_inset
+
+כפי שניתן לראות בשרטוט, הסוכן האדום ירצה ללכת לכיוון הפרי כדי לצבור נקודות
+ אך במהלך הפיתוח הוא לא מצליח לראות שאם ילך בדרך זו הסוכן הכחול יוכל לחסום
+ אותו בקלות ולהשאיר אותו עם פחות שטח בלוח, מה שיוביל להפסד של הסוכן האדום
+ במשחק.
+\end_layout
+
+\begin_layout Description
+
+\numeric on
+12
+\numeric off
+.
+\end_layout
+
+\begin_layout Description
+
+\numeric on
+13
+\numeric off
+.
+\end_layout
+
+\begin_layout Standard
+אכן ניתן לבצע גיזום לאלגוריתם זה, על פי הכללים הבאים:
+\end_layout
+
+\begin_layout Itemize
+בצמתי מקסימום ומינימום נוכל לגזום לפי אותם כללים שלפיהם גוזמים באלגוריתם
+ 
+\begin_inset Formula $Alphabeta$
+\end_inset
+
+ רגיל.
+\end_layout
+
+\begin_layout Itemize
+בצמתים הסתברותיים, נוכל לבצע גזימה דומה, אך בצורה יותר 
+\begin_inset Quotes eld
+\end_inset
+
+שמרנית
+\begin_inset Quotes erd
+\end_inset
+
+.
+\begin_inset Newline newline
+\end_inset
+
+בהגיענו לצומת הסתברותי כלשהו, נסמן ב-
+\begin_inset Formula $n$
+\end_inset
+
+ את מספר בניו.
+ מתוך 
+\begin_inset Formula $n$
+\end_inset
+
+ הבנים של הצומת, נסמן ב-
+\begin_inset Formula $E_{i}$
+\end_inset
+
+ את התוחלת של 
+\begin_inset Formula $i$
+\end_inset
+
+ הבנים הראשונים, ובנוסף נסמן ב-
+\begin_inset Formula $p_{j}$
+\end_inset
+
+ את ההסתברות למאורע שמייצג הבן ה-
+\begin_inset Formula $j$
+\end_inset
+
+ .
+ נפריד לשני מקרים:
+\begin_inset Newline newline
+\end_inset
+
+אם הצומת ההסתברותי הוא בן של צומת מקסימום נגזום כאשר מתקיים:
+\begin_inset Formula 
+\begin{align*}
+E_{i}+(1-\ensuremath{\sum_{j=i+1}^{n}p_{j}})\cdot5 & \leq\alpha
+\end{align*}
+
+\end_inset
+
+אם הצומת ההסתברותי הוא בן של צומת מינימום נגזום כאשר מתקיים:
+\begin_inset Formula 
+\[
+E_{i}+(1-\ensuremath{\sum_{j=i+1}^{n}p_{j}})\cdot(-5)\ge\beta
+\]
+
+\end_inset
+
+נסביר את הגזימה עבור צומת 
+\begin_inset Formula $v_{1}$
+\end_inset
+
+ הסתברותי שהוא בן לצומת מקסימום.
+ ידוע לנו כי קיים חסם 
+\begin_inset Formula $\alpha$
+\end_inset
+
+.
+ כלומר, יש לנו את האפשרות לקבל את הערך 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ מצומת 
+\begin_inset Formula $v_{2}$
+\end_inset
+
+ כלשהו.
+ נשים לב שאם תנאי הגזימה שהצגנו מתקיים, אנו מניחים כי כל בן של 
+\begin_inset Formula $v_{1}$
+\end_inset
+
+ שעדיין לא פותח מקבל את הערך היוריסטי הגבוה ביותר האפשרי )
+\begin_inset Formula $h(s)=5$
+\end_inset
+
+( ולמרות זאת אנו מקבלים ערך שקטן מ-
+\begin_inset Formula $\alpha$
+\end_inset
+
+, שכידוע מתקבל בצומת 
+\begin_inset Formula $v_{2}$
+\end_inset
+
+.
+ לכן אין סיבה שנבחר ב-
+\begin_inset Formula $v_{1}$
+\end_inset
+
+ על פני 
+\begin_inset Formula $v_{2}$
+\end_inset
+
+ וניתן לגזום את 
+\begin_inset Formula $v_{1}$
+\end_inset
+
+.
+\begin_inset Newline newline
+\end_inset
+
+נקבל הסבר סימטרי לחלוטין עבור צומת הסתברותי שהוא בן לצומת מינימום.
+\end_layout
+
+\begin_layout Description
+
+\numeric on
+14
+\numeric off
+.
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Description
+
+\numeric on
+15
+\numeric off
+.
+\end_layout
+
+\begin_layout Standard
+עבור שחקן המינימקס ניסינו להשתמש ביוריסטיקה שהגדרנו בסעיף
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\numeric on
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+4
+\numeric off
+.
+ לאחר הרצות רבות על לוחות שונים וכיוונון של המשקלים של כל רכיב, הגענו למסקנה
+ שהרכיב 
+\begin_inset Formula $h_{F}(s)$
+\end_inset
+
+ )כפי שהוגדר בסעיף
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\numeric on
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+4
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\numeric off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+( אינו מביא את התוצאות הרצויות.
+ לכן החלטנו להחליפו ברכיב הבא: 
+\begin_inset Formula 
+\[
+h_{I}(s)=1-\frac{1}{md(s,initial\_position)}
+\]
+
+\end_inset
+
+כלומר, 
+\begin_inset Formula $h_{I}(s)$
+\end_inset
+
+ נותן ערך יוריסטי גבוה יותר למצבים בהם אנו רחוקים יותר מהמיקום בו התחלנו
+ את המשחק, וערך יוריסטי נמוך יותר למצבים בהם אנו קרובים יותר למיקום ההתחלתי.
+ ההגיון מאחורי יוריסטיקה זו הוא למנוע מצב בו היריב יכול לחסום אותנו מכך
+ שנשארנו באזור קטן סביב נקודת ההתחלה.
+ 
+\begin_inset Newline newline
+\end_inset
+
+שאר שלושת הרכיבים זהים לחלוטין כפי שהוגדרו בסעיף
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\numeric on
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+4
+\numeric off
+: 
+\begin_inset Formula $h_{\delta}(s),h_{E}(s),h_{S}(s)$
+\end_inset
+
+.
+\begin_inset Newline newline
+\end_inset
+
+לאחר הרצות רבות עם היוריסטיקה המבוססת על ארבעת הרכיבים הנ
+\begin_inset Quotes erd
+\end_inset
+
+ל גילינו את המשקלים שהביאו לתוצאות הכי טובות וסך הכל קיבלנו:
+\begin_inset Formula 
+\[
+h(s)=0.4\cdot h_{\delta}(s)+0.3\cdot h_{E}(s)+0.2\cdot h_{I}(s)+0.1\cdot h_{S}(s)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+
+\numeric on
+16
+\numeric off
+.
+\end_layout
+
+\begin_layout Description
+
+\series bold
+\numeric on
+17
+\numeric off
+.
+\end_layout
+
+\begin_layout Standard
+עבור המקרה של הגבלת זמן גלובלי, הדרך בה ניהלנו את זמן ריצת הפונקציה 
+\begin_inset Formula $make\_move$
+\end_inset
+
+ היא לפי האלגוריתם שתיארנו בסעיף
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\numeric on
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+10
+\numeric off
+, כך שמסגרת הזמן לכל תור היא הערך שמקבל 
+\begin_inset Formula $time\_frame$
+\end_inset
+
+.
+\begin_inset Newline newline
+\end_inset
+
+עבור המקרה של הגבלת זמן לתור, הפונקציה 
+\begin_inset Formula $make\_move$
+\end_inset
+
+ רצה למשך הגבלת הזמן של שניתנה.
+\begin_inset Newline newline
+\end_inset
+
+בשני המקרים, במהלך הזמן הנתון ביצענו העמקה הדרגתית כפי שלמדנו בהרצאה.
+ כאשר נשאר לנו 
+\begin_inset Formula $0.01$
+\end_inset
+
+ שניות מסוף מסגרת הזמן שהוקצתה לתור זה, הפסקנו את החיפוש והחזרנו את הצעד
+ שיש לקחת.
+ הסיבה לחלון הזמן של 
+\begin_inset Formula $0.01$
+\end_inset
+
+ שניות היא כדי לאפשר לפונקציה להחזיר את הערך ולצאת בהצלחה לפני סוף מסגרת
+ הזמן.
+\end_layout
+
+\begin_layout Description
+
+\numeric on
+18
+\numeric off
+.
+\end_layout
+
+\begin_layout Standard
+הרצנו מספר רב של משחקים בין שני הסוכנים וכפי שציפינו סוכן ה-
+\begin_inset Formula $Alphabeta$
+\end_inset
+
+ ניצח את סוכן ה-
+\begin_inset Formula $Minimax$
+\end_inset
+
+ ברוב המוחלט של המשחקים )כ-
+\begin_inset Formula $88\%$
+\end_inset
+
+ מהמשחקים(.
+ תוצאה זאת מתאימה לציפיותנו מכיוון שסוכן ה-
+\begin_inset Formula $Alphabeta$
+\end_inset
+
+ מבצע גיזום ענפים ולכן מספיק לפתח את עץ החיפוש שלו לעומקים גדולים יותר מאשר
+ סוכן ה-
+\begin_inset Formula $Minimax$
+\end_inset
+
+.
+ לכן יש לו תמונה נאמנה יותר של המציאות, ואופציה לבחור אסטרטגיה טובה יותר.
+ בנוסף, המקרים בהם ניצח סוכן ה-
+\begin_inset Formula $Minimax$
+\end_inset
+
+ נבעו מכך שבתחילת המשחק קיבל משמעותית יותר פירות קרובים למיקומו מאשר שקיבל
+ סוכן ה-
+\begin_inset Formula $Alphabeta$
+\end_inset
+
+ .
+\end_layout
+
+\begin_layout Description
+
+\numeric on
+19
+\numeric off
+.
+\end_layout
+
+\begin_layout Standard
+*פה יהיה גרף
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\numeric on
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+1
+\numeric off
+
+\begin_inset Newline newline
+\end_inset
+
+*פה יהיה גרף
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\numeric on
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+2
+\numeric off
+
+\begin_inset Newline newline
+\end_inset
+
+תחילה נסביר את תוצאות הניסוי הראשון בהתבסס על גרף
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\numeric on
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+1
+\numeric off
+.
+ ניתן לראות שסוכן ה-
+\begin_inset Formula $HeavyAB$
+\end_inset
+
+ ניצח את סוכן ה-
+\begin_inset Formula $LightAB$
+\end_inset
+
+ בכל המשחקים בשני החלקים הראשונים של הניסוי וברוב המשחקים )
+\numeric on
+4
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\numeric off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+מתוך
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\numeric on
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+5
+\numeric off
+( בחלק השלישי של הניסוי.
+ את הנצחונות ניתן להסביר בכך שהיוריסטיקה של סוכן ה-
+\begin_inset Formula $HeavyAB$
+\end_inset
+
+ מתוחכמת יותר משל סוכן ה-
+\begin_inset Formula $LightAB$
+\end_inset
+
+ ומכילה יותר פרמטרים של המשחק ולכן נותנת לו יתרון משמעותי בקביעת האסטרטגיה.
+ את הירידה הקלה בחלק השלישי של הניסוי ניתן להסביר בכך שהגדלנו את עומק החיפוש
+ של סוכן ה\SpecialChar softhyphen
+
+\begin_inset Formula $LightAB$
+\end_inset
+
+ ובכך נתנו לו לראות יותר מהלכים קדימה ולכן קיבל יתרון מסוים, אך לא משמעותי
+ מספיק כדי להתגבר על היוריסטיקה של הסוכן השני.
+\begin_inset Newline newline
+\end_inset
+
+כעת נסביר את תוצאות הניסוי השני בהתבסס על גרף
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\numeric on
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+2
+\numeric off
+.
+ ניתן לראות שסוכן ה-
+\begin_inset Formula $HeavyAB$
+\end_inset
+
+ הפסיד ברוב המשחקים לסוכן ה-
+\begin_inset Formula $LightAB$
+\end_inset
+
+ כאשר בחלק הראשון של הניסוי הוא הפסיד במעט יותר מחצי מהמשחקים )
+\numeric on
+3
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\numeric off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+מתוך
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\numeric on
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+5
+\numeric off
+( ואילו בחלק השני והשלישי הפסיד באפילו יותר משחקים )
+\numeric on
+4
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\numeric off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+מתוך
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\numeric on
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+5
+\numeric off
+(.
+ את ההפסדים ניתן להסביר בכך שעומק החיפוש שנתנו לסוכן ה-
+\begin_inset Formula $HeavyAB$
+\end_inset
+
+ קטן מדי מכדי שערך יוריסטי ישקף בצורה נאמנה את המציאות.
+ לכן בחלק הראשון שני הסוכנים מתפקדים כמעט בצורה זהה ואכן תוצאות המשחקים
+ התחלקו כמעט חצי חצי בין שניהם.
+ לעומת זאת, בשני החלקים הנותרים של הניסוי נתנו לסוכן ה-
+\begin_inset Formula $LightAB$
+\end_inset
+
+ מפני שפיתח לעומק גדול יותר ואכן ניצח ביותר משחקים.
+\begin_inset Newline newline
+\end_inset
+
+לסיכום, תוצאות שני הניסויים משקפים את ציפיותנו וניתן להסיק מהם שככל שעומק
+ החיפוש יותר גדול כך גדלה החשיבות של יוריסטיקה מוצלחת.
+ 
 \end_layout
 
 \end_body

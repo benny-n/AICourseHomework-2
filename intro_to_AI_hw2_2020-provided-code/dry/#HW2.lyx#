@@ -1698,20 +1698,7 @@ E_{i}+(1-\ensuremath{\sum_{j=i+1}^{n}p_{j}})\cdot(-5)\ge\beta
 \begin_inset Newline newline
 \end_inset
 
-נקבל הסבר סימטרי לחלוטין עבור צומת הסתברותי שהוא בן לצומת מינימום.
-\end_layout
-
-\begin_layout Description
-
-\numeric on
-14
-\numeric off
-.
-\end_layout
-
-\begin_layout Standard
-א.
- 
+נקבל הסבר סימטרי לחלוטין עבו
 \end_layout
 
 \begin_layout Description
