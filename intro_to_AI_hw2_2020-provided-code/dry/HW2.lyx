@@ -1711,7 +1711,114 @@ E_{i}+(1-\ensuremath{\sum_{j=i+1}^{n}p_{j}})\cdot(-5)\ge\beta
 
 \begin_layout Standard
 א.
+ *כאן יהיה שרטוט.
+\begin_inset Newline newline
+\end_inset
+
+ניתן לראות על פי השרטוט כי מספר הקריאות לפונקציה היוריסטית כאשר מפתחים לעומק
  
+\begin_inset Formula $D$
+\end_inset
+
+ הוא 
+\begin_inset Formula $B^{D}$
+\end_inset
+
+ )ככמות העלים בתת העץ(.
+ לפי הנתון, הזמן הנדרש לחיפוש בעומק 
+\begin_inset Formula $D$
+\end_inset
+
+ הוא 
+\begin_inset Formula $\frac{M}{B}$
+\end_inset
+
+, כלומר הזמן הנדרש ל-
+\begin_inset Formula $B^{D}$
+\end_inset
+
+ קריאות לפונקציה היוריסטי הוא 
+\begin_inset Formula $\frac{M}{B}$
+\end_inset
+
+ )נתון כי שאר הפעולות זניחות(.
+\begin_inset Newline newline
+\end_inset
+
+לכן, עבור פיתוח לעומק 
+\begin_inset Formula $D+1$
+\end_inset
+
+ נדרוש 
+\begin_inset Formula $B^{D+1}$
+\end_inset
+
+ קריאות לפונקציה היוריסטית, והזמן שנצטרך לשם כך הוא:
+\begin_inset Formula 
+\[
+B^{D+1}=B\cdot B^{D}=B\cdot\frac{M}{B}=M
+\]
+
+\end_inset
+
+ כלומר, כל זמן הריצה של השחקן עבור 
+\begin_inset Formula $B$
+\end_inset
+
+ המהלכים שלו, ינוצלו על חישוב המהלך הראשון, ולא יישאר זמן כלל עבור הפיתוח
+ של 
+\begin_inset Formula $B-1$
+\end_inset
+
+ המהלכים הבאים.
+ לכן בהמשך יצטרך בכל מהלך לבחור שרירותית צעד חוקי כלשהו.
+ 
+\begin_inset Newline newline
+\end_inset
+
+ב.
+ :
+\end_layout
+
+\begin_layout Enumerate
+מכיוון שפיתחנו לעומק 
+\begin_inset Formula $D+1$
+\end_inset
+
+ נקבל כי יש סך הכל 
+\begin_inset Formula $D+1$
+\end_inset
+
+ קשתות באסטרטגיה.
+ השחקן מתחיל ולכן עליו לשמור 
+\begin_inset Formula $\bigg\lceil\frac{D+1}{2}\bigg\rceil$
+\end_inset
+
+ קשתות עבורו, ו- 
+\begin_inset Formula $\bigg\lfloor\frac{D+1}{2}\bigg\rfloor$
+\end_inset
+
+ עברו היריב.
+\end_layout
+
+\begin_layout Enumerate
+בסעיף א' הוא השקיע את כל זמנו בחישוב המהלך הראשון, ולכן ב-
+\begin_inset Formula $B-1$
+\end_inset
+
+ המהלכים הבאים היה עליו לבחור שרירותית צעד חוקי כלשהי.
+ במקרה ב' השחקן שומר את האסטרטגיה שחישב במהלך הראשון, ולכן יוכל בכל מהלך
+ לאחר מכן יוכל לבחור את הצעד ששמורה באסטרטגיה, וכך להבטיח לעצמו שלאחר 
+\begin_inset Formula $B$
+\end_inset
+
+ מהלכים יגיע לפחות לערך ה-
+\begin_inset Formula $minimax$
+\end_inset
+
+ שחישב במהלך הראשון )לפי משפט ההבטחה של מינימקס(.
+ כלומר, במקום להיות חסר ידע לחלוטין ולבחור שרירותית הוא הולך לפי אסטרטגיה
+ שמבטיחה לו תוצאה מסויימת.
 \end_layout
 
 \begin_layout Description

@@ -1710,7 +1710,72 @@ E_{i}+(1-\ensuremath{\sum_{j=i+1}^{n}p_{j}})\cdot(-5)\ge\beta
 \end_layout
 
 \begin_layout Standard
+א.
+ *כאן יהיה שרטוט.
+\begin_inset Newline newline
+\end_inset
 
+ניתן לראות על פי השרטוט כי מספר הקריאות לפונקציה היוריסטית כאשר מפתחים לעומק
+ 
+\begin_inset Formula $D$
+\end_inset
+
+ הוא 
+\begin_inset Formula $B^{D}$
+\end_inset
+
+ )ככמות העלים בתת העץ(.
+ לפי הנתון, הזמן הנדרש לחיפוש בעומק 
+\begin_inset Formula $D$
+\end_inset
+
+ הוא 
+\begin_inset Formula $\frac{M}{B}$
+\end_inset
+
+, כלומר הזמן הנדרש ל-
+\begin_inset Formula $B^{D}$
+\end_inset
+
+ קריאות לפונקציה היוריסטי הוא 
+\begin_inset Formula $\frac{M}{B}$
+\end_inset
+
+.
+\begin_inset Newline newline
+\end_inset
+
+לכן, עבור פיתוח לעומק 
+\begin_inset Formula $D+1$
+\end_inset
+
+ נדרוש 
+\begin_inset Formula $B^{D+1}$
+\end_inset
+
+ קריאות לפונקציה היוריסטית והזמן שנצטרך לשם כך הוא:
+\begin_inset Formula 
+\[
+B^{D+1}=B\cdot B^{D}=B\cdot\frac{M}{B}=M
+\]
+
+\end_inset
+
+ כלומר, כל זמן הריצה של השחקן עבור 
+\begin_inset Formula $B$
+\end_inset
+
+ המהלכים הראשונים, ינוצלו כדי לחפש לעומק 
+\begin_inset Formula $D+1$
+\end_inset
+
+ עבור המהלך הראשון, ולא יישאר זמן כלל עבור הפיתוח של 
+\begin_inset Formula $B-1$
+\end_inset
+
+ המהלכים בהמשך.
+ לכן בהמשך יצטרך לבחור שרירותית בכל תור צעד חוקי כלשהו.
+ 
 \end_layout
 
 \begin_layout Description
