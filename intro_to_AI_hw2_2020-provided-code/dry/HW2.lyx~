@@ -321,6 +321,18 @@
 \begin_inset Newline newline
 \end_inset
 
+
+\begin_inset Graphics
+	filename ex2.png
+	lyxscale 75
+	scale 75
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
 כפי שניתן לראות, מכיוון שבלוח זה אין פירות, העובדה שהאסטרטגיה של ה-
 \begin_inset Formula $SimplePlayer$
 \end_inset
@@ -1328,17 +1340,9 @@ h_{\delta}(s)=\begin{cases}
 \begin_layout Standard
 א.
  נדגים את האלגוריתם הבא:
-\end_layout
-
-\begin_layout Enumerate
-חשב חסם עליון למספר התורות 
-\begin_inset Formula $n_{turns}=\bigg\lceil\frac{number\_of\_available\_slots}{2}\bigg\rceil$
+\begin_inset Newline newline
 \end_inset
 
-.
-\end_layout
-
-\begin_layout Enumerate
 נסמן ב-
 \begin_inset Formula $f_{d}$
 \end_inset
@@ -1349,6 +1353,22 @@ h_{\delta}(s)=\begin{cases}
 \end_inset
 
  את הזמן הגלובלי של כל שחקן.
+\begin_inset Newline newline
+\end_inset
+
+יהי תור 
+\begin_inset Formula $t$
+\end_inset
+
+ קלט לאלגוריתם.
+\end_layout
+
+\begin_layout Enumerate
+חשב חסם עליון למספר התורות 
+\begin_inset Formula $n_{turns}\leftarrow\bigg\lceil\frac{number\_of\_available\_slots}{2}\bigg\rceil$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Enumerate
@@ -1383,12 +1403,12 @@ h_{\delta}(s)=\begin{cases}
 
 \end_deeper
 \begin_layout Enumerate
-נסמן את משוואת הישר 
+חשב את משוואת הישר 
 \begin_inset Formula $AB$
 \end_inset
 
  כ-
-\begin_inset Formula $y=m\cdot x+n$
+\begin_inset Formula $y=m_{1}\cdot x+n_{1}$
 \end_inset
 
  ואת משוואת הישר 
@@ -1403,51 +1423,67 @@ h_{\delta}(s)=\begin{cases}
 \end_layout
 
 \begin_layout Enumerate
-לכל תור 
-\begin_inset Formula $t$
-\end_inset
-
- כך ש-
+אם 
 \begin_inset Formula $t\in[1,f_{d}]$
 \end_inset
 
- אם 
+:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+אם 
 \begin_inset Formula $n_{turns}<3f_{d}$
 \end_inset
 
  בצע 
-\begin_inset Formula $time\_frame\leftarrow m\cdot t+n$
-\end_inset
-
-, אחרת בצע את 
-\begin_inset Formula $time\_frame\leftarrow-m\cdot t+n$
+\begin_inset Formula $time\_frame\leftarrow m_{1}\cdot t+n_{1}$
 \end_inset
 
 .
 \end_layout
 
 \begin_layout Enumerate
-לכל תור 
-\begin_inset Formula $t$
+אחרת, בצע את 
+\begin_inset Formula $time\_frame\leftarrow-m_{1}\cdot t+n_{1}$
 \end_inset
 
- כך ש-
+.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+אם 
 \begin_inset Formula $t\in[f_{d}+1,n_{turns}]$
 \end_inset
 
-, בצע 
+:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+בצע 
 \begin_inset Formula $time\_frame\leftarrow m_{2}\cdot t+n_{2}$
 \end_inset
 
 .
 \end_layout
 
-\begin_layout Standard
-כאשר 
+\end_deeper
+\begin_layout Enumerate
+החזר את 
 \begin_inset Formula $time\_frame$
 \end_inset
 
- הוא מסגרת הזמן לכל תור.
+, כאשר 
+\begin_inset Formula $time\_frame$
+\end_inset
+
+ הוא מסגרת הזמן לתור 
+\begin_inset Formula $t$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Description
@@ -1464,44 +1500,39 @@ h_{\delta}(s)=\begin{cases}
 \begin_inset Newline newline
 \end_inset
 
+ 
+\begin_inset Formula $TODO$
+\end_inset
+
+: צריך להוסיף משהו ששכחנו לענות עליו: 
+\begin_inset Quotes eld
+\end_inset
+
+באיזה מקרים שילוב של פתרון זה יוכל להועיל לסוכן שלכם?
+\begin_inset Quotes erd
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
 שתי דוגמאות בהן הפתרון יכול להועיל לסוכן שלנו הן:
 \begin_inset Newline newline
 \end_inset
 
-*פה יהיה שרטוט
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
- 
-\family default
-\series default
-\shape default
-\size default
-\emph default
-\numeric on
-\bar default
-\strikeout default
-\xout default
-\uuline default
-\uwave default
-\noun default
-\color inherit
-1
-\numeric off
+
+\begin_inset Graphics
+	filename ex11a.png
+	lyxscale 50
+	scale 50
+
+\end_inset
+
  
 \begin_inset Newline newline
 \end_inset
 
-נתאר מצב שקרה לנו באחת הסימולציות עם סוכן ה-
+הלוח לעיל מתאר מצב אמיתי שקרה לנו באחת הסימולציות עם סוכן ה-
 \begin_inset Formula $globalAlphabeta$
 \end_inset
 
@@ -1511,7 +1542,7 @@ h_{\delta}(s)=\begin{cases}
 
 כפי שניתן לראות בשרטוט, לסוכן הכחול קיימות שתי אפשרויות, ללכת ימינה או שמאלה.
  ניתן לראות כי אם הסוכן יילך שמאלה הוא יפסיד, מכיוון שיש לו פחות שטח תזוזה
- ולכן ייתקע לפני האדום.
+ ולכן ייתקע לפני האדום )נציין כי אף סוכן לא הספיק לאכול פרי(.
  אך, במהלך הפיתוח הוא לא מצליח לראות את ההפסד )כי לא מפתח לעומק מספיק גדול,
  ולכן ההפסד נמצא מעבר לאופק החיפוש( ולכן מבחינתו שני הצעדים הללו שקולים
  יוריסטית.
@@ -1519,43 +1550,27 @@ h_{\delta}(s)=\begin{cases}
 \begin_inset Newline newline
 \end_inset
 
-*פה יהיה שרטוט
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
- 
-\family default
-\series default
-\shape default
-\size default
-\emph default
-\numeric on
-\bar default
-\strikeout default
-\xout default
-\uuline default
-\uwave default
-\noun default
-\color inherit
-2
-\numeric off
+
+\begin_inset Graphics
+	filename ex11b.png
+	lyxscale 50
+	scale 50
+
+\end_inset
+
  
 \begin_inset Newline newline
 \end_inset
 
 כפי שניתן לראות בשרטוט, הסוכן האדום ירצה ללכת לכיוון הפרי כדי לצבור נקודות
  אך במהלך הפיתוח הוא לא מצליח לראות שאם ילך בדרך זו הסוכן הכחול יוכל לחסום
- אותו בקלות ולהשאיר אותו עם פחות שטח בלוח, מה שיוביל להפסד של הסוכן האדום
- במשחק.
+ אותו בקלות ולהשאיר אותו עם פחות שטח בלוח.
+ ראוי לציין כי אף סוכן לא הספיק לאכול פרי )מלבד הבננה שיאכל האדום(, וניקוד
+ הבננה קטן מה-
+\begin_inset Formula $penalty$
+\end_inset
+
+, לכן ההחלטה של הסוכן האדום תגרום לו להפסיד במשחק.
 \end_layout
 
 \begin_layout Description
@@ -1741,7 +1756,7 @@ E_{i}+(1-\ensuremath{\sum_{j=i+1}^{n}p_{j}})\cdot(-5)\ge\beta
 \begin_inset Formula $\frac{M}{B}$
 \end_inset
 
-.
+ )נתון כי שאר הפעולות זניחות(.
 \begin_inset Newline newline
 \end_inset
 
@@ -1753,7 +1768,7 @@ E_{i}+(1-\ensuremath{\sum_{j=i+1}^{n}p_{j}})\cdot(-5)\ge\beta
 \begin_inset Formula $B^{D+1}$
 \end_inset
 
- קריאות לפונקציה היוריסטית והזמן שנצטרך לשם כך הוא:
+ קריאות לפונקציה היוריסטית, והזמן שנצטרך לשם כך הוא:
 \begin_inset Formula 
 \[
 B^{D+1}=B\cdot B^{D}=B\cdot\frac{M}{B}=M
@@ -1765,17 +1780,60 @@ B^{D+1}=B\cdot B^{D}=B\cdot\frac{M}{B}=M
 \begin_inset Formula $B$
 \end_inset
 
- המהלכים הראשונים, ינוצלו כדי לחפש לעומק 
-\begin_inset Formula $D+1$
-\end_inset
-
- עבור המהלך הראשון, ולא יישאר זמן כלל עבור הפיתוח של 
+ המהלכים שלו, ינוצלו על חישוב המהלך הראשון, ולא יישאר זמן כלל עבור הפיתוח
+ של 
 \begin_inset Formula $B-1$
 \end_inset
 
- המהלכים בהמשך.
- לכן בהמשך יצטרך לבחור שרירותית בכל תור צעד חוקי כלשהו.
+ המהלכים הבאים.
+ לכן בהמשך יצטרך בכל מהלך לבחור שרירותית צעד חוקי כלשהו.
  
+\begin_inset Newline newline
+\end_inset
+
+ב.
+ 
+\end_layout
+
+\begin_layout Enumerate
+מכיוון שפיתחנו לעומק 
+\begin_inset Formula $D+1$
+\end_inset
+
+ נקבל כי יש סך הכל 
+\begin_inset Formula $D+1$
+\end_inset
+
+ קשתות באסטרטגיה.
+ השחקן מתחיל ולכן עליו לשמור 
+\begin_inset Formula $\bigg\lceil\frac{D+1}{2}\bigg\rceil$
+\end_inset
+
+ קשתות עבורו, ו- 
+\begin_inset Formula $\bigg\lfloor\frac{D+1}{2}\bigg\rfloor$
+\end_inset
+
+ עברו היריב.
+\end_layout
+
+\begin_layout Enumerate
+בסעיף א' הוא השקיע את כל זמנו בחישוב המהלך הראשון, ולכן ב-
+\begin_inset Formula $B-1$
+\end_inset
+
+ המהלכים הבאים היה עליו לבחור שרירותית צעד חוקי כלשהי.
+ במקרה ב' השחקן שומר את האסטרטגיה שחישב במהלך הראשון, ולכן יוכל בכל מהלך
+ לאחר מכן יוכל לבחור את הצעד ששמורה באסטרטגיה, וכך להבטיח לעצמו שלאחר 
+\begin_inset Formula $B$
+\end_inset
+
+ מהלכים יגיע לפחות לערך ה-
+\begin_inset Formula $minimax$
+\end_inset
+
+ שחישב במהלך הראשון )לפי משפט ההבטחה של מינימקס(.
+ כלומר, במקום להיות חסר ידע לחלוטין ולבחור שרירותית הוא הולך לפי אסטרטגיה
+ שמבטיחה לו תוצאה מסויימת.
 \end_layout
 
 \begin_layout Description
@@ -2085,67 +2143,16 @@ h(s)=0.4\cdot h_{\delta}(s)+0.3\cdot h_{E}(s)+0.2\cdot h_{I}(s)+0.1\cdot h_{S}(s
 \end_layout
 
 \begin_layout Standard
-*פה יהיה גרף
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
- 
-\family default
-\series default
-\shape default
-\size default
-\emph default
-\numeric on
-\bar default
-\strikeout default
-\xout default
-\uuline default
-\uwave default
-\noun default
-\color inherit
-1
-\numeric off
 
-\begin_inset Newline newline
+\numeric on
+\begin_inset Graphics
+	filename ex19.png
+	lyxscale 75
+	scale 75
+
 \end_inset
 
-*פה יהיה גרף
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
- 
-\family default
-\series default
-\shape default
-\size default
-\emph default
-\numeric on
-\bar default
-\strikeout default
-\xout default
-\uuline default
-\uwave default
-\noun default
-\color inherit
-2
+
 \numeric off
 
 \begin_inset Newline newline
@@ -2179,8 +2186,33 @@ h(s)=0.4\cdot h_{\delta}(s)+0.3\cdot h_{E}(s)+0.2\cdot h_{I}(s)+0.1\cdot h_{S}(s
 \noun default
 \color inherit
 1
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
 \numeric off
-.
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+)כחול(.
  ניתן לראות שסוכן ה-
 \begin_inset Formula $HeavyAB$
 \end_inset
@@ -2296,8 +2328,33 @@ h(s)=0.4\cdot h_{\delta}(s)+0.3\cdot h_{E}(s)+0.2\cdot h_{I}(s)+0.1\cdot h_{S}(s
 \noun default
 \color inherit
 2
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
 \numeric off
-.
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+)כתום(.
  ניתן לראות שסוכן ה-
 \begin_inset Formula $HeavyAB$
 \end_inset
