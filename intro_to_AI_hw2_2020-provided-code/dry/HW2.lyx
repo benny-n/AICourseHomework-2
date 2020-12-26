@@ -398,6 +398,11 @@
  זו אכל פרי.
 \end_layout
 
+\begin_layout Itemize
+מרחק מנהטן לא מתאר את המרחק האמיתי לפרי.
+ ייתכן כי הפרי בכלל לא נגיש מהנקודה בה אנו נמצאים.
+\end_layout
+
 \begin_layout Description
 
 \series bold
@@ -962,7 +967,8 @@ h_{\delta}(s)=\begin{cases}
 \begin_inset Formula $SimplePlayer$
 \end_inset
 
- .
+, ובנוסף מרכיבים נוספים שמשפיעים על מהלך המשחק ולכן אמורים לעודד את הסוכן
+ לשחק טוב יותר.
 \end_layout
 
 \begin_layout Description
@@ -985,19 +991,46 @@ h_{\delta}(s)=\begin{cases}
 \end_inset
 
 א.
- החסרון המשמעותי ביותר הוא שהנחה זו לא משקפת את המציאות בצורה נאמנה שכן
+ החסרון המשמעותי ביותר הוא שהנחה זו לא משקפת את המציאות בצורה נאמנה, שכן
  השחקנים האחרים משחקים גם נגד עצמם וככל הנראה לא יקחו כל פעם את הצעד הגרוע
  ביותר עבורנו.
+ לכן נקבל כי התוצאה שבה אנו משחקים היא שמרנית מידיי.
 \begin_inset Newline newline
 \end_inset
 
-חסרון נוסף הוא שעץ המינימקס יהיה גדול בהרבה עם יותר משני שחקנים ולכן נקבל
- פחות מידע על המשחק בזמן נתון כלשהו.
- 
-\begin_inset Formula $TODO$
+חסרון נוסף הוא שעץ ה-
+\begin_inset Formula $minimax$
 \end_inset
 
- : לשנות ניסוח
+ ייגדל כתלות במספר השחקנים ולכן בזמן נתון נקבל פחות מידע.
+ כלומר, אם במשחק של שני שחקנים, היינו מפתחים לעומק 
+\begin_inset Formula $2d$
+\end_inset
+
+ היינו מקבלים שפיתחנו 
+\begin_inset Formula $d$
+\end_inset
+
+ מהלכים שלנו ו-
+\begin_inset Formula $d$
+\end_inset
+
+ מהלכים של היריב.
+ במשחק של 
+\begin_inset Formula $n$
+\end_inset
+
+ שחקנים, נצטרך לפתח לעומק 
+\begin_inset Formula $nd$
+\end_inset
+
+ כדי שנפתח לכל שחקן 
+\begin_inset Formula $d$
+\end_inset
+
+ מהלכים קדימה.
+ לכן, בהגבלת זמן מסויימת, נפתח פחות מהלכים קדימה לכל שחקן, מה שיפגע ברמת
+ הדיוק שלנו בבחירת המהלך הטוב ביותר עבורנו.
 \begin_inset Newline newline
 \end_inset
 
@@ -1032,7 +1065,11 @@ h_{\delta}(s)=\begin{cases}
 \end_inset
 
 .
- כעת, נפעפע את המערך מעלה בעץ המינימקס כאשר בכל צומת אם תורו של השחקן ה-
+ כעת, נפעפע את המערך מעלה בעץ ה-
+\begin_inset Formula $minimax$
+\end_inset
+
+ ובכל צומת, אם תורו של השחקן ה-
 \begin_inset Formula $i$
 \end_inset
 
@@ -1041,7 +1078,11 @@ h_{\delta}(s)=\begin{cases}
 \end_inset
 
 .
- 
+ אנו בעצם מניחים כי כל אחד מהשחקנים משחק על פי אסטרטגיית ה-
+\begin_inset Formula $minimax$
+\end_inset
+
+ ומנסה למקסם את התוצאה שלו לפי הפונקציה היוריסטית.
 \begin_inset Newline newline
 \end_inset
 
@@ -1151,41 +1192,22 @@ h_{\delta}(s)=\begin{cases}
 \begin_inset Formula $Minimax$
 \end_inset
 
- לא משפיע בשום צורה על נכונות האלגוריתם ולכן משפט ההבטחה של ה-
-\begin_inset Formula $Minimax$
-\end_inset
-
- מתקיים גם עבור 
-\begin_inset Formula $Alphabeta$
+ לא משפיע בשום צורה על נכונות האלגוריתם ומשפט ההבטחה של 
+\begin_inset Formula $minimax$
 \end_inset
 
 .
- מכאן שעבור כל עץ 
-\begin_inset Formula $Minimax$
-\end_inset
-
- בו יוחזר ערך 
-\begin_inset Formula $x$
-\end_inset
-
- גם לעץ 
+ הרעיון ב-
 \begin_inset Formula $Alphabeta$
 \end_inset
 
- יוחזר ערך 
-\begin_inset Formula $x$
+ הוא למנוע חישובים מיותרים )שבין כה וכה לא יילקחו בחשבון בבחירת הצעד הטוב
+ ביותר(.
+ לכן בהנחה ושני הסוכנים מפתחים לאותו עומק בהכרח יוחזר אותו ערך 
+\begin_inset Formula $minimax$
 \end_inset
 
 .
- 
-\begin_inset space ~
-\end_inset
-
- 
-\begin_inset Formula $TODO$
-\end_inset
-
- : אולי לשנות ניסוח?
 \end_layout
 
 \begin_layout Description
@@ -1234,8 +1256,8 @@ h_{\delta}(s)=\begin{cases}
 \begin_inset Newline newline
 \end_inset
 
-אם שני הסוכנים מפתחים את עצי החיפוש שלהם לעומק זהה אז הם יבחרו בדיוק את
- אותו מהלך בסיבה דומה להסבר בסעיף
+אם שני הסוכנים מפתחים את עצי החיפוש שלהם לעומק זהה, הם יבחרו בדיוק את אותו
+ מהלך מסיבה דומה להסבר בסעיף
 \family roman
 \series medium
 \shape up
@@ -1303,29 +1325,72 @@ h_{\delta}(s)=\begin{cases}
 
 \begin_layout Standard
 הבעיה בהעמקה ההדרגתית המוצעת נובעת מהאיטרציה האחרונה.
- במקרה הממוצע האלגוריתם יופסק באמצע האיטרציה האחרונה, ואנו נחזיר את הפתרון
- של איטרציה אחת קודם לכן.
- מכיוון שעץ החיפוש גדל באופן אקספוננציאלי רוב משאבי החיפוש מושקעים בפיתוח
- העץ באיטרציה האחרונה.
- אנו מחזירים את התוצאה של איטרציה אחת לפניכן ולכן הזמן שהושקע באיטרציה האחרונה
- בוזבז לשווא.
+ לרוב האלגוריתם יופסק באמצע האיטרציה האחרונה, ואנו נחזיר את הפתרון של איטרציה
+ אחת קודם לכן.
+ מכיוון שעץ החיפוש גדל באופן אקספוננציאלי, באיטרציה האחרונה אנו מפתחים כמו
+ צמתים יותר גדולה ממה שפיתחנו בכל האיטרציות קודם לכן יחד.
+ כלומר, רוב משאבי החיפוש מושקעים בפיתוח העץ באיטרציה האחרונה.
+ אנו מחזירים את התוצאה של איטרציה אחת קודם לכן, ולכן הזמן שהושקע באיטרציה
+ האחרונה בוזבז לשווא.
  כלומר, קיבלנו כי רוב משאבי החיפוש של האלגוריתם מבוזבזים.
 \begin_inset Newline newline
 \end_inset
 
 הפתרון המוצע בהרצאה הוא לשמור בכל איטרציה את ערך המינימקס של כל אחד מהבנים
  ברמה העליונה.
- כאשר נגיע לאיטרציה האחרונה )בהנחה כי הופסקה באמצע(, במקום לאבד את כל המידע
- שגילינו עד כה, נפעפע את ערכי המינימקס של הצמתים החדשים שגילינו יחד עם הצמתים
- ששמרנו מהאיטרציה הקודמת.
- למעשה, עבור צמתים מסויימים הערך ייקבע מהעומק של האיטרציה האחרונה ועבור
- הצמתים האחרים הערך ייקבע מהעומק של איטרציה אחת לפניכן.
- כך אנו משתמשים במידע שגילינו באיטרציה האחרונה והזמן לא בוזבז לשווא.
- 
-\begin_inset Formula $TODO$
+ נניח כי כעת אנו באיטרציה האחרונה ומפתחים לעומק 
+\begin_inset Formula $d+1$
 \end_inset
 
- : אולי לשנות ניסוח
+.
+ איטרציה זו הפסקה באמצע והספקנו לחשב את ערך ה-
+\begin_inset Formula $minimax$
+\end_inset
+
+ רק עבור 
+\begin_inset Formula $k$
+\end_inset
+
+ צמתים.
+ 
+\begin_inset Newline newline
+\end_inset
+
+כעת נסתכל על שאר הצמתים בעומק 
+\begin_inset Formula $d+1$
+\end_inset
+
+ שאותם לא הספקנו לפתח.
+ צמתים אלה הם בנים של צמתים בעומק 
+\begin_inset Formula $d$
+\end_inset
+
+ שעבורם שמור לנו ערך ה-
+\begin_inset Formula $minimax$
+\end_inset
+
+ מהאיטרציה הקודמת.
+ 
+\begin_inset Newline newline
+\end_inset
+
+לכן, במקום לאבד את כל המידע שגילינו עד כה, נפעפע את ערכי המינימקס של 
+\begin_inset Formula $k$
+\end_inset
+
+ הצמתים החדשים שגילינו, יחד עם הצמתים ששמרנו מהאיטרציה הקודמת )האבות של
+ הצמתים שלא הספקנו לפתח(.
+ כך למעשה, עבור צמתים מסויימים הערך ייקבע מהעומק של האיטרציה האחרונה ועבור
+ הצמתים האחרים הערך ייקבע מהעומק של איטרציה אחת לפניכן.
+ נבחר בצעד שמביא למקסימום, בדומה לאלגוריתם ה-
+\begin_inset Formula $minimax$
+\end_inset
+
+ הרגיל.
+\begin_inset Newline newline
+\end_inset
+
+כך אנו משתמשים במידע שגילינו באיטרציה האחרונה והזמן לא בוזבז לשווא.
 \end_layout
 
 \begin_layout Description
@@ -1495,108 +1560,47 @@ h_{\delta}(s)=\begin{cases}
 \end_layout
 
 \begin_layout Standard
-אפקט האופק היא תופעה בה אלגוריתם מוגבל משאבים בוחר צעדים חסרי משמעות כדי
- לדחות תוצאה לא רצויה אך בלתי נמנעת מעבר לאופק החיפוש.
+אפקט האופק היא תופעה בה אלגוריתם מוגבל משאבים בוחר צעדים לא טובים כדי לדחות
+ תוצאה לא רצויה, אך בלתי נמנעת שנמצאת מעבר לאופק החיפוש.
 \begin_inset Newline newline
 \end_inset
 
-
-\backslash
-
-\backslash
-
-\backslash
-
-\backslash
-
-\backslash
-
-\backslash
-
-\backslash
-
-\backslash
-
-\backslash
-
-\backslash
-
-\backslash
-
-\backslash
-
-\backslash
-
-\backslash
-
-\backslash
-
-\backslash
-
-\backslash
-
-\backslash
-
-\backslash
-
-\backslash
-
-\backslash
-
-\backslash
-
-\backslash
-
-\backslash
-
-\backslash
-
-\backslash
-
-\backslash
-
-\backslash
-
-\backslash
-
-\backslash
-
-\backslash
-
-\backslash
-
-\backslash
-
-\backslash
-
-\backslash
-
-\backslash
-
-\backslash
-
-\backslash
-
-\backslash
-
-\backslash
- 
-\begin_inset Formula $TODO$
-\end_inset
-
-: צריך להוסיף משהו ששכחנו לענות עליו: 
+הפתרון המוצע בהרצאה לבעיה זו הוא העמקה סלקטיבית.
+ בקריטריונים מסויימים, התלויים במשחק עצמו, נמשיך לפתח גם מעבר לעומק שהקצינו.
+ קריטריונים אלו יסווגו מצבים כ-
 \begin_inset Quotes eld
 \end_inset
 
-באיזה מקרים שילוב של פתרון זה יוכל להועיל לסוכן שלכם?
+לא שקטים
 \begin_inset Quotes erd
 \end_inset
 
+, למשל: תנודות בערך היוריסטי.
+ במקרים אלו נמשיך לפתח עד ל
+\begin_inset Quotes erd
+\end_inset
 
+רגיעה
+\begin_inset Quotes erd
+\end_inset
+
+ של הקריטריונים שהוגדרו.
+ 
 \begin_inset Newline newline
 \end_inset
 
-שתי דוגמאות בהן הפתרון יכול להועיל לסוכן שלנו הן:
+עץ הפיתוח בהעמקה סלקטיבית ייראה לא אחיד, הוא יהיה עץ מלא עם תתי עצים נוספים
+ לחלק מהעלים.
+\begin_inset Newline newline
+\end_inset
+
+דוגמא לדרך בה נוכל להשתמש בשיטה הזאת כדי להועיל לסוכן שלנו היא להגדיר שכל
+ עוד הסוכן ממשיך לקחת פירות, ויש שינוי בערכי הניקוד של השחקנים, ממשיכים
+ לפתח.
+\begin_inset Newline newline
+\end_inset
+
+שתי דוגמאות בהן הפתרון שהצענו יכול להועיל לסוכן שלנו הן:
 \begin_inset Newline newline
 \end_inset
 
@@ -1620,13 +1624,234 @@ h_{\delta}(s)=\begin{cases}
 \begin_inset Newline newline
 \end_inset
 
-כפי שניתן לראות בשרטוט, לסוכן הכחול קיימות שתי אפשרויות, ללכת ימינה או שמאלה.
- ניתן לראות כי אם הסוכן יילך שמאלה הוא יפסיד, מכיוון שיש לו פחות שטח תזוזה
- ולכן ייתקע לפני האדום )נציין כי אף סוכן לא הספיק לאכול פרי(.
- אך, במהלך הפיתוח הוא לא מצליח לראות את ההפסד )כי לא מפתח לעומק מספיק גדול,
- ולכן ההפסד נמצא מעבר לאופק החיפוש( ולכן מבחינתו שני הצעדים הללו שקולים
- יוריסטית.
- לכן, הוא ייבחר שרירותית ללכת שמאלה בלי לדעת שבכך חרץ את גורלו.
+////////////////////////////////////////////שיניתי את הטקסט להתאים לשרטוט
+ שתוסיף///////////////////
+\begin_inset Newline newline
+\end_inset
+
+נניח כי הערך של כל פרי בלוח הוא
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\numeric on
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+50
+\numeric off
+, הקנס שניתן לשחקן שלא יכול לזוז הוא
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\numeric on
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+300
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\numeric off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+, 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ומצב ניקוד השחקנים הוא
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\numeric on
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+0
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\numeric off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+לכל אחד.
+\begin_inset Newline newline
+\end_inset
+
+כמו כן כל שחקן מפתח עד לעומק
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\numeric on
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+4
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\numeric off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+את העץ )שני מהלכים קדימה לכל שחקן(.
+\begin_inset Newline newline
+\end_inset
+
+כפי שניתן לראות בשרטוט, לסוכן האדום קיימות שתי אפשרויות, ללכת ימינה או שמאלה.
+ ניתן לראות כי אם הסוכן יילך ימינה הוא יפסיד, מכיוון שגם אם ייקח את שני
+ הפירות, עדיין בשקלול עם הקנס הוא יגיע ל-
+\begin_inset Formula $-200$
+\end_inset
+
+ נקודות.
+ אך במהלך הפיתוח הוא לא מצליח לראות את ההפסד )כי לא מפתח לעומק מספיק גדול,
+ ולכן ההפסד נמצא מעבר לאופק החיפוש(, והוא יעדיף ללכת ימינה כדי לקחת את הפרי
+ הראשון, שאותו הוא כן רואה בעומק החיפוש, ולצבור ניקוד.
+\begin_inset Newline newline
+\end_inset
+
+אם היינו משתמשים בפתרון שהצענו לעיל, היינו ממשיכים לפתח כי אנו ממשיכים לקחת
+ פירות גם בצעד הבא, ולכן המצב 
+\begin_inset Quotes eld
+\end_inset
+
+אינו שקט
+\begin_inset Quotes erd
+\end_inset
+
+ על פי מה שהגדרנו, וכך היינו מגלים את ההפסד שעתיד לבוא תור אחד לאחר מכן
+ ולא בוחרים בצעד ימינה.
 \begin_inset Newline newline
 \end_inset
 
@@ -1659,6 +1884,10 @@ h_{\delta}(s)=\begin{cases}
 12
 \numeric off
 .
+\end_layout
+
+\begin_layout Standard
+ניתן לשפר את יעילות ההרצה החוזרת באמצעות שינויים פשוטים באלגוריתם
 \end_layout
 
 \begin_layout Description
