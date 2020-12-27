@@ -5,7 +5,6 @@ from dataclasses import dataclass
 from utils import ALPHA_VALUE_INIT, BETA_VALUE_INIT, get_directions
 from time import time
 import numpy as np
-import players.MinimaxPlayer as minimax #TODO: REMOVE THIS!@!!!!!!!
 #TODO: you can import more modules, if needed
 
 class SearchAlgos:
@@ -37,7 +36,7 @@ class State:
     penalty: int
     direction: tuple
     lifetime: int
-    initial_pos: tuple
+    initial_pos: tuple = None
 
 
 def is_goal(state):
@@ -73,12 +72,9 @@ class MiniMax(SearchAlgos):
         :param maximizing_player: Whether this is a max node (True) or a min node (False).
         :return: A tuple: (The min max algorithm value, The direction in case of max node or None in min mode)
         """
-        #minimax.counter += 1
 
         if time() - self.start_time > self.time_limit - 0.01:
             raise Interrupted
-
-        #children = self.succ(state)
 
         if self.is_goal(state):
             return self.utility(state), state.direction
@@ -113,7 +109,6 @@ class AlphaBeta(SearchAlgos):
         self.start_time = start_time
         self.time_limit = time_limit
         self.heuristic = heuristic
-        #print("creating alphabeta instance")
 
     def search(self, state, depth, maximizing_player, alpha=ALPHA_VALUE_INIT, beta=BETA_VALUE_INIT):
         """Start the AlphaBeta algorithm.
@@ -124,12 +119,9 @@ class AlphaBeta(SearchAlgos):
         :param: beta: beta value
         :return: A tuple: (The min max algorithm value, The direction in case of max node or None in min mode)
         """
-        # minimax.counter += 1
 
         if time() - self.start_time > self.time_limit - 0.01:
             raise Interrupted
-
-        #children = self.succ(state)
 
         if self.is_goal(state):
             return self.utility(state), state.direction

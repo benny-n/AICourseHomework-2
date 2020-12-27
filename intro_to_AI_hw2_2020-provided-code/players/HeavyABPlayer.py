@@ -55,7 +55,6 @@ class Player(AbstractPlayer):
         depth = 2
         value, direction = heavy_player.search(curr_state, depth, 1)
 
-        # print("minimax value: " + str(value))
         print("depth: " + str(depth))
         i = self.pos[0] + direction[0]
         j = self.pos[1] + direction[1]
@@ -63,7 +62,6 @@ class Player(AbstractPlayer):
         self.board[self.pos] = 1
 
         self.lifetime += 1
-        # print("number of nodes:" + str(counter))
         return direction
 
     def set_rival_move(self, pos):
@@ -120,7 +118,6 @@ def minimax_heuristic(state):
     return delta_score + distance_from_enemy + distance_from_initial_pos + available_steps
 
 def heuristic_score_delta(state):
-    # print("player score:" + str(state.players_score))
     delta_score = abs(state.players_score[0] - state.players_score[1])
     if delta_score == 0:
         return 0.5  # exactly 0.5, Tie
@@ -179,7 +176,6 @@ def minimax_succ(state):
 
             old_board_value = board[new_pos]
             board[new_pos] = (state.curr_player + 1)
-            # lifetime = state.lifetime if state.curr_player == 0 else state.lifetime + 1
             yield SearchAlgos.State(board.copy(), tuple(players_score), tuple(player_positions),
                                     1 - state.curr_player,
                                     state.penalty, d, state.lifetime + 1, state.initial_pos)

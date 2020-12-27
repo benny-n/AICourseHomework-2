@@ -2,7 +2,6 @@
 MiniMax Player with AlphaBeta pruning and global time
 """
 from time import time
-
 from players.AbstractPlayer import AbstractPlayer
 import numpy as np
 #TODO: you can import more modules, if needed
@@ -52,7 +51,6 @@ class Player(AbstractPlayer):
             if player_index == 1:
                 return self.pos
             pos = np.where(self.board == player_index)
-            # convert pos to tuple of ints
             return tuple(ax[0] for ax in pos)
 
         start_time = time()
@@ -62,7 +60,7 @@ class Player(AbstractPlayer):
         curr_state = SearchAlgos.State(self.board.copy(), tuple(players_score), player_positions, 0, self.penalty_score,
                                        (0, 0), self.lifetime)
 
-        time_limit = self.calculate_turn_time_limit(self.lifetime)
+        time_limit = self.calculate_turn_time_limit(int(self.lifetime / 2) + self.lifetime % 2)
         global_alphabeta = SearchAlgos.AlphaBeta(minimax_utility, minimax_succ, None, start_time, time_limit, minimax_heuristic)
         print(time_limit)
         depth = 1
@@ -71,20 +69,16 @@ class Player(AbstractPlayer):
         while not global_alphabeta.developed_whole_tree:
             try:
                 global_alphabeta.developed_whole_tree = True
-                # curr_value, curr_direction = minimax.search(curr_state, depth, 1)
                 value, direction = global_alphabeta.search(curr_state, depth, 1)
                 depth += 1
             except SearchAlgos.Interrupted:
                 break
-        # print("minimax value: " + str(value))
-        print("depth: " + str(depth))
         i = self.pos[0] + direction[0]
         j = self.pos[1] + direction[1]
         self.pos = (i, j)
         self.board[self.pos] = 1
 
         self.lifetime += 1
-        # print("number of nodes:" + str(counter))
         return direction
 
 
@@ -116,13 +110,12 @@ class Player(AbstractPlayer):
     def calculate_coordinates_for_turns_function(self):
         allocated_time_after_fruits_disappear = 0.5 * self.game_time
         allocated_time_before_fruits_disappear = 0.5 * self.game_time
-        max_turns_possible = (len(np.where(self.board != -1)[0]) - 2) / 2  # 78
+        max_turns_possible = (len(np.where(self.board != -1)[0]) - 2) / 2
         self.C = (max_turns_possible, 0)
         max_turn_time = 2 * allocated_time_after_fruits_disappear / (max_turns_possible - self.fruit_disappear_turn)
         self.B = (self.fruit_disappear_turn, max_turn_time)
         initial_turn_time = (2 * allocated_time_before_fruits_disappear / self.fruit_disappear_turn) - max_turn_time
         self.A = (0, initial_turn_time)
-        #print(self.A, self.B, self.C)
 
     def calculate_turn_time_limit(self, turn):
         if turn <= self.fruit_disappear_turn:
@@ -228,7 +221,6 @@ def minimax_succ(state):
 
             old_board_value = board[new_pos]
             board[new_pos] = (state.curr_player + 1)
-            # lifetime = state.lifetime if state.curr_player == 0 else state.lifetime + 1
             yield SearchAlgos.State(board.copy(), tuple(players_score), tuple(player_positions), 1 - state.curr_player,
                                   state.penalty, d, state.lifetime + 1)
 

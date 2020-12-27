@@ -57,7 +57,6 @@ class Player(AbstractPlayer):
         depth = 4
         value, direction = heavy_player.search(curr_state, depth, 1)
 
-        # print("minimax value: " + str(value))
         print("depth: " + str(depth))
         i = self.pos[0] + direction[0]
         j = self.pos[1] + direction[1]
@@ -65,7 +64,6 @@ class Player(AbstractPlayer):
         self.board[self.pos] = 1
 
         self.lifetime += 1
-        # print("number of nodes:" + str(counter))
         return direction
 
     def set_rival_move(self, pos):
@@ -167,7 +165,6 @@ def minimax_succ(state):
 
             old_board_value = board[new_pos]
             board[new_pos] = (state.curr_player + 1)
-            # lifetime = state.lifetime if state.curr_player == 0 else state.lifetime + 1
             yield SearchAlgos.State(board.copy(), tuple(players_score), tuple(player_positions),
                                     1 - state.curr_player,
                                     state.penalty, d, state.lifetime + 1, state.initial_pos)
