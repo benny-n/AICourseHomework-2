@@ -62,7 +62,7 @@ class Player(AbstractPlayer):
 
         time_limit = self.calculate_turn_time_limit(int(self.lifetime / 2) + self.lifetime % 2)
         global_alphabeta = SearchAlgos.AlphaBeta(minimax_utility, minimax_succ, None, start_time, time_limit, minimax_heuristic)
-        print(time_limit)
+
         depth = 1
         value, direction = global_alphabeta.search(curr_state, depth, 1)
 

@@ -59,17 +59,16 @@ class Player(AbstractPlayer):
         player_positions = (find_player_positions(1), find_player_positions(2))
         self.board[self.pos] = -1
 
-        play_simple_player = not is_enemy_reachable(self.board, self.pos) and self.lifetime >= 2 * min(len(self.board[0]), len(self.board))
-        print("is playing simple:", play_simple_player)
+        if not play_simple_player:
+            play_simple_player = not is_enemy_reachable(self.board, self.pos) and self.lifetime >= 2 * min(len(self.board[0]), len(self.board))
+
         curr_state = SearchAlgos.State(self.board.copy(), tuple(players_score), player_positions, 0, self.penalty_score,
                                        (0, 0), self.lifetime)
 
-        #print("lifetime:", self.lifetime)
-        #print("real lifetime:", int(self.lifetime / 2) + self.lifetime % 2)
         time_limit = self.calculate_turn_time_limit(int(self.lifetime / 2) - 1 + self.lifetime % 2)
         global_alphabeta = SearchAlgos.AlphaBeta(minimax_utility, minimax_succ, None, start_time, time_limit,
                                                  minimax_heuristic)
-        print(time_limit)
+
         depth = 1
         value, direction = global_alphabeta.search(curr_state, depth, 1)
 
