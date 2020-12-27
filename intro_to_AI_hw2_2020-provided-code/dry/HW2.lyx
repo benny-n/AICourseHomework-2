@@ -1087,6 +1087,18 @@ h_{\delta}(s)=\begin{cases}
 \end_inset
 
 שרטוט להמחשה:
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Graphics
+	filename ex5.png
+	lyxscale 50
+	scale 50
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Description
@@ -1549,6 +1561,51 @@ h_{\delta}(s)=\begin{cases}
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Standard
+נסביר את האינטואיציה מאחורי האלגוריתם בנקודות:
+\end_layout
+
+\begin_layout Itemize
+לתורות הראשונים אנו מקצים זמן הולך ועולה בקצב לינארי, שכן לתורות ה
+\begin_inset Quotes erd
+\end_inset
+
+ממש
+\begin_inset Quotes erd
+\end_inset
+
+ ראשונים אין עדיין השפעה ניכרת על המשחק )אך ככל שמתקדמים ההשפעה גדלה( ולכן
+ אנו נותנים להם כמות זמן בינונית.
+\end_layout
+
+\begin_layout Itemize
+חצי מסך כל הזמן שלנו מוקצה לכל התורות עד שהפירות נעלמים, והחצי השני לשאר
+ התורות.
+ ההגיון לכך הוא שהתורות עד שהפירות נעלמים הם התורות הקריטיים ביותר המשחק,
+ שכן בתורות אלו יש לנו את הסיכוי הגבוה ביותר לצבור פער משמעותי בניקוד ובכך
+ לנצח את היריב.
+\end_layout
+
+\begin_layout Itemize
+הקצאת הזמן פר תור הולכת וגדלה עד שמגיעים לתור בו נעלמים הפירות )
+\begin_inset Formula $f_{d}$
+\end_inset
+
+(, לתור זה אנו מקצים את הזמן הארוך ביותר.
+ ההגיון לכך הוא שלאחר שנעלמו הפירות אופי המשחק משתנה ולכן אנו צריכים זמן
+ רב ככל הניתן על מנת לפתח את העץ לעומק הגדול ביותר ולבחור באסטרטגיה מתאימה
+ להמשך המשחק.
+\end_layout
+
+\begin_layout Itemize
+מהנקודה בה נעלמו הפירות וביצענו את המהלך הארוך ביותר, אנו מקצים לשאר התורות
+ זמן הולך ויורד בקצב לינארי.
+ הסיבה לכך היא שככל שאנו מתקדמים לסוף המשחק, כך גודל עץ החיפוש המלא הולך
+ וקטן כי מספר המצבים האפשרי הכולל הולך וקטן.
+ לכן, ככל שהמשחק קרוב לסוף כך יותר סביר שנצליח לפתח את כל העץ בזמן שהולך
+ וקטן.
 \end_layout
 
 \begin_layout Description
@@ -2035,7 +2092,19 @@ E_{i}+(1-\ensuremath{\sum_{j=i+1}^{n}p_{j}})\cdot(-5)\ge\beta
 
 \begin_layout Standard
 א.
- *כאן יהיה שרטוט.
+ 
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Graphics
+	filename ex14a.png
+	lyxscale 50
+	scale 50
+
+\end_inset
+
+
 \begin_inset Newline newline
 \end_inset
 
