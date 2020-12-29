@@ -1944,7 +1944,98 @@ h_{\delta}(s)=\begin{cases}
 \end_layout
 
 \begin_layout Standard
-ניתן לשפר את יעילות ההרצה החוזרת באמצעות שינויים פשוטים באלגוריתם
+נניח כי ערך ה-
+\begin_inset Formula $minimax$
+\end_inset
+
+ שחזר מהאלגוריתם הוא 
+\begin_inset Formula $V$
+\end_inset
+
+.
+ ונניח כי מהצומת ממנו אנו מפתחים את עץ ה-
+\begin_inset Formula $minimax$
+\end_inset
+
+ יש 
+\begin_inset Formula $B$
+\end_inset
+
+ מהלכים חוקיים )כלומר, לצומת הראשון בפיתוח יש 
+\begin_inset Formula $B$
+\end_inset
+
+ בנים(.
+\begin_inset Newline newline
+\end_inset
+
+ניתן לשפר את יעילות ההרצה החוזרת באמצעות שינויים פשוטים באלגוריתם כך: 
+\end_layout
+
+\begin_layout Enumerate
+נריץ שוב את אלגוריתם ה-
+\begin_inset Formula $\alpha-\beta$
+\end_inset
+
+ עם החסמים 
+\begin_inset Formula $\alpha=\beta=V$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+אם סיימנו לפתח את כל תת העץ של אחד מ-
+\begin_inset Formula $B$
+\end_inset
+
+ המהלכים וקיבלנו את הערך 
+\begin_inset Formula $V$
+\end_inset
+
+, נפסיק את האלגוריתם ונבצע את המהלך הזה.
+\end_layout
+
+\begin_layout Enumerate
+אם פיתחנו את כל תתי העצים של 
+\begin_inset Formula $B-1$
+\end_inset
+
+ המהלכים ולא קיבלנו באף אחד מהם את הערך 
+\begin_inset Formula $V$
+\end_inset
+
+ נבצע את הצעד האחרון )ללא חישוב של תת העץ שלו(.
+\end_layout
+
+\begin_layout Standard
+נסביר את הנכונות:
+\begin_inset Newline newline
+\end_inset
+
+מכיוון שיש בידינו את ערך ה-
+\begin_inset Formula $minimax$
+\end_inset
+
+ שאנו מצפים לקבל, בוודאות קיימת אסטרטגיה שתחזיר לנו את הערך 
+\begin_inset Formula $V$
+\end_inset
+
+ ואנו יודעים כי זה הערך הטוב ביותר שניתן לקבל.
+ לכן ניתן לתת את החסמים 
+\begin_inset Formula $\alpha=\beta=V$
+\end_inset
+
+ מפני שכל ערך יוריסטי 
+\begin_inset Formula $h>V$
+\end_inset
+
+ 
+\begin_inset Newline newline
+\end_inset
+
+כמו כן, מכיוון שקיימת אסטרטגיה כזאת, קיים המהלך הראשון באסטרטגיה.
+ לכן
 \end_layout
 
 \begin_layout Description
@@ -2212,6 +2303,101 @@ B^{D+1}=B\cdot B^{D}=B\cdot\frac{M}{B}=M
  שחישב במהלך הראשון )לפי משפט ההבטחה של מינימקס(.
  כלומר, במקום להיות חסר ידע לחלוטין ולבחור שרירותית הוא הולך לפי אסטרטגיה
  שמבטיחה לו תוצאה מסויימת.
+\end_layout
+
+\begin_layout Enumerate
+מקרה בו סוכן זה יהיה טוב יותר מסוכן 
+\begin_inset Formula $minimax$
+\end_inset
+
+ רגיל הוא כאשר החיפוש לעומק נוסף חושף אופציה שלא הייתה מתגלה בפיתוח לעומק
+ 
+\begin_inset Formula $D$
+\end_inset
+
+.
+ למשל, ייתכן כי הפיתוח לעומק 
+\begin_inset Formula $D+1$
+\end_inset
+
+ חושף אופציה לניצחון, שלא הייתה מתגלה בפיתוח לעומק 
+\begin_inset Formula $D$
+\end_inset
+
+ , במצב זה ברגע שהסוכן גילה מסלול לניצחון, בגלל משפט ההבטחה של ה-
+\begin_inset Formula $minimax$
+\end_inset
+
+, ניתן ללכת במסלול זה ובוואות לנצח.
+ לכן, אין צורך לפתח מסלולים נוספים בשאר התורות, והאסטרטגיה החדשה תוביל לניצחון.
+ אם הסוכן היה מפתח לעומק 
+\begin_inset Formula $D$
+\end_inset
+
+ בלבד )כמו סוכן 
+\begin_inset Formula $minimax$
+\end_inset
+
+ רגיל(, יכול להיות שהיה בוחר במהלך אחר שלא בהכרח מוביל לניצחון, כי ערכו
+ היוריסטי היה גבוה יותר, ומהלך זה היה מונע ממנו את הניצחון בהמשך.
+ 
+\begin_inset Newline newline
+\end_inset
+
+מקרה בו סוכן זה יהיה פחות טוב מסוכן 
+\begin_inset Formula $minimax$
+\end_inset
+
+ רגיל הוא כאשר החיפוש לעומק 
+\begin_inset Formula $D+1$
+\end_inset
+
+ מונע ממנו לגלות מצבים טובים יותר בהמשך.
+ למשל, ייתכן כי אם היה מפתח לעומק 
+\begin_inset Formula $D$
+\end_inset
+
+ בלבד )כמו סוכן 
+\begin_inset Formula $minimax$
+\end_inset
+
+ רגיל(, היה מגלה שני מהלכים לאחר מכן כי קיימת אסטרטגיה לניצחון.
+ כלומר, הפיתוח לעומק 
+\begin_inset Formula $D$
+\end_inset
+
+ השאיר בפניו את האפשרות לפתח לעומק 
+\begin_inset Formula $D$
+\end_inset
+
+ בכל מהלך נוסף מבין 
+\begin_inset Formula $B$
+\end_inset
+
+ המהלכים הבאים, ובפרט שני מהלכים לאחר מכן.
+ לכן ייתכן כי בפיתוח זה הוא גילה אסטרטגיה לניצחון בעומק 
+\begin_inset Formula $D$
+\end_inset
+
+ )כלומר עומק 
+\begin_inset Formula $D+2$
+\end_inset
+
+ ביחס לחיפוש הראשוני(.
+ אך מכיוון שפיתח לעומק 
+\begin_inset Formula $D+1$
+\end_inset
+
+ בתור הראשון מבין 
+\begin_inset Formula $B$
+\end_inset
+
+ המהלכים, לא גילה את הניצחון הנ
+\begin_inset Quotes erd
+\end_inset
+
+ל, כי עומק החיפוש לא הספיק, ולא נשאר לו זמן לפיתוחים בהמשך.
+ לכן לא גילה את הניצחון ונשאר עם האסטרטגיה פחות טובה.
 \end_layout
 
 \begin_layout Description
