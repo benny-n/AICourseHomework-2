@@ -2432,96 +2432,22 @@ B^{D+1}=B\cdot B^{D}=B\cdot\frac{M}{B}=M
 \end_inset
 
  המהלכים הבאים היה עליו לבחור שרירותית צעד חוקי כלשהי.
- במקרה ב' השחקן שומר את האסטרטגיה שחישב במהלך הראשון, כלומר את תוכנית הפעולה
- המותנית, ולכן יוכל )* אם יתאפשר( בכל מהלך לאחר מכן לבחור את הצעד ששמור
- בתוכנית בהתאם לאיך שפעל היריב, וכך להבטיח לעצמו שלאחר 
+ במקרה ב' השחקן שומר את האסטרטגיה שחישב במהלך הראשון, ולכן יוכל, םא יתאפשר,
+ בכל מהלך לאחר מכן לבחור את הצעד ששמור באסטרטגיה, וכך להבטיח לעצמו שלאחר
+ 
 \begin_inset Formula $B$
 \end_inset
 
- מהלכים יגיע לפחות לערך התוכנית המותנית כפי שחישב במהלך הראשון )לפי משפט
- ההבטחה של 
+ מהלכים יגיע לפחות לערך ה-
 \begin_inset Formula $minimax$
 \end_inset
 
-(.
+ שחישב במהלך הראשון )לפי משפט ההבטחה של מינימקס(.
  כלומר, במקום להיות חסר ידע לחלוטין ולבחור שרירותית הוא הולך לפי אסטרטגיה
  שמבטיחה לו תוצאה מסויימת.
-\begin_inset Newline newline
-\end_inset
-
-)*( נשים לב כי הוא לא בהכרח יוכל בכל צעד שלאחר מכן לא לבחור שרירותית.
- שכן, הראינו בסעיף
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
- 
-\family default
-\series default
-\shape default
-\size default
-\emph default
-\numeric on
-\bar default
-\strikeout default
-\xout default
-\uuline default
-\uwave default
-\noun default
-\color inherit
-1
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\numeric off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
- 
-\family default
-\series default
-\shape default
-\size default
-\emph default
-\bar default
-\strikeout default
-\xout default
-\uuline default
-\uwave default
-\noun default
-\color inherit
-כי מספר הקשתות ששמורות באסטרטגיה עבור השחקן הם 
-\begin_inset Formula $\bigg\lceil\frac{D+1}{2}\bigg\rceil$
-\end_inset
-
-, לכן אם 
-\begin_inset Formula $\bigg\lceil\frac{D+1}{2}\bigg\rceil<B$
-\end_inset
-
- נקבל כי לאחר 
-\begin_inset Formula $\bigg\lceil\frac{D+1}{2}\bigg\rceil$
-\end_inset
-
- מהלכים, הוא יגיע למהלך האחרון ששמור לו בתוכנית הפעולה המותנית ומכאן יצטרך
- לבחור שרירותית למשך 
-\begin_inset Formula $B-\bigg\lceil\frac{D+1}{2}\bigg\rceil$
-\end_inset
-
- המהלכים הבאים.
+ נשים לב כי הוא לא בהכרח יוכל לבחור בצעד ששמור באסטרטגיה, כי צעד זה מניח
+ שהשחקן היריב עשה את המהלך הטוב ביותר עבורו, אך לא תמיד כך המצב וייתכן כי
+ היריב ל
 \end_layout
 
 \begin_layout Enumerate
@@ -2548,6 +2474,7 @@ B^{D+1}=B\cdot B^{D}=B\cdot\frac{M}{B}=M
 \end_inset
 
 , ניתן ללכת במסלול זה ובוואות לנצח.
+ לכן, אין צורך לפתח מסלולים נוספים בשאר התורות, והאסטרטגיה החדשה תוביל לניצחון.
  אם הסוכן היה מפתח לעומק 
 \begin_inset Formula $D$
 \end_inset
@@ -2615,7 +2542,7 @@ B^{D+1}=B\cdot B^{D}=B\cdot\frac{M}{B}=M
 \end_inset
 
 ל, כי עומק החיפוש לא הספיק, ולא נשאר לו זמן לפיתוחים בהמשך.
- לכן לא גילה את הניצחון ונשאר עם האסטרטגיה הפחות טובה.
+ לכן לא גילה את הניצחון ונשאר עם האסטרטגיה פחות טובה.
 \end_layout
 
 \begin_layout Description

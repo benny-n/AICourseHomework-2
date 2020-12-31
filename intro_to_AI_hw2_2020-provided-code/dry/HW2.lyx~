@@ -1944,7 +1944,239 @@ h_{\delta}(s)=\begin{cases}
 \end_layout
 
 \begin_layout Standard
-ניתן לשפר את יעילות ההרצה החוזרת באמצעות שינויים פשוטים באלגוריתם
+נניח כי ערך ה-
+\begin_inset Formula $minimax$
+\end_inset
+
+ שחזר מהאלגוריתם הוא 
+\begin_inset Formula $V$
+\end_inset
+
+.
+ ונניח כי מהצומת ממנו אנו מפתחים את עץ ה-
+\begin_inset Formula $minimax$
+\end_inset
+
+ יש 
+\begin_inset Formula $B$
+\end_inset
+
+ מהלכים חוקיים )כלומר, 
+\begin_inset Formula $B$
+\end_inset
+
+ בנים כך שכל בן מתאר את הצעד הראשון באסטרטגיה כלשהי(.
+\begin_inset Newline newline
+\end_inset
+
+ניתן לשפר את יעילות ההרצה החוזרת באמצעות שינויים פשוטים באלגוריתם כך: 
+\end_layout
+
+\begin_layout Enumerate
+נריץ שוב את אלגוריתם ה-
+\begin_inset Formula $\alpha-\beta$
+\end_inset
+
+ עם החסמים 
+\begin_inset Formula $\alpha=\beta=V$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+אם סיימנו לפתח את תת העץ של אחד מ-
+\begin_inset Formula $B$
+\end_inset
+
+ המהלכים, וקיבלנו את הערך 
+\begin_inset Formula $V$
+\end_inset
+
+, נפסיק את האלגוריתם ונבצע את המהלך הזה.
+\end_layout
+
+\begin_layout Enumerate
+אם פיתחנו את כל תתי העצים של 
+\begin_inset Formula $B-1$
+\end_inset
+
+ המהלכים ולא קיבלנו באף אחד מהם את הערך 
+\begin_inset Formula $V$
+\end_inset
+
+, נבצע את הצעד האחרון )ללא חישוב של תת העץ שלו(.
+\end_layout
+
+\begin_layout Standard
+נסביר את הנכונות:
+\begin_inset Newline newline
+\end_inset
+
+מכיוון שיש בידינו את ערך ה-
+\begin_inset Formula $minimax$
+\end_inset
+
+ שאנו מצפים לקבל, בוודאות קיימת אסטרטגיה שתחזיר לנו את הערך 
+\begin_inset Formula $V$
+\end_inset
+
+.
+ כמו כן אנו יודעים כי זה הערך הטוב ביותר שניתן לקבל.
+ 
+\begin_inset Newline newline
+\end_inset
+
+לכן, נוכל לשלוח את האלגוריתם עם החסמים 
+\begin_inset Formula $\alpha=\beta=V$
+\end_inset
+
+ וכל ערך ששונה מ-
+\begin_inset Formula $V$
+\end_inset
+
+ )קטן מ-
+\begin_inset Formula $\alpha$
+\end_inset
+
+ או גדול מ-
+\begin_inset Formula $\beta$
+\end_inset
+
+(, נגזום אותו, כי הוא בהכרח לא ייבחר לאסטרטגיה הסופית.
+\begin_inset Newline newline
+\end_inset
+
+בנוסף, מכיוון שקיימת אסטרטגיה כזאת, קיים המהלך הראשון באסטרטגיה.
+ לכן, אם קיבלנו לאחר פיתוח של תת העץ של מהלך כלשהו 
+\begin_inset Formula $minimax_{value}=V$
+\end_inset
+
+ נוכל לבחור בצעד זה.
+ נשים לב כי זה לא בהכרח אותו הצעד שעבורו קיבלנו את הערך 
+\begin_inset Formula $V$
+\end_inset
+
+ בריצה המקורית, כי ייתכן שקיבלנו את הערך 
+\begin_inset Formula $V$
+\end_inset
+
+ ממהלך אחר, אך מכיוון שלשני המהלכים אותו ערך 
+\begin_inset Formula $minimax$
+\end_inset
+
+ הם שקולים, וניתן לבחור בצעד זה.
+\begin_inset Newline newline
+\end_inset
+
+כמו כן, אם פיתחנו 
+\begin_inset Formula $B-1$
+\end_inset
+
+ מהלכים מתוך 
+\begin_inset Formula $B$
+\end_inset
+
+ המהלכים האפשריים ובאף אחד לא חזר הערך 
+\begin_inset Formula $V$
+\end_inset
+
+, נדע כי הערך 
+\begin_inset Formula $V$
+\end_inset
+
+ בהכרח הגיע מהמהלך האחרון ולכן ניתן לבחור במהלך זה בלי לפתח את תת העץ שלו.
+\begin_inset Newline newline
+\end_inset
+
+נסביר את התהגות האלגורתם במקרים השונים:
+\end_layout
+
+\begin_layout Itemize
+במקרה הטוב ביותר האלגוריתם יקבל את הערך 
+\begin_inset Formula $V$
+\end_inset
+
+ מפיתוח תת העץ של המהלך הראשון מבין 
+\begin_inset Formula $B$
+\end_inset
+
+ המהלכים החוקיים, עם גיזום מקסימלי של הענפים.
+ נשים לב כי האלגוריתם חייב לפתח לפחות תת עץ אחד כדי לקבל ערך 
+\begin_inset Formula $minimax$
+\end_inset
+
+ כלשהו.
+ לכן המקרה הטוב ביותר הוא לפתח רק תת עץ אחד ועם גיזום מקסימלי.
+ בהנחה ומקדם הסיעוף הוא 
+\begin_inset Formula $B$
+\end_inset
+
+ והפתרון נמצא בעומק 
+\begin_inset Formula $d$
+\end_inset
+
+, האלגוריתם יפתח במקרה זה 
+\begin_inset Formula $B^{\frac{d-1}{2}}$
+\end_inset
+
+ עלים.
+ מפתחים רק תת עץ אחד, לכן העומק היחסי הוא 
+\begin_inset Formula $d-1$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+במקרה הגרוע ביותר הערך 
+\begin_inset Formula $V$
+\end_inset
+
+ מתקבל מהמהלך האחרון, ולא יהיה גיזום לכל אורך הדרך.
+ במקרה זה האלגוריתם יפתח את תת העץ של כל 
+\begin_inset Formula $B-1$
+\end_inset
+
+ המהלכים הראשונים וללא גיזום כלל.
+ נשים לב כי האלגוריתם מפתח לכל היותר 
+\begin_inset Formula $B-1$
+\end_inset
+
+ תתי עצים, ולכן לפתח את כולם ללא גיזום זה בהכרח המקרה הגרוע ביותר.
+ בהנחה ומקדם הסיעוף הוא 
+\begin_inset Formula $B$
+\end_inset
+
+ והפתרון נמצא בעומק 
+\begin_inset Formula $d$
+\end_inset
+
+, האלגוריתם יפתח במקרה זה 
+\begin_inset Formula $(B-1)B^{d-1}$
+\end_inset
+
+ עלים.
+ הסיבה לכך היא כי מפתחים 
+\begin_inset Formula $B-1$
+\end_inset
+
+ תתי עצים, שבכל אחד הפיתוח הוא לעומק יחסי של 
+\begin_inset Formula $d-1$
+\end_inset
+
+ וללא גיזום.
+\end_layout
+
+\begin_layout Itemize
+במקרה הכללי ערך ה-
+\begin_inset Formula $minimax$
+\end_inset
+
+ יתקבל באחד המהלכים המרכזיים.
+ נשים לב שהחסמים שאנו נותנים הם הדוקים, לכן ברוב המקרים נקבל גיזום ובכל
+ פיתוח של תת עץ אנו מצפים למספר מועט של פיתוחים.
+ לכן המקרה הכללי כנראה יהיה קרוב יותר למקרה האופטימלי.
 \end_layout
 
 \begin_layout Description
@@ -2014,7 +2246,7 @@ h_{\delta}(s)=\begin{cases}
 אם הצומת ההסתברותי הוא בן של צומת מקסימום נגזום כאשר מתקיים:
 \begin_inset Formula 
 \begin{align*}
-E_{i}+(1-\ensuremath{\sum_{j=i+1}^{n}p_{j}})\cdot5 & \leq\alpha
+E_{i}+\ensuremath{5\cdot\sum_{j=i+1}^{n}p_{j}} & \leq\alpha
 \end{align*}
 
 \end_inset
@@ -2022,7 +2254,7 @@ E_{i}+(1-\ensuremath{\sum_{j=i+1}^{n}p_{j}})\cdot5 & \leq\alpha
 אם הצומת ההסתברותי הוא בן של צומת מינימום נגזום כאשר מתקיים:
 \begin_inset Formula 
 \[
-E_{i}+(1-\ensuremath{\sum_{j=i+1}^{n}p_{j}})\cdot(-5)\ge\beta
+E_{i}+\ensuremath{(-5)\cdot\sum_{j=i+1}^{n}p_{j}}\ge\beta
 \]
 
 \end_inset
@@ -2054,7 +2286,7 @@ E_{i}+(1-\ensuremath{\sum_{j=i+1}^{n}p_{j}})\cdot(-5)\ge\beta
 \begin_inset Formula $h(s)=5$
 \end_inset
 
-( ולמרות זאת אנו מקבלים ערך שקטן מ-
+(, ולמרות זאת אנו מקבלים ערך שקטן מ-
 \begin_inset Formula $\alpha$
 \end_inset
 
@@ -2130,7 +2362,7 @@ E_{i}+(1-\ensuremath{\sum_{j=i+1}^{n}p_{j}})\cdot(-5)\ge\beta
 \begin_inset Formula $B^{D}$
 \end_inset
 
- קריאות לפונקציה היוריסטי הוא 
+ קריאות לפונקציה היוריסטית הוא 
 \begin_inset Formula $\frac{M}{B}$
 \end_inset
 
@@ -2154,7 +2386,7 @@ B^{D+1}=B\cdot B^{D}=B\cdot\frac{M}{B}=M
 
 \end_inset
 
- כלומר, כל זמן הריצה של השחקן עבור 
+כלומר, כל זמן הריצה של השחקן עבור 
 \begin_inset Formula $B$
 \end_inset
 
@@ -2200,18 +2432,96 @@ B^{D+1}=B\cdot B^{D}=B\cdot\frac{M}{B}=M
 \end_inset
 
  המהלכים הבאים היה עליו לבחור שרירותית צעד חוקי כלשהי.
- במקרה ב' השחקן שומר את האסטרטגיה שחישב במהלך הראשון, ולכן יוכל בכל מהלך
- לאחר מכן יוכל לבחור את הצעד ששמורה באסטרטגיה, וכך להבטיח לעצמו שלאחר 
+ במקרה ב' השחקן שומר את האסטרטגיה שחישב במהלך הראשון, כלומר את תוכנית הפעולה
+ המותנית, ולכן יוכל )* אם יתאפשר( בכל מהלך לאחר מכן לבחור את הצעד ששמור
+ בתוכנית בהתאם לאיך שפעל היריב, וכך להבטיח לעצמו שלאחר 
 \begin_inset Formula $B$
 \end_inset
 
- מהלכים יגיע לפחות לערך ה-
+ מהלכים יגיע לפחות לערך התוכנית המותנית כפי שחישב במהלך הראשון )לפי משפט
+ ההבטחה של 
 \begin_inset Formula $minimax$
 \end_inset
 
- שחישב במהלך הראשון )לפי משפט ההבטחה של מינימקס(.
+(.
  כלומר, במקום להיות חסר ידע לחלוטין ולבחור שרירותית הוא הולך לפי אסטרטגיה
  שמבטיחה לו תוצאה מסויימת.
+\begin_inset Newline newline
+\end_inset
+
+)*( נשים לב כי הוא לא בהכרח יוכל בכל צעד שלאחר מכן לא לבחור שרירותית.
+ שכן, הראינו בסעיף
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\numeric on
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+1
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\numeric off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+כי מספר הקשתות ששמורות באסטרטגיה עבור השחקן הם 
+\begin_inset Formula $\bigg\lceil\frac{D+1}{2}\bigg\rceil$
+\end_inset
+
+, לכן אם 
+\begin_inset Formula $\bigg\lceil\frac{D+1}{2}\bigg\rceil<B$
+\end_inset
+
+ נקבל כי לאחר 
+\begin_inset Formula $\bigg\lceil\frac{D+1}{2}\bigg\rceil$
+\end_inset
+
+ מהלכים, הוא יגיע למהלך האחרון ששמור לו בתוכנית הפעולה המותנית ומכאן יצטרך
+ לבחור שרירותית למשך 
+\begin_inset Formula $B-\bigg\lceil\frac{D+1}{2}\bigg\rceil$
+\end_inset
+
+ המהלכים הבאים.
 \end_layout
 
 \begin_layout Enumerate
@@ -2238,7 +2548,6 @@ B^{D+1}=B\cdot B^{D}=B\cdot\frac{M}{B}=M
 \end_inset
 
 , ניתן ללכת במסלול זה ובוואות לנצח.
- לכן, אין צורך לפתח מסלולים נוספים בשאר התורות, והאסטרטגיה החדשה תוביל לניצחון.
  אם הסוכן היה מפתח לעומק 
 \begin_inset Formula $D$
 \end_inset
