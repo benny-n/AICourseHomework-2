@@ -9,14 +9,14 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     
-    parser.add_argument('-player1', default='LivePlayer', type=str,
+    parser.add_argument('-player1', default='GlobalTimeABPlayer', type=str,
                         help='The type of the first player.',
                         choices=players_options)
     parser.add_argument('-player2', default='CompetePlayer',  type=str,
                         help='The type of the second player.',
                         choices=players_options)
     
-    parser.add_argument('-board', default='rectangle_board.csv', type=str,
+    parser.add_argument('-board', default='example_board.csv', type=str,
                         help='Name of board file (.csv).')
 
     parser.add_argument('-move_time', default=300, type=float,

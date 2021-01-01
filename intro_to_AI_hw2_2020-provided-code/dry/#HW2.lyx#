@@ -1651,9 +1651,12 @@ h_{\delta}(s)=\begin{cases}
 \begin_inset Newline newline
 \end_inset
 
-דוגמא לדרך בה נוכל להשתמש בשיטה הזאת כדי להועיל לסוכן שלנו היא להגדיר שכל
- עוד הסוכן ממשיך לקחת פירות, ויש שינוי בערכי הניקוד של השחקנים, ממשיכים
- לפתח.
+נציג שתי דוגמאות לדרך בה נוכל להשתמש בשיטה הזאת כדי להועיל לסוכן שלנו:
+\end_layout
+
+\begin_layout Enumerate
+להגדיר שכל עוד הסוכן ממשיך לקחת פירות, ויש שינוי בערכי הניקוד של השחקנים,
+ ממשיכים לפתח.
 \begin_inset Newline newline
 \end_inset
 
@@ -1896,22 +1899,17 @@ h_{\delta}(s)=\begin{cases}
 
  על פי מה שהגדרנו, וכך היינו מגלים את ההפסד שעתיד לבוא תור אחד לאחר מכן
  ולא בוחרים בצעד ימינה.
-\begin_inset Newline newline
-\end_inset
+\end_layout
 
-
-\begin_inset Newline newline
-\end_inset
-
-דוגמא שנייה לדרך בה נוכל להשתמש בשיטה הזאת כדי להועיל לסוכן שלנו היא להגדיר
- שכל עוד הסוכן צמוד לאויב )שניהם במשבצות שכנות על הלוח(, ממשיכים לפתח.
+\begin_layout Enumerate
+להגדיר שכל עוד הסוכן צמוד לאויב )שניהם במשבצות שכנות על הלוח(, ממשיכים לפתח.
 \begin_inset Newline newline
 \end_inset
 
 
 \begin_inset Graphics
 	filename ex11b.png
-	lyxscale 40
+	lyxscale 75
 	scale 40
 
 \end_inset
@@ -1920,7 +1918,7 @@ h_{\delta}(s)=\begin{cases}
 \begin_inset Newline newline
 \end_inset
 
-נניח אף שחקן לא אכל פרי, ומצב ניקוד השחקנים הוא
+נניח שאף שחקן לא אכל פרי, ומצב ניקוד השחקנים הוא
 \family roman
 \series medium
 \shape up
@@ -2011,7 +2009,7 @@ h_{\delta}(s)=\begin{cases}
 \color inherit
 4
 \numeric off
-, המקבלת ערך מקסימלי כאשר א
+, המקבלת ערך מקסימלי כאשר הסוכנים צמודים.
 \begin_inset Newline newline
 \end_inset
 
@@ -2075,10 +2073,11 @@ h_{\delta}(s)=\begin{cases}
 
 כפי שניתן לראות בשרטוט, לסוכן האדום קיימות שתי אפשרויות, ללכת ימינה או למטה.
  ניתן לראות כי אם הסוכן יילך ימינה הוא יפסיד, מכיוון שהכחול יראה בעץ החיפוש
- שלו את המצב בו הוא חוסם את האדום והאדום מפסיד.
+ שלו את המצב בו הוא חוסם את האדום והאדום מפסיד, ולכן בשני התורות הבאים הכחול
+ ילך ימינה.
  אך במהלך הפיתוח הסוכן האדום לא מצליח לראות את ההפסד )כי לא מפתח לעומק מספיק
- גדול, ולכן ההפסד נמצא מעבר לאופק החיפוש(, והוא יעדיף ללכת ימינה כדי לקחת
- את להיצמד לאויב, כי זה מצב יוריסטי יותר טוב בשבילו.
+ גדול, ולכן ההפסד נמצא מעבר לאופק החיפוש(, והוא יעדיף ללכת ימינה כדי להיצמד
+ לאויב, כי זה מצב יוריסטי יותר טוב בשבילו.
 \begin_inset Newline newline
 \end_inset
 
@@ -2545,7 +2544,7 @@ E_{i}+\ensuremath{(-5)\cdot\sum_{j=i+1}^{n}p_{j}}\ge\beta
  קריאות לפונקציה היוריסטית, והזמן שנצטרך לשם כך הוא:
 \begin_inset Formula 
 \[
-B^{D+1}=B\cdot B^{D}=B\cdot\frac{M}{B}=M
+time(B^{D+1})=time(B\cdot B^{D})=B\cdot time(B^{D})=B\cdot\frac{M}{B}=M
 \]
 
 \end_inset
@@ -2580,11 +2579,11 @@ B^{D+1}=B\cdot B^{D}=B\cdot\frac{M}{B}=M
 
  קשתות באסטרטגיה.
  השחקן מתחיל ולכן עליו לשמור 
-\begin_inset Formula $\bigg\lceil\frac{D+1}{2}\bigg\rceil$
+\begin_inset Formula $B^{\bigg\lceil\frac{D+1}{2}\bigg\rceil}$
 \end_inset
 
  קשתות עבורו, ו- 
-\begin_inset Formula $\bigg\lfloor\frac{D+1}{2}\bigg\rfloor$
+\begin_inset Formula $B^{\bigg\lfloor\frac{D+1}{2}\bigg\rfloor}$
 \end_inset
 
  עברו היריב.
@@ -2959,6 +2958,514 @@ h(s)=0.4\cdot h_{\delta}(s)+0.3\cdot h_{E}(s)+0.2\cdot h_{I}(s)+0.1\cdot h_{S}(s
 16
 \numeric off
 .
+\end_layout
+
+\begin_layout Standard
+נסביר את אופן פעולתו של שחקן התחרות שלנו:
+\begin_inset Newline newline
+\end_inset
+
+שחקן התחרות הוא סוכן המחפש לפי אלגוריתם 
+\begin_inset Formula $AlphaBeta$
+\end_inset
+
+, עם מגבלת זמן גלובלית.
+\begin_inset Newline newline
+\end_inset
+
+כדי להתמודד עם מגבלת הזמן הגלובלית שהוקצבה למשחק השתמשנו באלגוריתם חלוקת
+ הזמן שתואר בסעיף
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\numeric on
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+10
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\numeric off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+.
+\begin_inset Newline newline
+\end_inset
+
+נבחין כי בהסתמך על הדיון בסעיף
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\numeric on
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+2
+\numeric off
+, כאשר לא קיים מסלול בלוח בין שני הסוכנים, האסטרטגיה האופטימלית היא לשחק
+ כ-
+\begin_inset Formula $Simple\:Player$
+\end_inset
+
+.
+ כלומר, לכסות כמה שיותר שטח בלוח.
+\begin_inset Newline newline
+\end_inset
+
+לכן, בכל תור של שחקן התחרות שלנו לפני פיתוח עץ המינימקס אנו מבצעים 
+\begin_inset Formula $BFS$
+\end_inset
+
+ על לוח המשחק על מנת לבדוק האם קיים מסלול בלוח בינינו ליריב.
+\begin_inset Newline newline
+\end_inset
+
+אם לא קיים מסלול אנו משחקים באופן דומה לאופן פעולתו של ה-
+\begin_inset Formula $Simple\:Player$
+\end_inset
+
+.
+ הפונקציה היוריסטית בה אנו משתמשים במקרה זה היא 
+\begin_inset Formula $h_{S}(s)$
+\end_inset
+
+ כפי שהוגדרה בסעיף
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\numeric on
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+4
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\numeric off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+.
+ נרמלנו את כל הערכים האפשריים שיכולים להתקבל עבור עץ המינימקס להיות בין
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\numeric on
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+0
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\numeric off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ל-
+\numeric on
+1
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\numeric off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+כאשר
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\numeric on
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+0
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\numeric off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+מייצג הפסד ו-
+\numeric on
+1
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\numeric off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+מצייג נצחון ושניהם מתקבלים ממצבי מטרה
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+.
+ את הפונקציה היוריסטית נרמלנו כך ש
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+לכל 
+\begin_inset Formula $s$
+\end_inset
+
+ יתקיים 
+\begin_inset Formula $0<h_{S}(s)<1$
+\end_inset
+
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+.
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+בצורה כזו ערכו של מצב המייצג נצחון יהיה גבוה מהערך המקסימלי שמחזירה 
+\begin_inset Formula $h_{S}(s)$
+\end_inset
+
+, וערכו של מצב המייצג הפסד יהיה נמוך מהערך המינימלי.
+\begin_inset Newline newline
+\end_inset
+
+לכן אופן פעולה זה יותר מתוחכם מה-
+\begin_inset Formula $Simple\:Player$
+\end_inset
+
+ אשר בכלל לא מפתח עץ חיפוש ורואה רק מהלך אחד קדימה.
+\begin_inset Newline newline
+\end_inset
+
+אם קיים מסלול בינינו לבין היריב, אנו משחקים לפי היוריסטיקה הבאה:
+\begin_inset Formula 
+\[
+h(s)=0.8\cdot h_{\delta}(s)+0.2\cdot h_{E}(s)
+\]
+
+\end_inset
+
+כאשר 
+\begin_inset Formula $h_{\delta}(s)$
+\end_inset
+
+ ו-
+\begin_inset Formula $h_{E}(s)$
+\end_inset
+
+ הן כפי שהוגדרו בסעיף
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\numeric on
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+4
+\numeric off
+.
+\begin_inset Newline newline
+\end_inset
+
+ביצענו מספר רב של משחקים והגענו למסקנות הבאות:
+\end_layout
+
+\begin_layout Itemize
+עומק חיפוש יותר חשוב מיוריסטיקה מושלמת ולכן עדיף יוריסטיקה קלה לחישוב כדי
+ שנצליח לפתח לעומק גדול יותר בזמן קצוב.
+\end_layout
+
+\begin_layout Itemize
+מספר רב של אלמנטים ביוריסטיקה 
+\begin_inset Quotes eld
+\end_inset
+
+מבלבל
+\begin_inset Quotes erd
+\end_inset
+
+ את הסוכן ועלול לפגוע בביצועיו לכן החלטנו ללכת על יוריסטיקה המכילה רק שני
+ רכיבים שבאופן אמפירי התגלו כחשובים ביותר.
+\end_layout
+
+\begin_layout Itemize
+הרכיב היוריסטי של הפרש ניקוד 
+\begin_inset Formula $h_{\delta}(s)$
+\end_inset
+
+ חשוב יותר מהרכיב של מרחק מהאויב 
+\begin_inset Formula $h_{E}(s)$
+\end_inset
+
+ מפני שבסופו של דבר השחקן המפסיד הוא השחקן בעל הניקוד הנמוך ביותר ולא בהכרח
+ זה שנחסם.
+\end_layout
+
+\begin_layout Standard
+המסקנות הללו הובילו אותנו לבחור ביוריסטיקה המתוארת.
+\begin_inset Newline newline
+\end_inset
+
+עבור המקרה בו לא קיים מסלול בין שני הסוכנים אך עדיין יש פירות על הלוח, אנו
+ 
+\begin_inset Newline newline
+\end_inset
+
+בכל המקרים אנו מבצעים סידור ילדים בעץ המינימקס על פי ערכי היוריסטיקה הרלוונטית
+ לאותו מקרה, על מנת למקסמם את מספר הגיזומים וכך להצליח להגיע לעומקים גדולים
+ יותר בעץ בזמן קצוב.
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
 \end_layout
 
 \begin_layout Description
