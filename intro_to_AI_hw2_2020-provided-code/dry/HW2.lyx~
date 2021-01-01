@@ -324,8 +324,8 @@
 
 \begin_inset Graphics
 	filename ex2.png
-	lyxscale 75
-	scale 75
+	lyxscale 40
+	scale 40
 
 \end_inset
 
@@ -1093,8 +1093,8 @@ h_{\delta}(s)=\begin{cases}
 
 \begin_inset Graphics
 	filename ex5.png
-	lyxscale 50
-	scale 50
+	lyxscale 40
+	scale 40
 
 \end_inset
 
@@ -1657,32 +1657,19 @@ h_{\delta}(s)=\begin{cases}
 \begin_inset Newline newline
 \end_inset
 
-שתי דוגמאות בהן הפתרון שהצענו יכול להועיל לסוכן שלנו הן:
+מצב בלוח בו כדאי להשתמש בפתרון זה:
 \begin_inset Newline newline
 \end_inset
 
 
 \begin_inset Graphics
 	filename ex11a.png
-	lyxscale 50
-	scale 50
+	lyxscale 40
+	scale 40
 
 \end_inset
 
  
-\begin_inset Newline newline
-\end_inset
-
-הלוח לעיל מתאר מצב אמיתי שקרה לנו באחת הסימולציות עם סוכן ה-
-\begin_inset Formula $globalAlphabeta$
-\end_inset
-
-.
-\begin_inset Newline newline
-\end_inset
-
-////////////////////////////////////////////שיניתי את הטקסט להתאים לשרטוט
- שתוסיף///////////////////
 \begin_inset Newline newline
 \end_inset
 
@@ -1913,10 +1900,19 @@ h_{\delta}(s)=\begin{cases}
 \end_inset
 
 
+\begin_inset Newline newline
+\end_inset
+
+דוגמא שנייה לדרך בה נוכל להשתמש בשיטה הזאת כדי להועיל לסוכן שלנו היא להגדיר
+ שכל עוד הסוכן צמוד לאויב )שניהם במשבצות שכנות על הלוח(, ממשיכים לפתח.
+\begin_inset Newline newline
+\end_inset
+
+
 \begin_inset Graphics
 	filename ex11b.png
-	lyxscale 50
-	scale 50
+	lyxscale 40
+	scale 40
 
 \end_inset
 
@@ -1924,15 +1920,184 @@ h_{\delta}(s)=\begin{cases}
 \begin_inset Newline newline
 \end_inset
 
-כפי שניתן לראות בשרטוט, הסוכן האדום ירצה ללכת לכיוון הפרי כדי לצבור נקודות
- אך במהלך הפיתוח הוא לא מצליח לראות שאם ילך בדרך זו הסוכן הכחול יוכל לחסום
- אותו בקלות ולהשאיר אותו עם פחות שטח בלוח.
- ראוי לציין כי אף סוכן לא הספיק לאכול פרי )מלבד הבננה שיאכל האדום(, וניקוד
- הבננה קטן מה-
-\begin_inset Formula $penalty$
+נניח אף שחקן לא אכל פרי, ומצב ניקוד השחקנים הוא
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\numeric on
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+0
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\numeric off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+לכל אחד.
+\begin_inset Newline newline
 \end_inset
 
-, לכן ההחלטה של הסוכן האדום תגרום לו להפסיד במשחק.
+בנוסף, נניח כי הסוכן האדום משחק לפי היוריסטיקה 
+\begin_inset Formula $h_{E}(s)$
+\end_inset
+
+ שהגדרנו בסעיף
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\numeric on
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+4
+\numeric off
+, המקבלת ערך מקסימלי כאשר הסוכנים צמודים.
+\begin_inset Newline newline
+\end_inset
+
+כמו כן כל שחקן מפתח עד לעומק
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\numeric on
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+4
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\numeric off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+את העץ )שני מהלכים קדימה לכל שחקן(.
+\begin_inset Newline newline
+\end_inset
+
+כפי שניתן לראות בשרטוט, לסוכן האדום קיימות שתי אפשרויות, ללכת ימינה או למטה.
+ ניתן לראות כי אם הסוכן יילך ימינה הוא יפסיד, מכיוון שהכחול יראה בעץ החיפוש
+ שלו את המצב בו הוא חוסם את האדום והאדום מפסיד, ולכן בשתי התורות הבאים הכחול
+ ילך ימינה.
+ אך במהלך הפיתוח הסוכן האדום לא מצליח לראות את ההפסד )כי לא מפתח לעומק מספיק
+ גדול, ולכן ההפסד נמצא מעבר לאופק החיפוש(, והוא יעדיף ללכת ימינה כדי להיצמד
+ לאויב, כי זה מצב יוריסטי יותר טוב בשבילו.
+\begin_inset Newline newline
+\end_inset
+
+אם היינו משתמשים בפתרון שהצענו לעיל, היינו ממשיכים לפתח כי אנו צמודים לאויב,
+ ולכן המצב 
+\begin_inset Quotes eld
+\end_inset
+
+אינו שקט
+\begin_inset Quotes erd
+\end_inset
+
+ על פי מה שהגדרנו, וכך היינו מגלים את ההפסד שעתיד לבוא תור אחד לאחר מכן
+ ולא בוחרים בצעד ימינה.
+\begin_inset Newline newline
+\end_inset
+
+
 \end_layout
 
 \begin_layout Description
@@ -2331,8 +2496,8 @@ E_{i}+\ensuremath{(-5)\cdot\sum_{j=i+1}^{n}p_{j}}\ge\beta
 
 \begin_inset Graphics
 	filename ex14a.png
-	lyxscale 50
-	scale 50
+	lyxscale 35
+	scale 35
 
 \end_inset
 
@@ -2615,7 +2780,7 @@ B^{D+1}=B\cdot B^{D}=B\cdot\frac{M}{B}=M
 \end_inset
 
 ל, כי עומק החיפוש לא הספיק, ולא נשאר לו זמן לפיתוחים בהמשך.
- לכן לא גילה את הניצחון ונשאר עם האסטרטגיה פחות טובה.
+ לכן לא גילה את הניצחון ונשאר עם האסטרטגיה הפחות טובה.
 \end_layout
 
 \begin_layout Description
@@ -2929,8 +3094,8 @@ h(s)=0.4\cdot h_{\delta}(s)+0.3\cdot h_{E}(s)+0.2\cdot h_{I}(s)+0.1\cdot h_{S}(s
 \numeric on
 \begin_inset Graphics
 	filename ex19.png
-	lyxscale 75
-	scale 75
+	lyxscale 60
+	scale 60
 
 \end_inset
 

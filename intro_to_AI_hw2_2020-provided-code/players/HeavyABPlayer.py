@@ -55,7 +55,6 @@ class Player(AbstractPlayer):
         depth = 2
         value, direction = heavy_player.search(curr_state, depth, 1)
 
-        print("depth: " + str(depth))
         i = self.pos[0] + direction[0]
         j = self.pos[1] + direction[1]
         self.pos = (i, j)
