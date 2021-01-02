@@ -2092,10 +2092,6 @@ h_{\delta}(s)=\begin{cases}
 
  על פי מה שהגדרנו, וכך היינו מגלים את ההפסד שעתיד לבוא תור אחד לאחר מכן
  ולא בוחרים בצעד ימינה.
-\begin_inset Newline newline
-\end_inset
-
-
 \end_layout
 
 \begin_layout Description
@@ -2495,7 +2491,7 @@ E_{i}+\ensuremath{(-5)\cdot\sum_{j=i+1}^{n}p_{j}}\ge\beta
 \begin_inset Graphics
 	filename ex14a.png
 	lyxscale 35
-	scale 35
+	scale 25
 
 \end_inset
 
@@ -3478,10 +3474,6 @@ h(s)=0.8\cdot h_{\delta}(s)+0.2\cdot h_{E}(s)
 בכל המקרים אנו מבצעים סידור ילדים בעץ המינימקס על פי ערכי היוריסטיקה הרלוונטית
  לאותו מקרה, על מנת למקסמם את מספר הגיזומים וכך להצליח להגיע לעומקים גדולים
  יותר בעץ בזמן קצוב.
-\begin_inset Newline newline
-\end_inset
-
-
 \end_layout
 
 \begin_layout Description
