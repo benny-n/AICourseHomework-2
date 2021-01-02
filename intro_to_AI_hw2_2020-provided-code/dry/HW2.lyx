@@ -648,7 +648,7 @@ h_{\delta}(s)=\begin{cases}
 \begin_inset Formula $0.5$
 \end_inset
 
- עבור תיקו וערך יוריסטי נמוך )
+ עבור תיקו, וערך יוריסטי נמוך )
 \family default
 \series default
 \shape default
@@ -864,7 +864,7 @@ h_{\delta}(s)=\begin{cases}
 \numeric off
 .
  הסיבה לכך היא כדי שנהיה עקביים עם סדרי הגודל של המרכיבים בפונקציה היוריסטית.
- )למשל, אם לא היינו מנרמלים אז הערך של 
+ )למשל, אם לא היינו מנרמלים, אז הערך של 
 \begin_inset Formula $h_{\delta}$
 \end_inset
 
@@ -1007,7 +1007,7 @@ h_{\delta}(s)=\begin{cases}
 \begin_inset Formula $2d$
 \end_inset
 
- היינו מקבלים שפיתחנו 
+ ומקבלים שפיתחנו 
 \begin_inset Formula $d$
 \end_inset
 
@@ -1015,8 +1015,7 @@ h_{\delta}(s)=\begin{cases}
 \begin_inset Formula $d$
 \end_inset
 
- מהלכים של היריב.
- במשחק של 
+ מהלכים של היריב, במשחק של 
 \begin_inset Formula $n$
 \end_inset
 
@@ -1339,10 +1338,10 @@ h_{\delta}(s)=\begin{cases}
 הבעיה בהעמקה ההדרגתית המוצעת נובעת מהאיטרציה האחרונה.
  לרוב האלגוריתם יופסק באמצע האיטרציה האחרונה, ואנו נחזיר את הפתרון של איטרציה
  אחת קודם לכן.
- מכיוון שעץ החיפוש גדל באופן אקספוננציאלי, באיטרציה האחרונה אנו מפתחים כמו
- צמתים יותר גדולה ממה שפיתחנו בכל האיטרציות קודם לכן יחד.
+ מכיוון שעץ החיפוש גדל באופן אקספוננציאלי, באיטרציה האחרונה אנו מפתחים כמות
+ צמתים גדולה יותר ממה שפיתחנו בכל האיטרציות קודם לכן יחד.
  כלומר, רוב משאבי החיפוש מושקעים בפיתוח העץ באיטרציה האחרונה.
- אנו מחזירים את התוצאה של איטרציה אחת קודם לכן, ולכן הזמן שהושקע באיטרציה
+ ומפני שאנו מחזירים את התוצאה של איטרציה אחת קודם לכן, הזמן שהושקע באיטרציה
  האחרונה בוזבז לשווא.
  כלומר, קיבלנו כי רוב משאבי החיפוש של האלגוריתם מבוזבזים.
 \begin_inset Newline newline
@@ -1583,7 +1582,7 @@ h_{\delta}(s)=\begin{cases}
 \begin_layout Itemize
 חצי מסך כל הזמן שלנו מוקצה לכל התורות עד שהפירות נעלמים, והחצי השני לשאר
  התורות.
- ההגיון לכך הוא שהתורות עד שהפירות נעלמים הם התורות הקריטיים ביותר המשחק,
+ ההגיון לכך הוא שהתורות עד שהפירות נעלמים הם התורות הקריטיים ביותר במשחק,
  שכן בתורות אלו יש לנו את הסיכוי הגבוה ביותר לצבור פער משמעותי בניקוד ובכך
  לנצח את היריב.
 \end_layout
@@ -1602,8 +1601,8 @@ h_{\delta}(s)=\begin{cases}
 \begin_layout Itemize
 מהנקודה בה נעלמו הפירות וביצענו את המהלך הארוך ביותר, אנו מקצים לשאר התורות
  זמן הולך ויורד בקצב לינארי.
- הסיבה לכך היא שככל שאנו מתקדמים לסוף המשחק, כך גודל עץ החיפוש המלא הולך
- וקטן כי מספר המצבים האפשרי הכולל הולך וקטן.
+ הסיבה לכך היא שככל שאנו מתקדמים לסוף המשחק, כך עץ החיפוש המלא הולך וקטן
+ כי מספר המצבים האפשרי הכולל הולך וקטן.
  לכן, ככל שהמשחק קרוב לסוף כך יותר סביר שנצליח לפתח את כל העץ בזמן שהולך
  וקטן.
 \end_layout
@@ -1817,7 +1816,7 @@ h_{\delta}(s)=\begin{cases}
 \begin_inset Newline newline
 \end_inset
 
-כמו כן כל שחקן מפתח עד לעומק
+כמו כן השחקן מפתח את עץ החיפוש עד לעומק
 \family roman
 \series medium
 \shape up
@@ -1871,11 +1870,12 @@ h_{\delta}(s)=\begin{cases}
 \uwave default
 \noun default
 \color inherit
-את העץ )שני מהלכים קדימה לכל שחקן(.
+)שני מהלכים לכל שחקן(.
 \begin_inset Newline newline
 \end_inset
 
-כפי שניתן לראות בשרטוט, לסוכן האדום קיימות שתי אפשרויות, ללכת ימינה או שמאלה.
+כפי שניתן לראות בשרטוט, לסוכן האדום קיימות שלוש אפשרויות, ללכת ימינה, שמאלה
+ או למטה.
  ניתן לראות כי אם הסוכן יילך ימינה הוא יפסיד, מכיוון שגם אם ייקח את שני
  הפירות, עדיין בשקלול עם הקנס הוא יגיע ל-
 \begin_inset Formula $-200$
@@ -1889,7 +1889,7 @@ h_{\delta}(s)=\begin{cases}
 \end_inset
 
 אם היינו משתמשים בפתרון שהצענו לעיל, היינו ממשיכים לפתח כי אנו ממשיכים לקחת
- פירות גם בצעד הבא, ולכן המצב 
+ פירות גם בצעד הבא וערכי הניקוד ממשיכים להשתנות, ולכן המצב 
 \begin_inset Quotes eld
 \end_inset
 
@@ -2013,7 +2013,7 @@ h_{\delta}(s)=\begin{cases}
 \begin_inset Newline newline
 \end_inset
 
-כמו כן כל שחקן מפתח עד לעומק
+כמו כן השחקן מפתח את עץ החיפוש עד לעומק
 \family roman
 \series medium
 \shape up
@@ -2067,7 +2067,7 @@ h_{\delta}(s)=\begin{cases}
 \uwave default
 \noun default
 \color inherit
-את העץ )שני מהלכים קדימה לכל שחקן(.
+)שני מהלכים לכל שחקן(.
 \begin_inset Newline newline
 \end_inset
 
@@ -2077,7 +2077,7 @@ h_{\delta}(s)=\begin{cases}
  ילך ימינה.
  אך במהלך הפיתוח הסוכן האדום לא מצליח לראות את ההפסד )כי לא מפתח לעומק מספיק
  גדול, ולכן ההפסד נמצא מעבר לאופק החיפוש(, והוא יעדיף ללכת ימינה כדי להיצמד
- לאויב, כי זה מצב יוריסטי יותר טוב בשבילו.
+ לאויב, כי זה מצב יוריסטי עם ערך גבוה יותר.
 \begin_inset Newline newline
 \end_inset
 
@@ -2212,7 +2212,7 @@ h_{\delta}(s)=\begin{cases}
 
 בנוסף, מכיוון שקיימת אסטרטגיה כזאת, קיים המהלך הראשון באסטרטגיה.
  לכן, אם קיבלנו לאחר פיתוח של תת העץ של מהלך כלשהו 
-\begin_inset Formula $minimax_{value}=V$
+\begin_inset Formula $minimax\,value=V$
 \end_inset
 
  נוכל לבחור בצעד זה.
@@ -2569,24 +2569,53 @@ time(B^{D+1})=time(B\cdot B^{D})=B\cdot time(B^{D})=B\cdot\frac{M}{B}=M
 \end_layout
 
 \begin_layout Enumerate
-מכיוון שפיתחנו לעומק 
+אנו מפתחים לעומק 
 \begin_inset Formula $D+1$
 \end_inset
 
- נקבל כי יש סך הכל 
-\begin_inset Formula $D+1$
+.
+ נזכור שבעץ האסטרטגיה אנו שומרים קשת אחת ביציאה מצומת מקסימום )אשר מתארת
+ פעולה של השחקן( ו-
+\begin_inset Formula $B$
 \end_inset
 
- קשתות באסטרטגיה.
- השחקן מתחיל ולכן עליו לשמור 
-\begin_inset Formula $B^{\bigg\lceil\frac{D+1}{2}\bigg\rceil}$
+ קשתות ביציאה מצומת מינימום המתארות פעולות של היריב.
+ 
+\begin_inset Newline newline
 \end_inset
 
- קשתות עבורו, ו- 
-\begin_inset Formula $B^{\bigg\lfloor\frac{D+1}{2}\bigg\rfloor}$
+לכן, נוכל למעשה להפריד את העץ לשני תתי עצים, הראשון שיחזיק רק קשתות של השחקן,
+ והשני רק קשתות של היריב.
+ העץ הראשון יהיה בגובה 
+\begin_inset Formula $\bigg\lceil\frac{D+1}{2}\bigg\rceil$
 \end_inset
 
- עברו היריב.
+ )כי השחקן תמיד עושה את המהלך הראשון בפיתוח של העץ(, והעץ השני יהיה בגובה
+ 
+\begin_inset Formula $\bigg\lfloor\frac{D+1}{2}\bigg\rfloor$
+\end_inset
+
+.
+\begin_inset Newline newline
+\end_inset
+
+סך הכל נקבל כי עבור השחקן אנו שומרים:
+\begin_inset Formula 
+\[
+1+B+B^{2}+...+B^{\bigg\lceil\frac{D+1}{2}\bigg\rceil}=\boldsymbol{\frac{B^{\bigg\lceil\frac{D+1}{2}\bigg\rceil}-1}{B-1}}
+\]
+
+\end_inset
+
+ועבור היריב אנו שומרים:
+\begin_inset Formula 
+\[
+B+B^{2}+B^{3}+...+B^{\bigg\lfloor\frac{D+1}{2}\bigg\rfloor}=\boldsymbol{\frac{B\cdot\left(B^{\bigg\lfloor\frac{D+1}{2}\bigg\rfloor}-1\right)}{B-1}}
+\]
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Enumerate
@@ -2594,10 +2623,10 @@ time(B^{D+1})=time(B\cdot B^{D})=B\cdot time(B^{D})=B\cdot\frac{M}{B}=M
 \begin_inset Formula $B-1$
 \end_inset
 
- המהלכים הבאים היה עליו לבחור שרירותית צעד חוקי כלשהי.
- במקרה ב' השחקן שומר את האסטרטגיה שחישב במהלך הראשון, כלומר את תוכנית הפעולה
- המותנית, ולכן יוכל )* אם יתאפשר( בכל מהלך לאחר מכן לבחור את הצעד ששמור
- בתוכנית בהתאם לאיך שפעל היריב, וכך להבטיח לעצמו שלאחר 
+ המהלכים הבאים יהיה עליו לבחור שרירותית צעד חוקי כלשהי.
+ במקרה ב' השחקן שומר את עץ האסטרטגיה שחישב במהלך הראשון, כלומר את תוכנית
+ הפעולה המותנית, ולכן יוכל בכל מהלך לאחר מכן לבחור את הצעד ששמור בתוכנית
+ בהתאם לאיך שיפעל היריב, וכך להבטיח לעצמו שלאחר 
 \begin_inset Formula $B$
 \end_inset
 
@@ -2612,66 +2641,49 @@ time(B^{D+1})=time(B\cdot B^{D})=B\cdot time(B^{D})=B\cdot\frac{M}{B}=M
 \begin_inset Newline newline
 \end_inset
 
-)*( נשים לב כי הוא לא בהכרח יוכל בכל צעד שלאחר מכן לא לבחור שרירותית.
- שכן, הראינו בסעיף
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
- 
-\family default
+
+\series bold
+נשים לב 
 \series default
-\shape default
-\size default
-\emph default
-\numeric on
-\bar default
-\strikeout default
-\xout default
-\uuline default
-\uwave default
-\noun default
-\color inherit
-1
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\numeric off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
- 
-\family default
-\series default
-\shape default
-\size default
-\emph default
-\bar default
-\strikeout default
-\xout default
-\uuline default
-\uwave default
-\noun default
-\color inherit
-כי מספר הקשתות ששמורות באסטרטגיה עבור השחקן הם 
+כי למרות שיפור המצב ייתכן שהשחקן עדיין יצטרך להתחיל לבחור שרירותית בנקודה
+ מסוימת.
+ שכן, עץ אסטרטגיה שמפותח לעומק 
+\begin_inset Formula $D+1$
+\end_inset
+
+ מכיל למעשה 
 \begin_inset Formula $\bigg\lceil\frac{D+1}{2}\bigg\rceil$
 \end_inset
 
-, לכן אם 
+ מהלכים קדימה של השחקן, מפני שכל רמה בעץ מכילה את כל האפשרויות לפעולה אחת
+ פוטנציאלית )של השחקן או של היריב(.
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+לכן אם 
 \begin_inset Formula $\bigg\lceil\frac{D+1}{2}\bigg\rceil<B$
 \end_inset
 
@@ -3130,8 +3142,11 @@ h(s)=0.4\cdot h_{\delta}(s)+0.3\cdot h_{E}(s)+0.2\cdot h_{I}(s)+0.1\cdot h_{S}(s
 \noun off
 \color none
 .
- נרמלנו את כל הערכים האפשריים שיכולים להתקבל עבור עץ המינימקס להיות בין
- 
+\begin_inset Newline newline
+\end_inset
+
+נרמלנו את כל הערכים האפשריים שיכולים להתקבל עבור עלה בעץ המינימקס להיות
+ בין 
 \family default
 \series default
 \shape default
@@ -3297,7 +3312,7 @@ h(s)=0.4\cdot h_{\delta}(s)+0.3\cdot h_{E}(s)+0.2\cdot h_{I}(s)+0.1\cdot h_{S}(s
 \uwave off
 \noun off
 \color none
-.
+ בלבד.
  את הפונקציה היוריסטית נרמלנו כך ש
 \family default
 \series default
@@ -3428,8 +3443,9 @@ h(s)=0.8\cdot h_{\delta}(s)+0.2\cdot h_{E}(s)
 \begin_inset Quotes erd
 \end_inset
 
- את הסוכן ועלול לפגוע בביצועיו לכן החלטנו ללכת על יוריסטיקה המכילה רק שני
- רכיבים שבאופן אמפירי התגלו כחשובים ביותר.
+ את הסוכן ועלול לפגוע בביצועיו.
+ לכן החלטנו ללכת על יוריסטיקה המכילה רק שני רכיבים שבאופן אמפירי התגלו כחשובים
+ ביותר.
 \end_layout
 
 \begin_layout Itemize
@@ -3462,10 +3478,6 @@ h(s)=0.8\cdot h_{\delta}(s)+0.2\cdot h_{E}(s)
 בכל המקרים אנו מבצעים סידור ילדים בעץ המינימקס על פי ערכי היוריסטיקה הרלוונטית
  לאותו מקרה, על מנת למקסמם את מספר הגיזומים וכך להצליח להגיע לעומקים גדולים
  יותר בעץ בזמן קצוב.
-\begin_inset Newline newline
-\end_inset
-
-
 \begin_inset Newline newline
 \end_inset
 
@@ -3532,12 +3544,22 @@ h(s)=0.8\cdot h_{\delta}(s)+0.2\cdot h_{E}(s)
 \end_inset
 
 בשני המקרים, במהלך הזמן הנתון ביצענו העמקה הדרגתית כפי שלמדנו בהרצאה.
+ אנו מריצים את אגלוריתם ה-
+\begin_inset Formula $minimax$
+\end_inset
+
+ עם הגבלת עומק הולכת וגדלה כאשר בכל איטרציה אנו שומרים את הצעד שהוביל לערך
+ ה-
+\begin_inset Formula $minimax$
+\end_inset
+
+ הגבוה ביותר.
  כאשר נשאר לנו 
 \begin_inset Formula $0.01$
 \end_inset
 
- שניות מסוף מסגרת הזמן שהוקצתה לתור זה, הפסקנו את החיפוש והחזרנו את הצעד
- שיש לקחת.
+ שניות מסוף מסגרת הזמן שהוקצתה לתור זה, אנו מפסיקים את החיפוש ומחזירים את
+ הצעד האחרון ששמרנו.
  הסיבה לחלון הזמן של 
 \begin_inset Formula $0.01$
 \end_inset
@@ -3578,7 +3600,7 @@ h(s)=0.8\cdot h_{\delta}(s)+0.2\cdot h_{E}(s)
 \end_inset
 
 .
- לכן יש לו תמונה נאמנה יותר של המציאות, ואופציה לבחור אסטרטגיה טובה יותר.
+ ולכן יש לו תמונה נאמנה יותר של המציאות, ואופציה לבחור אסטרטגיה טובה יותר.
  בנוסף, המקרים בהם ניצח סוכן ה-
 \begin_inset Formula $Minimax$
 \end_inset
@@ -3753,7 +3775,11 @@ h(s)=0.8\cdot h_{\delta}(s)+0.2\cdot h_{E}(s)
 \end_inset
 
  ובכך נתנו לו לראות יותר מהלכים קדימה ולכן קיבל יתרון מסוים, אך לא משמעותי
- מספיק כדי להתגבר על היוריסטיקה של הסוכן השני.
+ מספיק כדי להתגבר על היוריסטיקה של סוכן ה-
+\begin_inset Formula $HeavyAB$
+\end_inset
+
+.
 \begin_inset Newline newline
 \end_inset
 
@@ -3944,11 +3970,11 @@ h(s)=0.8\cdot h_{\delta}(s)+0.2\cdot h_{E}(s)
  קטן מדי מכדי שערך יוריסטי ישקף בצורה נאמנה את המציאות.
  לכן בחלק הראשון שני הסוכנים מתפקדים כמעט בצורה זהה ואכן תוצאות המשחקים
  התחלקו כמעט חצי חצי בין שניהם.
- לעומת זאת, בשני החלקים הנותרים של הניסוי נתנו לסוכן ה-
+ לעומת זאת, בשני החלקים הנותרים של הניסוי נתנו יתרון לסוכן ה-
 \begin_inset Formula $LightAB$
 \end_inset
 
- מפני שפיתח לעומק גדול יותר ואכן ניצח ביותר משחקים.
+ מפני שפיתח לעומק גדול יותר, ואכן ניצח ביותר משחקים.
 \begin_inset Newline newline
 \end_inset
 
