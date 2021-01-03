@@ -2598,7 +2598,7 @@ time(B^{D+1})=time(B\cdot B^{D})=B\cdot time(B^{D})=B\cdot\frac{M}{B}=M
 סך הכל נקבל כי עבור השחקן אנו שומרים:
 \begin_inset Formula 
 \[
-1+B+B^{2}+...+B^{\bigg\lceil\frac{D+1}{2}\bigg\rceil}=\boldsymbol{\frac{B^{\bigg\lceil\frac{D+1}{2}\bigg\rceil}-1}{B-1}}
+1+B+B^{2}+...+B^{\bigg\lceil\frac{D+1}{2}\bigg\rceil-1}=\boldsymbol{\frac{B^{\bigg\lceil\frac{D+1}{2}\bigg\rceil}-1}{B-1}}
 \]
 
 \end_inset
